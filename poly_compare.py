@@ -4,7 +4,6 @@ from answer_conversion import *
 
 # 단순값 비교
 def IsEqual(correct_sympy, student_sympy): #정답 order 관계X
-    if denom(correct_sympy).equals(denom(student_sympy)) == 0: return False
     return student_sympy.equals(correct_sympy)
 
 def IsArgsEqual(sympy):
@@ -33,13 +32,13 @@ def IsSimilarTerm(student_sympy):
 # 다항식 단순 비교(동류항 정리 조건만 만족, 정답과 차수 일치)
 def PolyCompare(correct_sympy, student_sympy): #정답 order 관계X
     correct_sympy, student_sympy = correct_sympy[0], student_sympy[0]
-    print(denom(correct_sympy),denom(student_sympy))
     if IsEqual(correct_sympy, student_sympy) == 0: print('PolyCompare',1);return False
+    if denom(correct_sympy).equals(denom(student_sympy)) == 0: print('PolyCompare',2);return False
     if IsSimilarTerm(student_sympy) == 0: print('PolyCompare',3);return False
     return True
 
-correct_sympy, student_sympy = Ans2Sympy('2x+1','(2*x+1)*x/x')
-print(PolyCompare(correct_sympy, student_sympy))
+#correct_sympy, student_sympy = Ans2Sympy('2x+1','(x+1)**2-x**2')
+#print(PolyCompare(correct_sympy, student_sympy))
 
 # 인수분해
 def PolyFactorCompare(correct_sympy, student_sympy): #정답 order 관계X
@@ -52,6 +51,8 @@ def PolyFactorCompare(correct_sympy, student_sympy): #정답 order 관계X
     if all(abs(factor_list(p)[0]) == 1 for p in s_args) == 0: return False
     if all(len(factor_list(p)[1]) == 1 or type(p) in [Mul,Pow] for p in s_args) == 0: return False
     return True
+correct_sympy, student_sympy = Ans2Sympy('(x+1)(x+2)^2','(x+1)*(x+2)*(x+2)')
+print(PolyFactorCompare(correct_sympy, student_sympy))
 
 # 전개
 def PolyExpansionCompare(correct_sympy, student_sympy): #정답 order 관계X

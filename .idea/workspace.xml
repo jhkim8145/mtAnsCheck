@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+    <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="6/10 12:20">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/answer_conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/answer_conversion.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/poly_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/poly_compare.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -115,6 +113,14 @@
       <option name="presentableId" value="Default" />
       <updated>1654770784056</updated>
     </task>
+    <task id="LOCAL-00001" summary="6/10 12:20">
+      <created>1654831124672</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1654831124672</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -138,5 +144,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="6/10 12:20" />
+    <option name="LAST_COMMIT_MESSAGE" value="6/10 12:20" />
   </component>
 </project>

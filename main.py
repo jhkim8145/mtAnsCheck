@@ -23,20 +23,49 @@ compare_dict = {'0': 'PolyCompare', '1': 'PolyFactorCompare', '2': 'PolyExpansio
                 '5':'NumCompare', '6':'NumPrimeFactorCompare', '7':'PairCompare', '8':'EqCompare', '9':'IneqCompare'}
 correct_sympy, student_sympy = Ans2Sympy(correct_latex,student_str,f=compare_dict[compare_number])
 
+print(compare_dict[compare_number] + ' 실행합니다.')
 if compare_number == '3':
     symbol = input('symbol: ')
     order = input('내림차순: desc, 오름차순: asc 입력: ')
-    print(exec(compare_dict[compare_number] + '(correct_sympy, student_sympy, symbol, order)'))
+    print(PolySortCompare(correct_sympy, student_sympy, symbol, order))
 elif compare_number == '5':
     type = input('type: ')
     order = input('order: ')
-    print(exec(compare_dict[compare_number] + '(correct_sympy, student_sympy, type, order)'))
+    print(NumCompare(correct_sympy, student_sympy, type, order))
 elif compare_number == '7':
     order = input('order: ')
-    print(exec(compare_dict[compare_number] + '(correct_sympy, student_sympy, order)'))
+    print(PairCompare(correct_sympy, student_sympy, order))
 elif compare_number == '8':
     leading_coeff = input('leading_coeff: ')
-    print(exec(compare_dict[compare_number] + '(correct_sympy, student_sympy, leading_coeff)'))
-else:
-    print(compare_dict[compare_number] + ' 실행합니다.')
-    print(exec(compare_dict[compare_number] + '(correct_sympy, student_sympy)'))
+    print(EqCompare(correct_sympy, student_sympy, leading_coeff))
+elif compare_number == '0':
+    print(PolyCompare(correct_sympy, student_sympy))
+elif compare_number == '1':
+    print(PolyFactorCompare(correct_sympy, student_sympy))
+elif compare_number == '2':
+    print(PolyExpansionCompare(correct_sympy, student_sympy))
+elif compare_number == '4':
+    print(PolyFormCompare(correct_sympy, student_sympy))
+elif compare_number == '6':
+    print(NumPrimeFactorCompare(correct_sympy, student_sympy))
+
+
+
+# if compare_number == '3':
+#     symbol = input('symbol: ')
+#     order = input('내림차순: desc, 오름차순: asc 입력: ')
+#     print(exec(compare_dict[compare_number] + '(correct_sympy, student_sympy, symbol, order)'))
+# elif compare_number == '5':
+#     type = input('type: ')
+#     order = input('order: ')
+#     print(exec(compare_dict[compare_number] + '(correct_sympy, student_sympy, type, order)'))
+# elif compare_number == '7':
+#     order = input('order: ')
+#     print(exec(compare_dict[compare_number] + '(correct_sympy, student_sympy, order)'))
+# elif compare_number == '8':
+#     leading_coeff = input('leading_coeff: ')
+#     print(exec(compare_dict[compare_number] + '(correct_sympy, student_sympy, leading_coeff)'))
+# else:
+#     print(compare_dict[compare_number] + ' 실행합니다.')
+#     print(PolyCompare(correct_sympy, student_sympy))
+#     print(exec(compare_dict[compare_number] + '(correct_sympy, student_sympy)'))

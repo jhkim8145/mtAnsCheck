@@ -6,6 +6,7 @@ from answer_conversion import *
 def IsEqual(correct_sympy, student_sympy): #정답 order 관계X
     return student_sympy.equals(correct_sympy)
 
+# simplify와 args len, equals 비교
 def IsArgsEqual(sympy):
     exp_args = sorted(sympy.args,key=lambda x: x.sort_key())
     cp_args = sorted(simplify(sympy).args,key=lambda x: x.sort_key())
@@ -33,7 +34,7 @@ def IsSimilarTerm(student_sympy):
 def PolyCompare(correct_sympy, student_sympy): #정답 order 관계X
     correct_sympy, student_sympy = correct_sympy[0], student_sympy[0]
     if IsEqual(correct_sympy, student_sympy) == 0: print('PolyCompare',1);return False
-    if denom(correct_sympy).equals(denom(student_sympy)) == 0: print('PolyCompare',2);return False
+    if abs(denom(correct_sympy)).equals(abs(denom(student_sympy))) == 0: print('PolyCompare',2);return False
     if IsSimilarTerm(student_sympy) == 0: print('PolyCompare',3);return False
     return True
 
@@ -51,8 +52,8 @@ def PolyFactorCompare(correct_sympy, student_sympy): #정답 order 관계X
     if all(abs(factor_list(p)[0]) == 1 for p in s_args) == 0: return False
     if all(len(factor_list(p)[1]) == 1 or type(p) in [Mul,Pow] for p in s_args) == 0: return False
     return True
-correct_sympy, student_sympy = Ans2Sympy('(x+1)(x+2)^2','(x+1)*(x+2)*(x+2)')
-print(PolyFactorCompare(correct_sympy, student_sympy))
+#correct_sympy, student_sympy = Ans2Sympy('(x+1)(x+2)^2','(x+1)*(x+2)*(x+2)')
+#print(PolyFactorCompare(correct_sympy, student_sympy))
 
 # 전개
 def PolyExpansionCompare(correct_sympy, student_sympy): #정답 order 관계X

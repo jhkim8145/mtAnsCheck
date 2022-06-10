@@ -4,16 +4,17 @@ from answer_conversion import *
 
 # 단순값 비교
 def IsEqual(correct_sympy, student_sympy): #정답 order 관계X
+    if denom(correct_sympy).equals(denom(student_sympy)) == 0: return False
     return student_sympy.equals(correct_sympy)
 
 def IsArgsEqual(sympy):
     exp_args = sorted(sympy.args,key=lambda x: x.sort_key())
-    cp_args = simplify(sympy).args
-    if len(exp_args) != len(cp_args): return False
+    cp_args = sorted(simplify(sympy).args,key=lambda x: x.sort_key())
+    if len(exp_args) != len(cp_args): print('IsArgsEqual',1);return False
     if all(IsEqual(exp_args[i],cp_args[i]) for i in range(len(exp_args))) == 0:
-        return False
+        print('IsArgsEqual',2);return False
     return True
-print(IsArgsEqual(Parse2Sympy('x/x')),Parse2Sympy('(x+1+i)*3/2').args)
+#print(IsArgsEqual(Parse2Sympy('(x+1)**2-x**2')),Parse2Sympy('4+x**2+4*x').args,simplify(Parse2Sympy('4+x**2+4*x')).args)
 
 # 동류항 정리 확인(Add일 때)
 def IsSimilarTerm(student_sympy):
@@ -22,24 +23,23 @@ def IsSimilarTerm(student_sympy):
         s_tmp = ()
         print(s_args)
         for p in s_args:
-            if type(p) == Pow: s_tmp += p.args; print(1);continue
-            if type(p) == Mul and simplify(p).args != () and all(type(args) == Mul for args in simplify(p).args) == 1:
-                s_tmp += p.args; print(2);continue
-            if IsArgsEqual(p) == 0: print(3);return False
+            if type(p) in [Pow,Mul]: s_tmp += p.args; continue
+            if IsArgsEqual(p) == 0: print('IsSimilarTerm',1);return False
             s_tmp += p.args
         s_args = s_tmp
     return True
-print(IsSimilarTerm(Parse2Sympy('2/4')))
+#print(IsSimilarTerm(Parse2Sympy('1/4')))
 
 # 다항식 단순 비교(동류항 정리 조건만 만족, 정답과 차수 일치)
 def PolyCompare(correct_sympy, student_sympy): #정답 order 관계X
     correct_sympy, student_sympy = correct_sympy[0], student_sympy[0]
-    if IsEqual(correct_sympy, student_sympy) == 0: print('1');return False
-    if IsSimilarTerm(student_sympy) == 0: print('2');return False
-    return degree(correct_sympy) == degree(student_sympy)
+    print(denom(correct_sympy),denom(student_sympy))
+    if IsEqual(correct_sympy, student_sympy) == 0: print('PolyCompare',1);return False
+    if IsSimilarTerm(student_sympy) == 0: print('PolyCompare',3);return False
+    return True
 
-#correct_sympy, student_sympy = Ans2Sympy('2x+1','(x+1)**2-x**2')
-#print(PolyCompare(correct_sympy, student_sympy))
+correct_sympy, student_sympy = Ans2Sympy('2x+1','(2*x+1)*x/x')
+print(PolyCompare(correct_sympy, student_sympy))
 
 # 인수분해
 def PolyFactorCompare(correct_sympy, student_sympy): #정답 order 관계X

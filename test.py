@@ -7,7 +7,7 @@ from sympy.core.sympify import kernS
 
 # str -> sympy 변환
 def P(str):
-    str = sub('(?<![0-9])([1]\*{1})|(\*{1}[1])(?!=[0-9])','',str) # 1*, *1 삭제
+    str = sub('(?<![0-9])([1]\*{1})|(\*{1}[1])(?![0-9])','',str) # 1*, *1 삭제
     #return sympify(str,evaluate=False)
     return parse_expr(str,evaluate=False,transformations='all')
 

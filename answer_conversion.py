@@ -46,15 +46,21 @@ def Ineq2Sympy(ineq):
     return l
 #print(Ineq2Sympy(r'x!= 1,x>1,a\ge b\ge c'))
 
+def DelOne(sympy_list):
+    ptn = '(?<![0-9])([1]\*{1})|(\*{1}[1])(?![0-9])'
+    for i in range(len(sympy_list)):
+        sympy_list[i] = Parse2Sympy(sub(ptn,'',str(sympy_list[i])))
+    return sympy_list
+
 # compare에 따른 correct_sympy, student_sympy 변환
-def Ans2Sympy(correct_latex,student_str,f='None'):
+def Ans2Sympy(correct_latex,student_str,f=None):
     if f == 'PairCompare':
         c_split_str = split('(?<=\))(\s*,\s*)(?=\()',correct_latex)
         s_split_str = split('(?<=\))(\s*,\s*)(?=\()',student_str)
         c_split_str = list(filter(lambda x: search(r'\)|\(',x) != None, c_split_str))
         s_split_str = list(filter(lambda x: search(r'\)|\(',x) != None, s_split_str))
-        correct_sympy = list(map(lambda str: tuple(Latex2Sympy(str[1:-1])), c_split_str))
-        student_sympy = list(map(lambda str: Parse2Sympy(str), s_split_str))
+        correct_sympy = list(map(lambda str: DelOne(Latex2Sympy(str[1:-1])), c_split_str))
+        student_sympy = list(map(lambda str: DelOne(list(Parse2Sympy(str))), s_split_str))
     elif f == 'IneqCompare':
         correct_sympy = Ineq2Sympy(c_split_str)
         student_sympy = Ineq2Sympy(s_split_str)
@@ -68,16 +74,16 @@ def Ans2Sympy(correct_latex,student_str,f='None'):
         else:
             c_split_str = [correct_latex]
             s_split_str = [student_str]
-        correct_sympy = list(map(lambda str: Latex2Sympy(str), c_split_str))
-        student_sympy = list(map(lambda str: Parse2Sympy(str), s_split_str))
+        correct_sympy = DelOne(list(map(lambda str: Latex2Sympy(str), c_split_str)))
+        student_sympy = DelOne(list(map(lambda str: Parse2Sympy(str), s_split_str)))
     return correct_sympy, student_sympy
 #Ans2Sympy('x^2+4x+4','x**2+4*(x+1)')
 # print(Ans2Sympy('x^2+2x+1+1','x**2+2*x+1',f = 'PolyCompare'))
 # print(Ans2Sympy('(1,1)','(1,1)',f = 'PolyFactorCompare'))
-# print(Ans2Sympy('(1,1)','(1,1)',f = 'PolyExpansionCompare'))
+# print(Ans2Sympy('xy+3x+5y+15','xy+3x+5y+10+5',f = 'PolyExpansionCompare'))
 # print(Ans2Sympy('(1,1)','(1,1)',f = 'PolySortCompare'))
 # print(Ans2Sympy('(1,1)','(1,1)',f = 'PolyFormCompare'))
 # print(Ans2Sympy('(1,1)','(1,1)',f = 'NumPrimeFactorCompare'))
-# print(Ans2Sympy('(1,1)','(1,1)',f = 'PairCompare'))
-# print(Ans2Sympy('(1,1)','(1,1)',f = 'EqCompare'))
+# print(Ans2Sympy('(1-i,1),(3xy, -5xy)','(i-1-1,1),(3xy, -5xy)',f = 'PairCompare'))
+# print(Ans2Sympy(r'x^2-8x+15=0','x**2-8x+15=0',f = 'EqCompare'))
 # print(Ans2Sympy('(1,1)','(1,1)',f = 'IneqCompare'))

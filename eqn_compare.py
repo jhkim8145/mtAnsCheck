@@ -1,11 +1,21 @@
+from sympy import *
+from re import *
+from answer_conversion import *
+from poly_compare import *
+
 # 방정식 단순 비교
-def equation_simple_compare(c_split_sympy,s_split_sympy,leading_coeff = 'non-fix'):
-    c_poly = c_split_sympy[0]-c_split_sympy[1]
-    s_poly = s_split_sympy[0]-s_split_sympy[1]
-    c_eq = Eq(c_poly,0)
-    s_eq = Eq(s_poly,0)
+def EqCompare(correct_sympy, student_sympy,leading_coeff = 'non-fix'):
+    if all(IsSimilarTerm(p) == 1 for p in student_sympy) == 0: return False
+    print(correct_sympy, student_sympy)
+    c_poly = correct_sympy[0]-correct_sympy[1]
+    s_poly = student_sympy[0]-student_sympy[1]
     if leading_coeff == 'non-fix':
         c_poly = factor(c_poly).as_coeff_Mul()[1]
         s_poly = factor(s_poly).as_coeff_Mul()[1]
-    elif any(LT(s_split_sympy[i]).equals(LT(s_poly)) == 0 for i in range(2) if s_split_sympy[i].is_number == 0) == 0: return False
-    return Or(sympy_equals(c_eq, s_eq),sympy_compare(c_eq, s_eq.reversedsign))
+    elif any(IsEqual(LT(student_sympy[i]),LT(s_poly)) == 0 for i in range(2) if student_sympy[i].is_number == 0) == 0: return False
+    c_eq = Eq(c_poly, 0)
+    s_eq = Eq(s_poly, 0)
+    return IsEqual(Eq(c_poly, 0), Or(Eq(s_poly, 0),Eq(s_poly, 0)))
+
+correct_sympy, student_sympy = Ans2Sympy(r'x^2-8x+15=0','x**2-8x+15=0',f='EqCompare')
+print(EqCompare(correct_sympy, student_sympy,leading_coeff = 'fix'))

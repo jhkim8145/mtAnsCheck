@@ -1,5 +1,5 @@
 from sympy import *
-from sympy.parsing.sympy_parser import parse_expr
+from sympy.parsing.sympy_parser import parse_expr,T
 from latex2sympy2 import latex2sympy
 from re import split,sub,findall,search
 
@@ -13,20 +13,34 @@ ns={'Symbol':Symbol,'Integer':Integer,'Float':Float,'Rational':Rational,'Eq':Eq,
     'arcosh':acosh,'arccosh':acosh,'atanh':atanh,'artanh':atanh,'arctanh':atanh,
     'acoth':acoth,'arcoth':acoth,'arccoth':acoth}
 
+
+# -1*1 -> -1로 변환
+def DelMulOne(sympy_tuple):
+    ret = list(sympy_tuple)
+    ptn = '(?<![0-9])([1]\*{1})|(\*{1}[1])(?![0-9])'
+    for i in range(len(ret)):
+        ret[i] = Parse2Sympy(sub(ptn,'',str(ret[i])))
+    return ret
+
 # str -> sympy 변환
 def Parse2Sympy(expr):
     #print(expr, parse_expr(expr, transformations='all', local_dict=ns, evaluate=False))
-    return parse_expr(expr, transformations='all', local_dict=ns, evaluate=False)
-#print(Parse2Sympy('1+i'))
+    return parse_expr(expr, transformations=T[:11], local_dict=ns, evaluate=False)
+# print(Parse2Sympy('0.5'),Parse2Sympy('i-1'),Parse2Sympy('sin x**2'))
+# print(Parse2Sympy('-1+x'),DelMulOne([Parse2Sympy('-1+x')]),Parse2Sympy('-1+x').args,DelMulOne([Parse2Sympy('-1+x')])[0].args )
 
 # latex(str) -> sympy 변환
 def Latex2Sympy(expr):
-    tmp = sub('dfrac','frac',expr)
-    #print(expr,latex2sympy(tmp),Parse2Sympy(str(latex2sympy(tmp))))
-    return Parse2Sympy(str(latex2sympy(tmp)))
-#print(Latex2Sympy(r'x**2>1'))
-#print(latex2sympy('a<b<c'),findall(r'([<>][=]?)', str('a<=b<c')),latex2sympy('a<1,a>1'),latex2sympy(r'a\ne2'))
-
+    try: # ****순환소수는 sympy 형태로 답안 적기****
+        return Parse2Sympy(expr)
+    except:
+        tmp = sub('dfrac','frac',expr)
+        return Parse2Sympy(str(latex2sympy(tmp)))
+# # print(Latex2Sympy(r'-5xy'))
+# print(Latex2Sympy(r'-0.[5]'))
+# print(latex2sympy(r'-0.\dot{5}'))
+# #print(latex2sympy('a<b<c'),findall(r'([<>][=]?)', str('a<=b<c')),latex2sympy('a<1,a>1'),latex2sympy(r'a\ne2'))
+# print(Parse2Sympy('0.5'),together(Parse2Sympy('(i-1)/2')),DelMulOne([Latex2Sympy('i-1,1')]))
 
 # 부등식 a<b<c, !=(\ne)(str)을 sympy 형태로 변환
 def Ineq2Sympy(ineq):
@@ -46,11 +60,6 @@ def Ineq2Sympy(ineq):
     return l
 #print(Ineq2Sympy(r'x!= 1,x>1,a\ge b\ge c'))
 
-def DelOne(sympy_list):
-    ptn = '(?<![0-9])([1]\*{1})|(\*{1}[1])(?![0-9])'
-    for i in range(len(sympy_list)):
-        sympy_list[i] = Parse2Sympy(sub(ptn,'',str(sympy_list[i])))
-    return sympy_list
 
 # compare에 따른 correct_sympy, student_sympy 변환
 def Ans2Sympy(correct_latex,student_str,f=None):
@@ -59,8 +68,8 @@ def Ans2Sympy(correct_latex,student_str,f=None):
         s_split_str = split('(?<=\))(\s*,\s*)(?=\()',student_str)
         c_split_str = list(filter(lambda x: search(r'\)|\(',x) != None, c_split_str))
         s_split_str = list(filter(lambda x: search(r'\)|\(',x) != None, s_split_str))
-        correct_sympy = list(map(lambda str: DelOne(Latex2Sympy(str[1:-1])), c_split_str))
-        student_sympy = list(map(lambda str: DelOne(list(Parse2Sympy(str))), s_split_str))
+        correct_sympy = list(map(lambda str: Latex2Sympy(str[1:-1]), c_split_str))
+        student_sympy = list(map(lambda str: list(Parse2Sympy(str)), s_split_str))
     elif f == 'IneqCompare':
         correct_sympy = Ineq2Sympy(c_split_str)
         student_sympy = Ineq2Sympy(s_split_str)
@@ -74,8 +83,8 @@ def Ans2Sympy(correct_latex,student_str,f=None):
         else:
             c_split_str = [correct_latex]
             s_split_str = [student_str]
-        correct_sympy = DelOne(list(map(lambda str: Latex2Sympy(str), c_split_str)))
-        student_sympy = DelOne(list(map(lambda str: Parse2Sympy(str), s_split_str)))
+        correct_sympy = list(map(lambda str: Latex2Sympy(str), c_split_str))
+        student_sympy = list(map(lambda str: Parse2Sympy(str), s_split_str))
     return correct_sympy, student_sympy
 #Ans2Sympy('x^2+4x+4','x**2+4*(x+1)')
 # print(Ans2Sympy('x^2+2x+1+1','x**2+2*x+1',f = 'PolyCompare'))

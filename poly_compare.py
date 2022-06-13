@@ -15,7 +15,7 @@ def IsArgsEqual(sympy):
     if all(IsEqual(exp_args[i],cp_args[i]) for i in range(len(exp_args))) == 0:
         print('IsArgsEqual',2);return False
     return True
-#print(IsArgsEqual(Parse2Sympy('ab**2-2a**2b-ab-ab')))
+# print(IsArgsEqual(Parse2Sympy('ab**2-2a**2b-ab-ab')))
 
 # 동류항 정리 확인(Add일 때)
 def IsSimilarTerm(student_sympy):
@@ -116,6 +116,6 @@ def PolyFormCompare(correct_sympy,student_sympy): # 다항식 A, B 교환 허용
         s_args = s_tmp
     return True
 
-correct_sympy, student_sympy = Ans2Sympy(r'-\dfrac{1}{2}(x-3)^2','-1/2(x-3)**2')
-print(PolyFormCompare(correct_sympy, student_sympy))
+# correct_sympy, student_sympy = Ans2Sympy(r'-\dfrac{1}{2}(x-3)^2','-1/2(x-3)**2')
+# print(PolyFormCompare(correct_sympy, student_sympy))
 

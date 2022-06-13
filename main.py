@@ -8,9 +8,10 @@ while True:
     student_str = input('학생 답안(str): ')
 
     '''
-    PolyCompare: 0
-    PolyFactorCompare: 1
-    PolyExpansionCompare: 2
+    StrCompare: 0
+    PolyCompare: 1
+    PolyFactorCompare: 2
+    PolyExpansionCompare: 3
     PolyFormCompare: 4
     NumCompare: 5
     primefactor_compare: 6
@@ -19,7 +20,7 @@ while True:
     IneqCompare: 9
     '''
     compare_number = input('compare_number: ')
-    compare_dict = {'0': 'PolyCompare', '1': 'PolyFactorCompare', '2': 'PolyExpansionCompare', '4': 'PolyFormCompare',
+    compare_dict = {'0': 'StrCompare','1': 'PolyCompare', '2': 'PolyFactorCompare', '3': 'PolyExpansionCompare', '4': 'PolyFormCompare',
                     '5':'NumCompare', '6':'NumPrimeFactorCompare', '7':'PairCompare', '8':'EqCompare', '9':'IneqCompare'}
     correct_sympy, student_sympy = Ans2Sympy(correct_latex,student_str,f=compare_dict[compare_number])
 

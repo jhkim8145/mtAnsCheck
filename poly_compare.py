@@ -6,16 +6,16 @@ from answer_conversion import *
 def IsEqual(correct_sympy, student_sympy): #정답 order 관계X
     return student_sympy.equals(correct_sympy)
 
-# simplify와 args len, equals 비교
+# simplify와 args len, equals 비교 (순환소수 제외)
 def IsArgsEqual(sympy):
     exp_args = sorted(tuple(map(lambda x: x*2/2,sympy.args)),key=lambda x: x.sort_key())
     cp_args = sorted(parse_expr(str(sympy),evaluate=True).args,key=lambda x: x.sort_key())
-    #print(exp_args,cp_args,'여기')
+    #print(sympy,parse_expr(str(sympy),evaluate=True),exp_args,cp_args,'여기')
     if len(exp_args) != len(cp_args): print('IsArgsEqual',1);return False
     if all(IsEqual(exp_args[i],cp_args[i]) for i in range(len(exp_args))) == 0:
         print('IsArgsEqual',2);return False
     return True
-# print(IsArgsEqual(Parse2Sympy('ab**2-2a**2b-ab-ab')))
+# print(IsArgsEqual(Parse2Sympy('0.[3]')),Parse2Sympy('0.[3]'))
 
 # 동류항 정리 확인(Add일 때)
 def IsSimilarTerm(student_sympy):

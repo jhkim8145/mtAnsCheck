@@ -37,7 +37,7 @@ def Latex2Sympy(expr):
         tmp = sub('dfrac','frac',expr)
         return Parse2Sympy(str(latex2sympy(tmp)))
 # # print(Latex2Sympy(r'-5xy'))
-# print(Latex2Sympy(r'-0.[5]'))
+# print(Latex2Sympy(r'0.[5]'))
 # print(latex2sympy(r'-0.\dot{5}'))
 # #print(latex2sympy('a<b<c'),findall(r'([<>][=]?)', str('a<=b<c')),latex2sympy('a<1,a>1'),latex2sympy(r'a\ne2'))
 # print(Parse2Sympy('0.5'),together(Parse2Sympy('(i-1)/2')),DelMulOne([Latex2Sympy('i-1,1')]))
@@ -63,7 +63,10 @@ def Ineq2Sympy(ineq):
 
 # compare에 따른 correct_sympy, student_sympy 변환
 def Ans2Sympy(correct_latex,student_str,f=None):
-    if f == 'PairCompare':
+    if f == 'StrCompare' or f == 'SignCompare':
+        correct_sympy = correct_latex
+        student_sympy = student_str
+    elif f == 'PairCompare':
         c_split_str = split('(?<=\))(\s*,\s*)(?=\()',correct_latex)
         s_split_str = split('(?<=\))(\s*,\s*)(?=\()',student_str)
         c_split_str = list(filter(lambda x: search(r'\)|\(',x) != None, c_split_str))
@@ -93,6 +96,7 @@ def Ans2Sympy(correct_latex,student_str,f=None):
 # print(Ans2Sympy('(1,1)','(1,1)',f = 'PolySortCompare'))
 # print(Ans2Sympy('(1,1)','(1,1)',f = 'PolyFormCompare'))
 # print(Ans2Sympy('(1,1)','(1,1)',f = 'NumPrimeFactorCompare'))
+# print(Ans2Sympy('1,2','2,1',f = 'NumCompare'))
 # print(Ans2Sympy('(1-i,1),(3xy, -5xy)','(i-1-1,1),(3xy, -5xy)',f = 'PairCompare'))
 # print(Ans2Sympy(r'x^2-8x+15=0','x**2-8x+15=0',f = 'EqCompare'))
 # print(Ans2Sympy('(1,1)','(1,1)',f = 'IneqCompare'))

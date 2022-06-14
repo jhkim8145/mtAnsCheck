@@ -1,5 +1,5 @@
 from sympy import *
-from sympy.parsing.sympy_parser import parse_expr,T
+from sympy.parsing.sympy_parser import parse_expr,standard_transformations,implicit_multiplication_application, convert_xor,implicit_application,implicit_multiplication,convert_equals_signs,function_exponentiation
 from latex2sympy2 import latex2sympy
 from re import split,sub,findall,search
 
@@ -25,7 +25,7 @@ def DelMulOne(sympy_tuple):
 # str -> sympy 변환
 def Parse2Sympy(expr):
     #print(expr, parse_expr(expr, transformations='all', local_dict=ns, evaluate=False))
-    return parse_expr(expr, transformations=T[:11], local_dict=ns, evaluate=False)
+    return parse_expr(expr, transformations=standard_transformations+(implicit_multiplication_application, convert_xor,implicit_application,implicit_multiplication,convert_equals_signs,function_exponentiation), local_dict=ns, evaluate=False)
 # print(Parse2Sympy('0.5'),Parse2Sympy('i-1'),Parse2Sympy('sin x**2'))
 # print(Parse2Sympy('-1+x'),DelMulOne([Parse2Sympy('-1+x')]),Parse2Sympy('-1+x').args,DelMulOne([Parse2Sympy('-1+x')])[0].args )
 

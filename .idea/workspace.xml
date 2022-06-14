@@ -7,9 +7,7 @@
     <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="6/13 11:30">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/answer_conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/answer_conversion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/number_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/number_compare.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/poly_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/poly_compare.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +33,7 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
 }</component>
-  <component name="RunManager" selected="Python.number_compare">
+  <component name="RunManager" selected="Python.answer_conversion">
     <configuration name="answer_conversion" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="mtAnsCheck" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -143,11 +141,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.number_compare" />
         <item itemvalue="Python.answer_conversion" />
+        <item itemvalue="Python.number_compare" />
+        <item itemvalue="Python.main" />
         <item itemvalue="Python.poly_compare" />
         <item itemvalue="Python.eqn_compare" />
-        <item itemvalue="Python.main" />
       </list>
     </recent_temporary>
   </component>

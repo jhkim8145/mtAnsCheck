@@ -88,10 +88,21 @@ def StrCompare(correct_sympy, student_sympy):
     student_sympy = sub(r'[\s]+', '', student_sympy)
     return correct_sympy == student_sympy
 
-def SignCompare(correct_sympy, student_sympy)
+def SignCompare(correct_sympy, student_sympy,order=None):
+    c_str = correct_sympy.split(',')
+    s_str = student_sympy.split(',')
+    if len(c_str) != len(s_str): return False
+    c_sign_num = []
+    s_sign_num = []
+    for str in c_str:
+        if '+' in str: c_sign_num.append(['+',Latex2Sympy(str)])
+        elif '-' in str: c_sign_num.append(['-',Latex2Sympy(str)])
+        else: c_sign_num.append(['',Latex2Sympy(str)])
+    print(correct_sympy,student_sympy)
+    print(correct_sympy, student_sympy)
 
-# correct_sympy, student_sympy = Ans2Sympy(r'-0.[3]','-0. [3 ]',f = 'StrCompare')
-# print(StrCompare(correct_sympy, student_sympy))
+# correct_sympy, student_sympy = Ans2Sympy(r'+1','-1',f = 'SignCompare')
+# print(SignCompare(correct_sympy, student_sympy))
 
 # 소인수분해
 def NumPrimeFactorCompare(correct_sympy, student_sympy): #정답 order 관계X

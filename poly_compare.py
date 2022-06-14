@@ -6,15 +6,16 @@ from answer_conversion import *
 def IsEqual(correct_sympy, student_sympy): #정답 order 관계X
     return student_sympy.equals(correct_sympy)
 
-# simplify와 args len, equals 비교 (순환소수 제외)
+# simplify와 args len, equals 비교 (기호 포함하는 순환소수, 절댓값 compare 제외)
 def IsArgsEqual(sympy):
-    exp_args = sorted(tuple(map(lambda x: x*2/2,sympy.args)),key=lambda x: x.sort_key())
+    exp_args = sorted(list(map(lambda x: x*2/2,sympy.args)),key=lambda x: x.sort_key())
     cp_args = sorted(parse_expr(str(sympy),evaluate=True).args,key=lambda x: x.sort_key())
-    #print(sympy,parse_expr(str(sympy),evaluate=True),exp_args,cp_args,'여기')
+    # print(sympy,parse_expr(str(sympy),evaluate=True),exp_args,cp_args,'여기')
     if len(exp_args) != len(cp_args): print('IsArgsEqual',1);return False
     if all(IsEqual(exp_args[i],cp_args[i]) for i in range(len(exp_args))) == 0:
         print('IsArgsEqual',2);return False
     return True
+# print(IsArgsEqual(Parse2Sympy('Abs(+5)')),Parse2Sympy('Abs(+5)').args)
 # print(IsArgsEqual(Parse2Sympy('0.[3]')),Parse2Sympy('0.[3]'))
 
 # 동류항 정리 확인(Add일 때)
@@ -85,12 +86,13 @@ def PolyExpansionCompare(correct_sympy, student_sympy,order=None,symbol=None): #
         return all(IsEqual(cr_args[i], st_args[i]) for i in range(len(cr_args)))
     else:
         degree_list = list(map(lambda t: degree(t, gen=Symbol(symbol)), student_sympy.args))
+        print(degree_list,symbol)
         if order == 'Acc':
             return all(degree_list[i] <= degree_list[i + 1] for i in range(len(correct_sympy.args) - 1))
         else:
             return all(degree_list[i] >= degree_list[i + 1] for i in range(len(correct_sympy.args) - 1))
 # correct_sympy, student_sympy = Ans2Sympy('3yz+2xyz','2xyz+3yz')
-# print(PolyExpansionCompare(correct_sympy, student_sympy))
+# print(PolyExpansionCompare(correct_sympy, student_sympy,order='Dec',symbol='y'))
 
 # 다항식 정확히 비교
 # BQ+R 꼴, a(x-p)**2+q 꼴 등

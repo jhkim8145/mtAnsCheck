@@ -16,15 +16,17 @@ latex 인식 못 하는 답: 순환소수
 
 # 숫자 값 비교
 #분수 > 소수, 소수 > 분수 허용X, 반드시 유리화, 복소수 a+bi 형태만, 덧셈/곱셈 교환 가능, 정답,학생답 type 같음
-def single_number(correct_sympy, student_sympy,Type = 'all'):
+def single_num(correct_sympy, student_sympy,Type = 'all'):
     if IsEqual(correct_sympy, student_sympy) == 0: print('single_num',1);return False
     if IsSimilarTerm(student_sympy) == 0: print('single_num',2);return False
     if Type == 'fix': # 소수 != 분수, 약분 전!=후, 유리화 전!=후, 거듭제곱 전!=후, 통분 전!= 후, i != sqrt(-1), 덧셈곱셈 교환 가능
-        if type(correct_sympy) != type(student_sympy): print('single_num', 3);return False
-        if abs(denom(correct_sympy)).equals(abs(denom(student_sympy))) == 0: print('single_num', 4);return False
-        if len(correct_sympy.args) != len(student_sympy.args): print('single_num', 5);return False
-        c_args = sorted(correct_sympy.args, key=lambda x: x.sort_key())
-        s_args = sorted(student_sympy.args, key=lambda x: x.sort_key())
+        c_sympy = DelMulOne([correct_sympy])[0] # split 1 때문에 추가, 예) -\dfrac{10}{2}, -10/2
+        s_sympy = DelMulOne([student_sympy])[0]
+        if type(c_sympy) != type(s_sympy): print('single_num', 3);return False
+        if abs(denom(c_sympy)).equals(abs(denom(s_sympy))) == 0: print('single_num', 4);return False
+        if len(c_sympy.args) != len(s_sympy.args): print('single_num', 5,correct_sympy.args,student_sympy.args);return False
+        c_args = sorted(c_sympy.args, key=lambda x: x.sort_key())
+        s_args = sorted(s_sympy.args, key=lambda x: x.sort_key())
         if all(IsEqual(c_args[i],s_args[i]) for i in range(len(c_args))) == 0: print('single_num', 6);return False
     return True
 # correct_sympy, student_sympy = Ans2Sympy(r'\dfrac{3}{4}+\dfrac{i}{4}','3/4+i/4')
@@ -72,7 +74,7 @@ def NumCompare(correct_sympy, student_sympy,Type='all',order=None):
         correct_sympy = sorted(correct_sympy,key = lambda x: x.as_real_imag())
         student_sympy = sorted(student_sympy,key = lambda x: x.as_real_imag())
     # 개별 항목 값 비교
-    return all(single_number(correct_sympy[i], student_sympy[i],Type = Type) for i in range(cnt))
+    return all(single_num(correct_sympy[i], student_sympy[i],Type = Type) for i in range(cnt))
 
 # correct_sympy, student_sympy = Ans2Sympy(r'+5','+5')
 # print(sign(correct_sympy[0]),sign(student_sympy[0]))
@@ -84,25 +86,38 @@ def NumCompare(correct_sympy, student_sympy,Type='all',order=None):
 
 # str 비교, ** 순환소수 ** 이걸로!!
 def StrCompare(correct_sympy, student_sympy):
-    correct_sympy = sub(r'[\s]+','', correct_sympy)
-    student_sympy = sub(r'[\s]+', '', student_sympy)
-    return correct_sympy == student_sympy
+    c_str = sub(r'[\s]+','', correct_sympy)
+    s_str = sub(r'[\s]+', '', student_sympy)
+    return c_str == s_str
 
-def SignCompare(correct_sympy, student_sympy,order=None):
+def SignCompare(correct_sympy, student_sympy,order=None): # Type = 'fix'만 가능. 양수, 음수
     c_str = correct_sympy.split(',')
     s_str = student_sympy.split(',')
+    print(c_str, s_str[0],abs(Parse2Sympy(s_str[0])).args, type(Parse2Sympy(s_str[0])),abs(Parse2Sympy(s_str[0])))
+    # 절댓값 있는 경우 IsArgs 계산 안 됨. 예) r'|+5|','Abs(+5)'
+    for str in s_str:
+        if type(Parse2Sympy(str)) == Abs: tmp = Parse2Sympy(str).args[0]
+        else: tmp = Parse2Sympy(str)
+        print(tmp,type(tmp))
+        if IsSimilarTerm(tmp) == 0: return False
     if len(c_str) != len(s_str): return False
     c_sign_num = []
     s_sign_num = []
     for str in c_str:
         if '+' in str: c_sign_num.append(['+',Latex2Sympy(str)])
-        elif '-' in str: c_sign_num.append(['-',Latex2Sympy(str)])
         else: c_sign_num.append(['',Latex2Sympy(str)])
-    print(correct_sympy,student_sympy)
-    print(correct_sympy, student_sympy)
+    for str in s_str:
+        if '+' in str: s_sign_num.append(['+',Parse2Sympy(str)])
+        else: s_sign_num.append(['',Parse2Sympy(str)])
+    print(c_sign_num,s_sign_num)
+    if order == None:
+        c_sign_num = sorted(c_sign_num, key=lambda x: x[1].sort_key())
+        s_sign_num = sorted(s_sign_num, key=lambda x: x[1].sort_key())
+    return all(And(single_num(c_sign_num[i][1],s_sign_num[i][1],Type='fix'),StrCompare(c_sign_num[i][0],s_sign_num[i][0])) for i in range(len(c_str)))
 
-# correct_sympy, student_sympy = Ans2Sympy(r'+1','-1',f = 'SignCompare')
-# print(SignCompare(correct_sympy, student_sympy))
+correct_sympy, student_sympy = Ans2Sympy(r'|+5|','Abs(+5)',f = 'SignCompare')
+print(SignCompare(correct_sympy, student_sympy,order="fix"))
+# print(Parse2Sympy('Abs(+5)').args,Latex2Sympy('|+5|').args)
 
 # 소인수분해
 def NumPrimeFactorCompare(correct_sympy, student_sympy): #정답 order 관계X

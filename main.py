@@ -26,7 +26,7 @@ while True:
 
     print(compare_dict[compare_number] + ' 실행합니다.')
 
-    if compare_number == '4':
+    if compare_number == '3':
         symbol = input('symbol: ')
         order = input('내림차순: Dec, 오름차순: Acc 입력: ')
         print(globals()[compare_dict[compare_number]](correct_sympy, student_sympy, symbol, order))

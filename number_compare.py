@@ -76,8 +76,7 @@ def NumCompare(correct_sympy, student_sympy,Type='all',order=None):
     # 개별 항목 값 비교
     return all(single_num(correct_sympy[i], student_sympy[i],Type = Type) for i in range(cnt))
 
-# correct_sympy, student_sympy = Ans2Sympy(r'+5','+5')
-# print(sign(correct_sympy[0]),sign(student_sympy[0]))
+# correct_sympy, student_sympy = Ans2Sympy(r' -10.5, +10.5',' -10.5, +10.5')
 # print('순서X',NumCompare(correct_sympy, student_sympy,Type='all'))
 # print('순서O',NumCompare(correct_sympy, student_sympy,Type='all',order='fix'))
 # print('↓ 정답과 type 일치')
@@ -90,33 +89,28 @@ def StrCompare(correct_sympy, student_sympy):
     s_str = sub(r'[\s]+', '', student_sympy)
     return c_str == s_str
 
-def SignCompare(correct_sympy, student_sympy,order=None): # Type = 'fix'만 가능. 양수, 음수
+def SignCompare(correct_sympy, student_sympy,order=None): # Type = 'fix'만 가능. 양수, 음수, 절댓값
     c_str = correct_sympy.split(',')
     s_str = student_sympy.split(',')
-    print(c_str, s_str[0],abs(Parse2Sympy(s_str[0])).args, type(Parse2Sympy(s_str[0])),abs(Parse2Sympy(s_str[0])))
-    # 절댓값 있는 경우 IsArgs 계산 안 됨. 예) r'|+5|','Abs(+5)'
-    for str in s_str:
-        if type(Parse2Sympy(str)) == Abs: tmp = Parse2Sympy(str).args[0]
-        else: tmp = Parse2Sympy(str)
-        print(tmp,type(tmp))
-        if IsSimilarTerm(tmp) == 0: return False
     if len(c_str) != len(s_str): return False
-    c_sign_num = []
-    s_sign_num = []
-    for str in c_str:
-        if '+' in str: c_sign_num.append(['+',Latex2Sympy(str)])
-        else: c_sign_num.append(['',Latex2Sympy(str)])
-    for str in s_str:
-        if '+' in str: s_sign_num.append(['+',Parse2Sympy(str)])
-        else: s_sign_num.append(['',Parse2Sympy(str)])
-    print(c_sign_num,s_sign_num)
+    sign_num = [c_str[:],s_str[:]]
+    for i in range(2):
+        for j in range(len(c_str)):
+            # ↓ 절댓값 있는 경우 evaluate가 되어버려 IsArgsEqual = False가 되어 추가
+            if type(Latex2Sympy(sign_num[i][j])) == Abs: tmp = Latex2Sympy(sign_num[i][j]).args[0]
+            else: tmp = Latex2Sympy(sign_num[i][j])
+            sgn = ''.join(findall(r'[+\-]',sign_num[i][j]))
+            sign_num[i][j] = [sgn,DelMulOne([tmp])[0],type(Latex2Sympy(sign_num[i][j])) == Abs]
     if order == None:
-        c_sign_num = sorted(c_sign_num, key=lambda x: x[1].sort_key())
-        s_sign_num = sorted(s_sign_num, key=lambda x: x[1].sort_key())
-    return all(And(single_num(c_sign_num[i][1],s_sign_num[i][1],Type='fix'),StrCompare(c_sign_num[i][0],s_sign_num[i][0])) for i in range(len(c_str)))
+        sign_num[0] = sorted(sign_num[0], key=lambda x: x[1].sort_key())
+        sign_num[1] = sorted(sign_num[1], key=lambda x: x[1].sort_key())
+    print(sign_num)
+    return all(And(StrCompare(sign_num[0][i][0],sign_num[1][i][0]),
+                   single_num(sign_num[0][i][1],sign_num[1][i][1],Type='fix')
+                   ,sign_num[0][i][2] == sign_num[1][i][2]) for i in range(len(c_str)))
 
-correct_sympy, student_sympy = Ans2Sympy(r'|+5|','Abs(+5)',f = 'SignCompare')
-print(SignCompare(correct_sympy, student_sympy,order="fix"))
+# correct_sympy, student_sympy = Ans2Sympy(r'|-\dfrac{4}{7}|, \dfrac{4}{7}','Abs(-4/7), 4/7',f = 'SignCompare')
+# print(SignCompare(correct_sympy, student_sympy))
 # print(Parse2Sympy('Abs(+5)').args,Latex2Sympy('|+5|').args)
 
 # 소인수분해

@@ -1,5 +1,8 @@
 from ineq_compare import *
 from poly_compare import *
+from number_compare import *
+from pair_compare import *
+from eqn_compare import *
 from answer_conversion import *
 
 while True:
@@ -18,24 +21,30 @@ while True:
     PairCompare: 7
     EqCompare: 8
     IneqCompare: 9
+    SignCompare: 10
     '''
     compare_number = input('compare_number: ')
     compare_dict = {'0': 'StrCompare','1': 'PolyCompare', '2': 'PolyFactorCompare', '3': 'PolyExpansionCompare', '4': 'PolyFormCompare',
-                    '5':'NumCompare', '6':'NumPrimeFactorCompare', '7':'PairCompare', '8':'EqCompare', '9':'IneqCompare'}
+                    '5':'NumCompare', '6':'NumPrimeFactorCompare', '7':'PairCompare', '8':'EqCompare', '9':'IneqCompare', '10':'SignCompare'}
     correct_sympy, student_sympy = Ans2Sympy(correct_latex,student_str,f=compare_dict[compare_number])
 
     print(compare_dict[compare_number] + ' 실행합니다.')
 
     if compare_number == '3':
         symbol = input('symbol: ')
+        if symbol == 'None': symbol == None
         order = input('내림차순: Dec, 오름차순: Acc 입력: ')
+        if order == 'None': order == None
         print(globals()[compare_dict[compare_number]](correct_sympy, student_sympy, symbol, order))
     elif compare_number == '5':
-        type = input('type: ')
+        Type = input('type: ')
+        if Type == 'None': Type == None
         order = input('order: ')
+        if order == 'None': order == None
         print(globals()[compare_dict[compare_number]](correct_sympy, student_sympy, type, order))
-    elif compare_number == '7':
+    elif compare_number in ['7','10']:
         order = input('order: ')
+        if order == 'None': order == None
         print(globals()[compare_dict[compare_number]](correct_sympy, student_sympy, order))
     elif compare_number == '8':
         leading_coeff = input('leading_coeff: ')

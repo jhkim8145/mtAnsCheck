@@ -35,12 +35,18 @@ def Latex2Sympy(expr):
         return Parse2Sympy(expr)
     except:
         tmp = sub('dfrac','frac',expr)
-        return Parse2Sympy(str(latex2sympy(tmp)))
+        # latex2sympy가 소수를 분수로 자동 변환하는 것 방지
+        float_list = findall('[0-9]+.[0-9]+',tmp)
+        frac_list = list(map(Rational,float_list))
+        tmp = str(latex2sympy(tmp))
+        for i in range(len(float_list)): tmp = tmp.replace(str(frac_list[i]),str(float_list[i]))
+        return Parse2Sympy(tmp)
 # # print(Latex2Sympy(r'-5xy'))
 # print(Latex2Sympy(r'0.[5]'))
 # print(latex2sympy(r'-0.\dot{5}'))
 # #print(latex2sympy('a<b<c'),findall(r'([<>][=]?)', str('a<=b<c')),latex2sympy('a<1,a>1'),latex2sympy(r'a\ne2'))
 # print(Parse2Sympy('0.5'),together(Parse2Sympy('(i-1)/2')),DelMulOne([Latex2Sympy('i-1,1')]))
+# print(Latex2Sympy(r'\sqrt{1/2}'))
 
 # 부등식 a<b<c, !=(\ne)(str)을 sympy 형태로 변환
 def Ineq2Sympy(ineq):
@@ -48,17 +54,14 @@ def Ineq2Sympy(ineq):
     for i in range(len(l)):
         if len(findall(r'<|>|\\ge|\\le', l[i])) == 2:
             parts = split(r'([<>][=]?|\\ge|\\le)', l[i])
-            try:
-                tmp = [Parse2Sympy(''.join(parts[:3])).canonical, Parse2Sympy(''.join(parts[-3:])).canonical]
-            except:
-                tmp = [Latex2Sympy(''.join(parts[:3])).canonical, Latex2Sympy(''.join(parts[-3:])).canonical]
+            tmp = [Latex2Sympy(''.join(parts[:3])).canonical, Latex2Sympy(''.join(parts[-3:])).canonical]
             l[i] = And(tmp[0], tmp[1])
         elif len(findall(r'!=|\\ne', l[i])) > 0:
             parts = split(r'!=|\\ne', l[i])
             l[i] = Or((Parse2Sympy(parts[0]+'<'+parts[1])).canonical, (Parse2Sympy(parts[0]+'>'+parts[1])).canonical)
-        else: l[i] = Parse2Sympy(l[i]).canonical
+        else: l[i] = Latex2Sympy(l[i]).canonical
     return l
-#print(Ineq2Sympy(r'x!= 1,x>1,a\ge b\ge c'))
+# print(Ineq2Sympy(r'x!= 1,x>1,a\ge b\ge c'))
 
 
 # compare에 따른 correct_sympy, student_sympy 변환
@@ -74,8 +77,8 @@ def Ans2Sympy(correct_latex,student_str,f=None):
         correct_sympy = list(map(lambda str: Latex2Sympy(str[1:-1]), c_split_str))
         student_sympy = list(map(lambda str: list(Parse2Sympy(str)), s_split_str))
     elif f == 'IneqCompare':
-        correct_sympy = Ineq2Sympy(c_split_str)
-        student_sympy = Ineq2Sympy(s_split_str)
+        correct_sympy = Ineq2Sympy(correct_latex)
+        student_sympy = Ineq2Sympy(student_str)
     else:
         if search(r',', correct_latex) != None:
             c_split_str = correct_latex.split(',')

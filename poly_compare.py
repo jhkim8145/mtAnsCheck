@@ -8,7 +8,7 @@ def IsEqual(correct_sympy, student_sympy): #정답 order 관계X
 
 # simplify와 args len, equals 비교 (기호 포함하는 순환소수, 절댓값 compare 제외)
 def IsArgsEqual(sympy):
-    exp_args = sorted(list(map(lambda x: x*2/2,sympy.args)),key=lambda x: x.sort_key())
+    exp_args = sorted(DelMulOne(map(lambda x: x,sympy.args)),key=lambda x: x.sort_key())
     cp_args = sorted(parse_expr(str(sympy),evaluate=True).args,key=lambda x: x.sort_key())
     # print(sympy,parse_expr(str(sympy),evaluate=True),exp_args,cp_args,'여기')
     if len(exp_args) != len(cp_args): print('IsArgsEqual',1);return False
@@ -50,6 +50,7 @@ def PolyCompare(correct_sympy, student_sympy, order=None): #정답 order 관계X
     return True
 # correct_sympy, student_sympy = Ans2Sympy('3yz+2xyz','(15xyz+10x**2yz)/(5x)')
 # # correct_sympy, student_sympy = Ans2Sympy(r'3xy, -5xy','-5xy,3xy')
+# correct_sympy, student_sympy = Ans2Sympy(r'x-4','x-4')
 # print(PolyCompare(correct_sympy, student_sympy))
 
 # 인수분해

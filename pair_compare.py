@@ -6,8 +6,8 @@ from answer_conversion import *
 # simple만 필요할 것이라 가정
 correct_answer = '(1,3*I)'
 student_answer = '(1,-3/I)'
-correct_sympy = P(correct_answer)
-student_sympy = P(student_answer)
+# correct_sympy = P(correct_answer)
+# student_sympy = P(student_answer)
 #print(correct_sympy, student_sympy)
 def single_pair(correct_sympy, student_sympy):
     cnt = len(correct_sympy)
@@ -20,8 +20,8 @@ def single_pair(correct_sympy, student_sympy):
 # simple만 필요할 것이라 가정
 correct_answer = '(1,1,I),(1,-2,1),(1,1,2)'
 student_answer = '(1,1,I),(1,-2,1),(1,1,2)'
-correct_sympy = P('[' + correct_answer + ']')
-student_sympy = P('[' + student_answer + ']')
+# correct_sympy = P('[' + correct_answer + ']')
+# student_sympy = P('[' + student_answer + ']')
 #print(correct_sympy, student_sympy)
 def pair_list_compare(correct_sympy, student_sympy,order='non-fix'):
     cnt = len(correct_sympy)

@@ -17,7 +17,7 @@ while True:
     PolyExpansionCompare: 3
     PolyFormCompare: 4
     NumCompare: 5
-    primefactor_compare: 6
+    NumPrimeFactorCompare: 6
     PairCompare: 7
     EqCompare: 8
     IneqCompare: 9

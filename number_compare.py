@@ -16,7 +16,7 @@ latex 인식 못 하는 답: 순환소수
 
 # 숫자 값 비교
 #분수 > 소수, 소수 > 분수 허용X, 반드시 유리화, 복소수 a+bi 형태만, 덧셈/곱셈 교환 가능, 정답,학생답 type 같음
-def single_num(correct_sympy, student_sympy,Type = 'all'):
+def single_num(correct_sympy, student_sympy,Type = None):
     if IsEqual(correct_sympy, student_sympy) == 0: print('single_num',1);return False
     if IsSimilarTerm(student_sympy) == 0: print('single_num',2);return False
     if Type == 'fix': # 소수 != 분수, 약분 전!=후, 유리화 전!=후, 거듭제곱 전!=후, 통분 전!= 후, i != sqrt(-1), 덧셈곱셈 교환 가능
@@ -65,7 +65,7 @@ student_answer = '2**(-3)'
 #student_answer = '2*2**2'
 
 
-def NumCompare(correct_sympy, student_sympy,Type='all',order=None):
+def NumCompare(correct_sympy, student_sympy,Type=None,order=None):
     # print(sign(correct_sympy[0]), student_sympy)
     # 리스트 비교(항목 개수, 동류항 정리, 정렬)
     cnt = len(correct_sympy)
@@ -89,11 +89,11 @@ def StrCompare(correct_sympy, student_sympy):
     s_str = sub(r'[\s]+', '', student_sympy)
     return c_str == s_str
 
-def SignCompare(correct_sympy, student_sympy,order=None): # Type = 'fix'만 가능. 양수, 음수, 절댓값
+def SignCompare(correct_sympy, student_sympy, order=None):  # Type = 'fix'만 가능. 양수, 음수, 절댓값
     c_str = correct_sympy.split(',')
     s_str = student_sympy.split(',')
     if len(c_str) != len(s_str): return False
-    sign_num = [c_str[:],s_str[:]]
+    sign_num = [c_str[:], s_str[:]]
     for i in range(2):
         for j in range(len(c_str)):
             # ↓ 절댓값 있는 경우 evaluate가 되어버려 IsArgsEqual = False가 되어 추가
@@ -112,11 +112,15 @@ def SignCompare(correct_sympy, student_sympy,order=None): # Type = 'fix'만 가�
 # correct_sympy, student_sympy = Ans2Sympy(r'|-\dfrac{4}{7}|, \dfrac{4}{7}','Abs(-4/7), 4/7',f = 'SignCompare')
 # print(SignCompare(correct_sympy, student_sympy))
 # print(Parse2Sympy('Abs(+5)').args,Latex2Sympy('|+5|').args)
+# correct_sympy, student_sympy = Ans2Sympy(r'500\times a+200\times b','500×a+200×b',f = 'SignCompare')
+# print(SignCompare(correct_sympy, student_sympy,Mul='True'))
 
-# 소인수분해
+
+# 소인수분해 1개
 def NumPrimeFactorCompare(correct_sympy, student_sympy): #정답 order 관계X
-    if IsEqual(correct_sympy, student_sympy) == 0: return False
-    s_args = student_sympy.args
+    c_sympy, s_sympy = correct_sympy[0], student_sympy[0]
+    if IsEqual(c_sympy, s_sympy) == 0: return False
+    s_args = s_sympy.args
     while s_args != ():
         s_tmp = ()
         for args in s_args:
@@ -129,3 +133,5 @@ def NumPrimeFactorCompare(correct_sympy, student_sympy): #정답 order 관계X
             else: return False
         s_args = s_tmp
     return True
+# correct_sympy, student_sympy = Ans2Sympy(r'2^2\times3\times5','2**2×3×5',f = 'NumPrimeFactorCompare')
+# print(NumPrimeFactorCompare(correct_sympy, student_sympy))

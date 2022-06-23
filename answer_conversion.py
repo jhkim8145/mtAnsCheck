@@ -13,7 +13,6 @@ ns={'Symbol':Symbol,'Integer':Integer,'Float':Float,'Rational':Rational,'Eq':Eq,
     'arcosh':acosh,'arccosh':acosh,'atanh':atanh,'artanh':atanh,'arctanh':atanh,
     'acoth':acoth,'arcoth':acoth,'arccoth':acoth}
 
-
 # -1*1 -> -1로 변환
 def DelMulOne(sympy_tuple):
     ret = list(sympy_tuple)
@@ -24,8 +23,9 @@ def DelMulOne(sympy_tuple):
 
 # str -> sympy 변환
 def Parse2Sympy(expr):
+    tmp = sub(r'\\times|×', '*', expr)
     #print(expr, parse_expr(expr, transformations='all', local_dict=ns, evaluate=False))
-    return parse_expr(expr, transformations=standard_transformations+(implicit_multiplication_application, convert_xor,implicit_application,implicit_multiplication,convert_equals_signs,function_exponentiation), local_dict=ns, evaluate=False)
+    return parse_expr(tmp, transformations=standard_transformations+(implicit_multiplication_application, convert_xor,implicit_application,implicit_multiplication,convert_equals_signs,function_exponentiation), local_dict=ns, evaluate=False)
 # print(Parse2Sympy('0.5'),Parse2Sympy('i-1'),Parse2Sympy('sin x**2'))
 # print(Parse2Sympy('-1+x'),DelMulOne([Parse2Sympy('-1+x')]),Parse2Sympy('-1+x').args,DelMulOne([Parse2Sympy('-1+x')])[0].args )
 
@@ -35,18 +35,22 @@ def Latex2Sympy(expr):
         return Parse2Sympy(expr)
     except:
         tmp = sub('dfrac','frac',expr)
+        tmp = sub(r'\\times|×', '*', tmp)
         # latex2sympy가 소수를 분수로 자동 변환하는 것 방지
         float_list = findall('[0-9]+.[0-9]+',tmp)
         frac_list = list(map(Rational,float_list))
         tmp = str(latex2sympy(tmp))
         for i in range(len(float_list)): tmp = tmp.replace(str(frac_list[i]),str(float_list[i]))
-        return Parse2Sympy(tmp)
+        return DelMulOne([Parse2Sympy(tmp)])[0]
+    else:
+        print('latex 변환에 실패했습니다.')
 # # print(Latex2Sympy(r'-5xy'))
 # print(Latex2Sympy(r'0.[5]'))
 # print(latex2sympy(r'-0.\dot{5}'))
 # #print(latex2sympy('a<b<c'),findall(r'([<>][=]?)', str('a<=b<c')),latex2sympy('a<1,a>1'),latex2sympy(r'a\ne2'))
 # print(Parse2Sympy('0.5'),together(Parse2Sympy('(i-1)/2')),DelMulOne([Latex2Sympy('i-1,1')]))
 # print(Latex2Sympy(r'\sqrt{1/2}'))
+
 
 # 부등식 a<b<c, !=(\ne)(str)을 sympy 형태로 변환
 def Ineq2Sympy(ineq):
@@ -66,7 +70,7 @@ def Ineq2Sympy(ineq):
 
 # compare에 따른 correct_sympy, student_sympy 변환
 def Ans2Sympy(correct_latex,student_str,f=None):
-    if f == 'StrCompare' or f == 'SignCompare':
+    if f == 'StrCompare' or f == 'SignCompare' or f == 'NoSignCompare':
         correct_sympy = correct_latex
         student_sympy = student_str
     elif f == 'PairCompare':

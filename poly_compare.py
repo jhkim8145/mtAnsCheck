@@ -11,6 +11,7 @@ def IsArgsEqual(sympy):
     exp_args = sorted(DelMulOne(map(lambda x: x,sympy.args)),key=lambda x: x.sort_key())
     cp_args = sorted(parse_expr(str(sympy),evaluate=True).args,key=lambda x: x.sort_key())
     # print(sympy,parse_expr(str(sympy),evaluate=True),exp_args,cp_args,'여기')
+    # print( exp_args, cp_args)
     if len(exp_args) != len(cp_args): print('IsArgsEqual',1);return False
     if all(IsEqual(exp_args[i],cp_args[i]) for i in range(len(exp_args))) == 0:
         print('IsArgsEqual',2);return False
@@ -38,7 +39,11 @@ def single_poly(correct_sympy, student_sympy): #정답 order 관계X
     if abs(denom(correct_sympy)).equals(abs(denom(student_sympy))) == 0: print('single_poly',2);return False
     if IsSimilarTerm(student_sympy) == 0: print('single_poly',3);return False
     return True
-
+# correct_sympy, student_sympy = Ans2Sympy(r'500-150\times a','500-150 × a')
+# correct_sympy, student_sympy = Ans2Sympy(r'a','1a')
+# print(correct_sympy,student_sympy)
+# correct_sympy, student_sympy = correct_sympy[0], student_sympy[0]
+# print(single_poly(correct_sympy, student_sympy))
 
 # 다항식 단순 비교(동류항 정리 조건만 만족, 정답과 차수 일치)
 def PolyCompare(correct_sympy, student_sympy, order=None): #정답 order 관계X
@@ -53,12 +58,60 @@ def PolyCompare(correct_sympy, student_sympy, order=None): #정답 order 관계X
 # correct_sympy, student_sympy = Ans2Sympy(r'x-4','x-4')
 # print(PolyCompare(correct_sympy, student_sympy))
 
+def NoSignCompare(correct_sympy, student_sympy):
+    c_sympy, s_sympy = Latex2Sympy(correct_sympy), Parse2Sympy(student_sympy)
+    if IsEqual(c_sympy, s_sympy) == 0: print(0,'정답과 값이 다름');return False
+
+    # 곱셈, 나눗셈 기호, 계수 1 생략했는지 확인
+    ptn = ['×|÷','(?<![0-9.])([1][a-zA-Z]{1})|([a-zA-Z][1])(?![0-9])']
+    for p in ptn:
+        if len(findall(p, student_sympy)) > 0: print(0,'기호, 계수 생략X');return False
+
+    # 학생 답안 항으로 쪼개기
+    if type(s_sympy) == Add: terms = s_sympy.args
+    else: terms = tuple([s_sympy])
+
+    while terms != ():
+        print(terms)
+        tmp = ()
+        for s in terms:
+            if type(s) != Add:
+                tmp_s = sub('\(.+\)','',str(s))
+                print(tmp_s)
+                print(finditer('(?<!\/|\*\*)[1-9\-]+(\/[1-9]+)*',tmp_s))
+                # 수가 문자 앞에 있는지 확인 (마이너스 포함)
+                try:
+
+                    for i in finditer('(?<!\/|\*\*)[1-9\-]+(\/[1-9]+)*',tmp_s):
+                        print(여기)
+                        if i.start() != 0: print(1,'숫자가 문자 뒤에');return False
+                except:
+                    pass
+
+                # 알파벳 순서인지 확인, (거듭제곱도 확인 가능) ** 대소문자 같이 나올 때 고려X **
+                ASCIIcode = list(filter(lambda x: 65<x<90 or 97<x<122,map(lambda x: ord(x),tmp_s)))
+                for i in range(len(ASCIIcode)-1):
+                    if ASCIIcode[i] >= ASCIIcode[i+1]: print(2,'알파벳 순서X');return False
+
+                for args in map(lambda x: Parse2Sympy(x).args,findall('\(.+\)', str(s))): tmp += args
+        terms = tmp
+    return True
+
+
+# correct_sympy, student_sympy = Ans2Sympy(r'-\dfrac{1}{3}ah', '1/3*(-a)*h',f='NoSignCompare')
+# correct_sympy, student_sympy = Ans2Sympy(r'-\dfrac{1}{3}x-3y', '-1/3x-y3',f='NoSignCompare')
+# correct_sympy, student_sympy = Ans2Sympy(r'-10(3*a+3*b)', '-10*(3*a+b*3)',f='NoSignCompare')
+# correct_sympy, student_sympy = Ans2Sympy(r'\dfrac{a^2}{b}', '(a**2)/(b)',f='NoSignCompare')
+# correct_sympy, student_sympy = Ans2Sympy(r'x^2+3x', 'x**2+3*x',f='NoSignCompare')
+# print(NoSignCompare(correct_sympy, student_sympy))
+
+
 # 인수분해
 def PolyFactorCompare(correct_sympy, student_sympy): #정답 order 관계X
-    correct_sympy, student_sympy = correct_sympy[0], student_sympy[0]
-    if IsEqual(correct_sympy, student_sympy) == 0: print(1);return False
-    if IsSimilarTerm(student_sympy) == 0: print(2);return False
-    s_args = tuple([student_sympy])
+    c_sympy, s_sympy = correct_sympy[0], student_sympy[0]
+    if IsEqual(c_sympy, s_sympy) == 0: print(1);return False
+    if IsSimilarTerm(s_sympy) == 0: print(2);return False
+    s_args = tuple([s_sympy])
     while s_args != ():
         s_tmp = ()
         # print(s_args)
@@ -75,23 +128,23 @@ def PolyFactorCompare(correct_sympy, student_sympy): #정답 order 관계X
 
 # 전개, 순서 비교(오름차순/내림차순)
 def PolyExpansionCompare(correct_sympy, student_sympy,order=None,symbol=None): #정답 order 관계X
-    correct_sympy, student_sympy = correct_sympy[0], student_sympy[0]
-    print(correct_sympy.args, student_sympy.args)
-    if type(student_sympy) != Add: return False
-    if IsEqual(correct_sympy, student_sympy) == 0: return False
-    if IsSimilarTerm(student_sympy) == 0: return False
-    if len(correct_sympy.args) != len(student_sympy.args): return False
+    c_sympy, s_sympy = correct_sympy[0], student_sympy[0]
+    # print(correct_sympy.args, student_sympy.args)
+    if type(s_sympy) != Add: return False
+    if IsEqual(c_sympy, s_sympy) == 0: return False
+    if IsSimilarTerm(s_sympy) == 0: return False
+    if len(c_sympy.args) != len(s_sympy.args): return False
     if order == None:
-        cr_args = sorted(tuple(map(lambda x: x*2/2,correct_sympy.args)), key=lambda x: x.sort_key())
-        st_args = sorted(tuple(map(lambda x: x*2/2,student_sympy.args)), key=lambda x: x.sort_key())
+        cr_args = sorted(DelMulOne(c_sympy.args), key=lambda x: x.sort_key())
+        st_args = sorted(DelMulOne(s_sympy.args), key=lambda x: x.sort_key())
         return all(IsEqual(cr_args[i], st_args[i]) for i in range(len(cr_args)))
     else:
-        degree_list = list(map(lambda t: degree(t, gen=Symbol(symbol)), student_sympy.args))
-        print(degree_list,symbol)
+        degree_list = list(map(lambda t: degree(t, gen=Symbol(symbol)), s_sympy.args))
+        # print(degree_list,symbol)
         if order == 'Acc':
-            return all(degree_list[i] <= degree_list[i + 1] for i in range(len(correct_sympy.args) - 1))
+            return all(degree_list[i] <= degree_list[i + 1] for i in range(len(c_sympy.args) - 1))
         else:
-            return all(degree_list[i] >= degree_list[i + 1] for i in range(len(correct_sympy.args) - 1))
+            return all(degree_list[i] >= degree_list[i + 1] for i in range(len(c_sympy.args) - 1))
 # correct_sympy, student_sympy = Ans2Sympy('3yz+2xyz','2xyz+3yz')
 # print(PolyExpansionCompare(correct_sympy, student_sympy,order='Dec',symbol='y'))
 

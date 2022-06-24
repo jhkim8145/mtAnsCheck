@@ -58,51 +58,59 @@ def PolyCompare(correct_sympy, student_sympy, order=None): #정답 order 관계X
 # correct_sympy, student_sympy = Ans2Sympy(r'x-4','x-4')
 # print(PolyCompare(correct_sympy, student_sympy))
 
-def NoSignCompare(correct_sympy, student_sympy):
-    c_sympy, s_sympy = Latex2Sympy(correct_sympy), Parse2Sympy(student_sympy)
-    if IsEqual(c_sympy, s_sympy) == 0: print(0,'정답과 값이 다름');return False
-
-    # 곱셈, 나눗셈 기호, 계수 1 생략했는지 확인
-    ptn = ['×|÷','(?<![0-9.])([1][a-zA-Z]{1})|([a-zA-Z][1])(?![0-9])']
-    for p in ptn:
-        if len(findall(p, student_sympy)) > 0: print(0,'기호, 계수 생략X');return False
-
-    # 학생 답안 항으로 쪼개기
-    if type(s_sympy) == Add: terms = s_sympy.args
-    else: terms = tuple([s_sympy])
-
-    while terms != ():
-        print(terms)
-        tmp = ()
-        for s in terms:
-            if type(s) != Add:
-                tmp_s = sub('\(.+\)','',str(s))
-                print(tmp_s)
-                print(finditer('(?<!\/|\*\*)[1-9\-]+(\/[1-9]+)*',tmp_s))
-                # 수가 문자 앞에 있는지 확인 (마이너스 포함)
-                try:
-
-                    for i in finditer('(?<!\/|\*\*)[1-9\-]+(\/[1-9]+)*',tmp_s):
-                        print(여기)
-                        if i.start() != 0: print(1,'숫자가 문자 뒤에');return False
-                except:
-                    pass
-
-                # 알파벳 순서인지 확인, (거듭제곱도 확인 가능) ** 대소문자 같이 나올 때 고려X **
-                ASCIIcode = list(filter(lambda x: 65<x<90 or 97<x<122,map(lambda x: ord(x),tmp_s)))
-                for i in range(len(ASCIIcode)-1):
-                    if ASCIIcode[i] >= ASCIIcode[i+1]: print(2,'알파벳 순서X');return False
-
-                for args in map(lambda x: Parse2Sympy(x).args,findall('\(.+\)', str(s))): tmp += args
-        terms = tmp
-    return True
-
-
-# correct_sympy, student_sympy = Ans2Sympy(r'-\dfrac{1}{3}ah', '1/3*(-a)*h',f='NoSignCompare')
-# correct_sympy, student_sympy = Ans2Sympy(r'-\dfrac{1}{3}x-3y', '-1/3x-y3',f='NoSignCompare')
-# correct_sympy, student_sympy = Ans2Sympy(r'-10(3*a+3*b)', '-10*(3*a+b*3)',f='NoSignCompare')
-# correct_sympy, student_sympy = Ans2Sympy(r'\dfrac{a^2}{b}', '(a**2)/(b)',f='NoSignCompare')
-# correct_sympy, student_sympy = Ans2Sympy(r'x^2+3x', 'x**2+3*x',f='NoSignCompare')
+# def NoSignCompare(correct_sympy, student_sympy):
+#     c_sympy, s_sympy = Latex2Sympy(correct_sympy), Parse2Sympy(student_sympy)
+#     if IsEqual(c_sympy, s_sympy) == 0: print(0,'정답과 값이 다름');return False
+#
+#     # 곱셈, 나눗셈 기호, 계수 1 생략 확인
+#     ptn = ['×|÷','(?<![0-9.])([1][a-zA-Z]{1})|([a-zA-Z\/][1])(?![0-9])']
+#     for p in ptn:
+#         if len(findall(p, student_sympy)) > 0: print(1,'기호, 계수 생략X');return False
+#
+#     # 학생 답안 항으로 쪼개기
+#     if type(s_sympy) == Add: terms = s_sympy.args
+#     else: terms = tuple([s_sympy])
+#
+#     while terms != ():
+#         # print(terms)
+#         tmp = ()
+#         for i in range(len(terms)):
+#             if type(terms[i]) in [Mul,Pow]:
+#                 if type(terms[i]) == Pow:
+#                     if terms[i].args[1] != -1: tmp += tuple([terms[i].args[1]])
+#                     term = terms[i].args[0]
+#                 else: term = terms[i]
+#                 print(term.args)
+#
+#                 minussign = [i.could_extract_minus_sign() for i in term.args]
+#                 isnumber = [i.is_number for i in term.args]
+#
+#                 # 마이너스 맨 앞에 있는지 확인
+#                 if any(TF for TF in minussign[1:]) == 1: print(2,'- 계산X');return False
+#
+#                 # 숫자가 문자보다 앞에 있는지 확인
+#                 try: # 문자가 있을 때
+#                     k = isnumber.index(False)
+#                     if any(TF for TF in isnumber[k:-1]) == 1: print('3-1','숫자가 문자 뒤에');return False
+#                     if isnumber[-1] == 1:
+#                         if type(term.args[-1]) == Pow and term.args[-1].args[1] == -1 and str(
+#                         term.args[-1]) not in student_sympy: continue
+#                         else: print('3-2','숫자가 문자 뒤에');return False
+#                 except:
+#                     continue
+#
+#                 # 거듭제곱 꼴 확인
+#                 symbollist = list(filter(lambda x: len(x)!=0,[tuple(i.atoms(Symbol)) for i in term.args]))
+#                 if len(symbollist) != len(set(symbollist)): print(4,'거듭제곱 꼴X');return False
+#             tmp += term.args
+#         terms = tmp
+#     return True
+#
+# correct_sympy, student_sympy = Ans2Sympy(r'10(x+y)', '(x+y)*10',f='NoSignCompare')
+# correct_sympy, student_sympy = Ans2Sympy(r'\dfrac{6}{2m+3n}', '3*2/(3*n+2*m)',f='NoSignCompare')
+# # correct_sympy, student_sympy = Ans2Sympy(r'-10(3*a+3*b)', '-10*(3*a+b*3)',f='NoSignCompare')
+# # correct_sympy, student_sympy = Ans2Sympy(r'\dfrac{1}{2}ah', '1/2*a*h',f='NoSignCompare') # 정답허용?
+# # correct_sympy, student_sympy = Ans2Sympy(r'-1', '-1',f='NoSignCompare')
 # print(NoSignCompare(correct_sympy, student_sympy))
 
 

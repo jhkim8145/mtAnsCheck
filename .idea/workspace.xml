@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="6/15 18:30">
-      <change afterPath="$PROJECT_DIR$/mts_eval.py" afterDir="false" />
+    <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="6/23 14:00">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/answer_conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/answer_conversion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/number_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/number_compare.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/poly_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/poly_compare.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +40,7 @@
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
-  <component name="RunManager" selected="Python.mts_eval">
+  <component name="RunManager" selected="Python.poly_compare">
     <configuration name="answer_conversion" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="mtAnsCheck" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -152,9 +148,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.mts_eval" />
         <item itemvalue="Python.poly_compare" />
         <item itemvalue="Python.answer_conversion" />
+        <item itemvalue="Python.mts_eval" />
         <item itemvalue="Python.number_compare" />
         <item itemvalue="Python.main" />
       </list>
@@ -211,7 +207,14 @@
       <option name="project" value="LOCAL" />
       <updated>1655285511005</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="6/23 14:00">
+      <created>1655960342007</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1655960342007</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -243,6 +246,7 @@
     <MESSAGE value="6/13 11:30" />
     <MESSAGE value="6/14 11:09" />
     <MESSAGE value="6/15 18:30" />
-    <option name="LAST_COMMIT_MESSAGE" value="6/15 18:30" />
+    <MESSAGE value="6/23 14:00" />
+    <option name="LAST_COMMIT_MESSAGE" value="6/23 14:00" />
   </component>
 </project>

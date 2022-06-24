@@ -16,7 +16,7 @@ ns={'Symbol':Symbol,'Integer':Integer,'Float':Float,'Rational':Rational,'Eq':Eq,
 # -1*1 -> -1로 변환
 def DelMulOne(sympy_tuple):
     ret = list(sympy_tuple)
-    ptn = '(?<![0-9])([1]\*{1})|(\*{1}[1])(?![0-9])'
+    ptn = '(?<![0-9])([1]\*{1})|([\*\/]{1}[1])(?![0-9])'
     for i in range(len(ret)):
         ret[i] = Parse2Sympy(sub(ptn,'',str(ret[i])))
     return ret

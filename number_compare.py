@@ -2,8 +2,6 @@ from sympy import *
 from re import *
 from answer_conversion import *
 from poly_compare import *
-from sympy.parsing.sympy_parser import parse_expr,T
-from sympy.core.sympify import kernS
 
 """
 sympy 인식 못 하는 답: 대분수, + 부호
@@ -30,17 +28,17 @@ def single_num(correct_sympy, student_sympy,Type = None):
         if all(IsEqual(c_args[i],s_args[i]) for i in range(len(c_args))) == 0: print('single_num', 6);return False
     return True
 # correct_sympy, student_sympy = Ans2Sympy(r'\dfrac{3}{4}+\dfrac{i}{4}','3/4+i/4')
-# correct_sympy, student_sympy = Ans2Sympy(r'(\dfrac{1}{7})^4','(((1)/(7)))**(4)')
+# correct_sympy, student_sympy = Ans2Sympy(r'(\dfrac{1}{7})^4\pi','(((1)/(7)))**(4)*pi')
 # correct_sympy, student_sympy = correct_sympy[0], student_sympy[0]
 # print(correct_sympy, student_sympy)
 # print(correct_sympy.args, student_sympy.args)
-# print(single_number(correct_sympy, student_sympy,Type='fix'))
+# print(single_num(correct_sympy, student_sympy,Type='fix'))
 
 # correct_sympy, student_sympy = Ans2Sympy(r'3^2*7^4','7**4*3**2')
 # correct_sympy, student_sympy = correct_sympy[0], student_sympy[0]
 # print(correct_sympy, student_sympy)
 # print(correct_sympy.args, student_sympy.args)
-# print(single_number(correct_sympy, student_sympy,Type='fix'))
+# print(single_num(correct_sympy, student_sympy,Type='fix'))
 
 
 # 숫자 리스트 비교

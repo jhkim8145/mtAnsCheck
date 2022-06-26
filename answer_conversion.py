@@ -34,8 +34,7 @@ def Latex2Sympy(expr):
     try: # ****순환소수는 sympy 형태로 답안 적기****
         return Parse2Sympy(expr)
     except:
-        tmp = sub('dfrac','frac',expr)
-        tmp = sub(r'\\times|×', '*', tmp)
+        tmp = sub(r'\\times|×', '*',sub('dfrac','frac',expr))
         # latex2sympy가 소수를 분수로 자동 변환하는 것 방지
         float_list = findall('[0-9]+.[0-9]+',tmp)
         frac_list = list(map(Rational,float_list))
@@ -50,6 +49,7 @@ def Latex2Sympy(expr):
 # #print(latex2sympy('a<b<c'),findall(r'([<>][=]?)', str('a<=b<c')),latex2sympy('a<1,a>1'),latex2sympy(r'a\ne2'))
 # print(Parse2Sympy('0.5'),together(Parse2Sympy('(i-1)/2')),DelMulOne([Latex2Sympy('i-1,1')]))
 # print(Latex2Sympy(r'\sqrt{1/2}'))
+# print(Latex2Sympy(r'\dfrac{2\sqrt{3}}{3}'))
 
 
 # 부등식 a<b<c, !=(\ne)(str)을 sympy 형태로 변환

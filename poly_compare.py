@@ -40,7 +40,7 @@ def single_poly(correct_sympy, student_sympy): #정답 order 관계X
     if IsSimilarTerm(student_sympy) == 0: print('single_poly',3);return False
     return True
 # correct_sympy, student_sympy = Ans2Sympy(r'500-150\times a','500-150 × a')
-# correct_sympy, student_sympy = Ans2Sympy(r'a','1a')
+# correct_sympy, student_sympy = Ans2Sympy(r'\dfrac{1}{2}ah','1/2*a*h')
 # print(correct_sympy,student_sympy)
 # correct_sympy, student_sympy = correct_sympy[0], student_sympy[0]
 # print(single_poly(correct_sympy, student_sympy))
@@ -58,59 +58,68 @@ def PolyCompare(correct_sympy, student_sympy, order=None): #정답 order 관계X
 # correct_sympy, student_sympy = Ans2Sympy(r'x-4','x-4')
 # print(PolyCompare(correct_sympy, student_sympy))
 
-# def NoSignCompare(correct_sympy, student_sympy):
-#     c_sympy, s_sympy = Latex2Sympy(correct_sympy), Parse2Sympy(student_sympy)
-#     if IsEqual(c_sympy, s_sympy) == 0: print(0,'정답과 값이 다름');return False
-#
-#     # 곱셈, 나눗셈 기호, 계수 1 생략 확인
-#     ptn = ['×|÷','(?<![0-9.])([1][a-zA-Z]{1})|([a-zA-Z\/][1])(?![0-9])']
-#     for p in ptn:
-#         if len(findall(p, student_sympy)) > 0: print(1,'기호, 계수 생략X');return False
-#
-#     # 학생 답안 항으로 쪼개기
-#     if type(s_sympy) == Add: terms = s_sympy.args
-#     else: terms = tuple([s_sympy])
-#
-#     while terms != ():
-#         # print(terms)
-#         tmp = ()
-#         for i in range(len(terms)):
-#             if type(terms[i]) in [Mul,Pow]:
-#                 if type(terms[i]) == Pow:
-#                     if terms[i].args[1] != -1: tmp += tuple([terms[i].args[1]])
-#                     term = terms[i].args[0]
-#                 else: term = terms[i]
-#                 print(term.args)
-#
-#                 minussign = [i.could_extract_minus_sign() for i in term.args]
-#                 isnumber = [i.is_number for i in term.args]
-#
-#                 # 마이너스 맨 앞에 있는지 확인
-#                 if any(TF for TF in minussign[1:]) == 1: print(2,'- 계산X');return False
-#
-#                 # 숫자가 문자보다 앞에 있는지 확인
-#                 try: # 문자가 있을 때
-#                     k = isnumber.index(False)
-#                     if any(TF for TF in isnumber[k:-1]) == 1: print('3-1','숫자가 문자 뒤에');return False
-#                     if isnumber[-1] == 1:
-#                         if type(term.args[-1]) == Pow and term.args[-1].args[1] == -1 and str(
-#                         term.args[-1]) not in student_sympy: continue
-#                         else: print('3-2','숫자가 문자 뒤에');return False
-#                 except:
-#                     continue
-#
-#                 # 거듭제곱 꼴 확인
-#                 symbollist = list(filter(lambda x: len(x)!=0,[tuple(i.atoms(Symbol)) for i in term.args]))
-#                 if len(symbollist) != len(set(symbollist)): print(4,'거듭제곱 꼴X');return False
-#             tmp += term.args
-#         terms = tmp
-#     return True
-#
-# correct_sympy, student_sympy = Ans2Sympy(r'10(x+y)', '(x+y)*10',f='NoSignCompare')
-# correct_sympy, student_sympy = Ans2Sympy(r'\dfrac{6}{2m+3n}', '3*2/(3*n+2*m)',f='NoSignCompare')
+def NoSignCompare(correct_sympy, student_sympy):
+    c_sympy, s_sympy = Latex2Sympy(correct_sympy), Parse2Sympy(student_sympy)
+    if IsEqual(c_sympy, s_sympy) == 0: print(0,'정답과 값이 다름');return False
+
+    # 곱셈, 나눗셈 기호, 계수 1, 나누기 1 생략 확인
+    ptn = ['×|÷','(?<![0-9.])([1][a-zA-Z]{1})|([a-zA-Z\/][1])(?![0-9])']
+    for p in ptn:
+        if len(findall(p, student_sympy)) > 0: print(1,'기호, 계수 생략X');return False
+
+    # 학생 답안 항으로 쪼개기
+    if type(s_sympy) == Add: terms = s_sympy.args
+    else: terms = tuple([s_sympy])
+
+    while terms != ():
+        print(terms)
+        tmp = ()
+        for i in range(len(terms)):
+            if type(terms[i]) in [Pow]:
+                if terms[i].args[0] < 0: print('분모에 - 있는 경우');return False
+                tmp += terms[i].args
+                continue
+            elif type(terms[i]) in [Mul]:
+                # 숫자가 문자보다 앞에 있는지 확인
+                if denom(terms[i].args[-1]) != 1 and numer(terms[i].args[-1]) == 1:
+                    if search(str(terms[i].args[-1])+'$',str(terms[i])) != None: print('2-0','숫자가 문자 뒤에(1/3이 마지막에 곱해짐)');return False
+                    tmp += tuple([terms[i].args[-1].args[0]])
+                    t_args = terms[i].args[:-1]
+                else:
+                    tmp += terms[i].args
+                    t_args = terms[i].args
+
+                isnumber = [i.is_number for i in t_args]
+                try:
+                    if isnumber[0] == isnumber[1] == True and denom(t_args[1]) == 1: print('2-1','곱해진 숫자가 2개 이상');return False
+                except:
+                    pass
+
+                try:  # 문자가 있을 때
+                    k = isnumber.index(True)
+                    if k != 0 and denom(t_args[k]) == 1: print('2-2', '숫자가 문자 뒤에');return False
+                except:
+                    pass
+
+                # 마이너스 맨 앞에 있는지 확인
+                minussign = [i.could_extract_minus_sign() for i in t_args]
+                if any(TF for TF in minussign[1:]) == 1: print(3,'음수 곱셈 부호(-) 계산X');return False
+
+                # 거듭제곱 꼴 확인
+                symbollist = list(filter(lambda x: len(x)!=0,[tuple(i.atoms(Symbol)) for i in t_args]))
+                if len(symbollist) != len(set(symbollist)): print(4,'거듭제곱 꼴X');return False
+
+                continue
+
+            tmp += terms[i].args
+        terms = tuple(filter(lambda x: x.args != (),tmp))
+    return True
+
+# correct_sympy, student_sympy = Ans2Sympy(r'10(x+y)', '10*(x+y)',f='NoSignCompare')
+# correct_sympy, student_sympy = Ans2Sympy(r'10a-\dfrac{6}{b}', '10*a-6/b',f='NoSignCompare')
 # # correct_sympy, student_sympy = Ans2Sympy(r'-10(3*a+3*b)', '-10*(3*a+b*3)',f='NoSignCompare')
-# # correct_sympy, student_sympy = Ans2Sympy(r'\dfrac{1}{2}ah', '1/2*a*h',f='NoSignCompare') # 정답허용?
-# # correct_sympy, student_sympy = Ans2Sympy(r'-1', '-1',f='NoSignCompare')
+# correct_sympy, student_sympy = Ans2Sympy(r'-\dfrac{b}{2}ah', '(-b)/(2)*(a)*h',f='NoSignCompare') # 정답허용?
+# correct_sympy, student_sympy = Ans2Sympy(r'0.1a', '0.a',f='NoSignCompare')
 # print(NoSignCompare(correct_sympy, student_sympy))
 
 

@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="6/23 14:00">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/mtAnsCheck.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/mtAnsCheck.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/answer_conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/answer_conversion.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/number_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/number_compare.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/poly_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/poly_compare.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -32,15 +35,12 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/USER/Desktop/04. 정답 판별",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
-  }
-}]]></component>
-  <component name="RunManager" selected="Python.poly_compare">
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RunManager" selected="Python.number_compare">
     <configuration name="answer_conversion" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="mtAnsCheck" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -148,10 +148,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.number_compare" />
         <item itemvalue="Python.poly_compare" />
         <item itemvalue="Python.answer_conversion" />
         <item itemvalue="Python.mts_eval" />
-        <item itemvalue="Python.number_compare" />
         <item itemvalue="Python.main" />
       </list>
     </recent_temporary>

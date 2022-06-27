@@ -1,7 +1,7 @@
 from sympy import *
 from re import *
-from answer_conversion import *
-from poly_compare import *
+from mts.answer_conversion import *
+from mts.poly_compare import *
 
 # 방정식 단순 비교
 def EqCompare(correct_sympy, student_sympy,leading_coeff = 'non-fix'):

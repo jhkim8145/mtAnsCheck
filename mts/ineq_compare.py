@@ -1,7 +1,7 @@
 from sympy import *
 from re import *
-from answer_conversion import *
-from poly_compare import *
+from mts.answer_conversion import *
+from mts.poly_compare import *
 
 
 # 부등식 1개 비교

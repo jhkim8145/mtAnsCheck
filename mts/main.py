@@ -22,10 +22,12 @@ while True:
     EqCompare: 8
     IneqCompare: 9
     SignCompare: 10
+    NoSignCompare: 11
     '''
-    compare_number = input('compare_number: ')
+    compare_number = '4' #input('compare_number: ')
     compare_dict = {'0': 'StrCompare','1': 'PolyCompare', '2': 'PolyFactorCompare', '3': 'PolyExpansionCompare', '4': 'PolyFormCompare',
-                    '5':'NumCompare', '6':'NumPrimeFactorCompare', '7':'PairCompare', '8':'EqCompare', '9':'IneqCompare', '10':'SignCompare'}
+                    '5':'NumCompare', '6':'NumPrimeFactorCompare', '7':'PairCompare', '8':'EqCompare', '9':'IneqCompare', '10':'SignCompare',
+                    '11':'NoSignCompare'}
     correct_sympy, student_sympy = Ans2Sympy(correct_latex,student_str,f=compare_dict[compare_number])
 
     print(compare_dict[compare_number] + ' 실행합니다.')
@@ -42,7 +44,7 @@ while True:
         order = input('order: ')
         if order == 'None': order == None
         print(globals()[compare_dict[compare_number]](correct_sympy, student_sympy, Type, order))
-    elif compare_number in ['7','10']:
+    elif compare_number in ['1','7','10']:
         order = input('order: ')
         if order == 'None': order == None
         print(globals()[compare_dict[compare_number]](correct_sympy, student_sympy, order))

@@ -1,6 +1,6 @@
 from sympy import *
 from re import *
-from answer_conversion import *
+from mts.answer_conversion import *
 
 # 순서쌍 1개 비교
 # simple만 필요할 것이라 가정

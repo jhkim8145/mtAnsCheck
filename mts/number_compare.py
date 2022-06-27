@@ -1,7 +1,7 @@
 from sympy import *
 from re import *
-from answer_conversion import *
-from poly_compare import *
+from mts.answer_conversion import *
+from mts.poly_compare import *
 
 """
 sympy 인식 못 하는 답: 대분수, + 부호
@@ -10,6 +10,7 @@ latex 인식 못 하는 답: 순환소수
 -> str으로 비교 or 함수 따로 제작
 
 모든 분수는 가분수로, 약분해서 받음
+중등 - 숫자끼리, 같은 문자끼리 반드시 거듭제곱
 """
 
 # 숫자 값 비교

@@ -1,6 +1,6 @@
 from sympy import *
 from re import *
-from answer_conversion import *
+from mts.answer_conversion import *
 
 # 단순값 비교
 def IsEqual(correct_sympy, student_sympy): #정답 order 관계X
@@ -168,13 +168,13 @@ def PolyExpansionCompare(correct_sympy, student_sympy,symbol=None,order=None): #
 # 다항식 정확히 비교
 # BQ+R 꼴, a(x-p)**2+q 꼴 등
 def PolyFormCompare(correct_sympy,student_sympy): # 다항식 A, B 교환 허용X, 동류항 반드시 정리해야 함
-    correct_sympy, student_sympy = correct_sympy[0], student_sympy[0]
-    print(correct_sympy,student_sympy)
-    if single_poly(correct_sympy, student_sympy) == 0: print('0');return False
-    c_args = sorted(tuple(map(lambda x: x*2/2,(correct_sympy*2/2).args)),key=lambda x: x.sort_key())
-    s_args = sorted(tuple(map(lambda x: x*2/2,(student_sympy*2/2).args)),key=lambda x: x.sort_key())
+    c_sympy, s_sympy = correct_sympy[0], student_sympy[0]
+    # print(c_sympy,s_sympy)
+    if single_poly(c_sympy, s_sympy) == 0: print('0');return False
+    c_args = sorted(tuple(map(lambda x: x, DelMulOne(tuple([c_sympy]))[0].args)), key=lambda x: x.sort_key())
+    s_args = sorted(tuple(map(lambda x: x, DelMulOne(tuple([s_sympy]))[0].args)), key=lambda x: x.sort_key())
     while c_args != ():
-        print(c_args, s_args)
+        # print(c_args, s_args)
         c_tmp = ()
         s_tmp = ()
         if len(c_args) != len(s_args): print('1'); return False

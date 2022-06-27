@@ -1,10 +1,10 @@
 import json
-from answer_conversion import *
-from number_compare import *
-from poly_compare import *
-from pair_compare import *
-from eqn_compare import *
-from ineq_compare import *
+from mts.answer_conversion import *
+from mts.number_compare import *
+from mts.poly_compare import *
+from mts.pair_compare import *
+from mts.eqn_compare import *
+from mts.ineq_compare import *
 
 
 def sympy_eval_handler(event, context):
@@ -49,7 +49,7 @@ def sympy_eval_handler(event, context):
                     _Type = object[cnt]['Type']
                     _order = object[cnt]['order']
                     result = globals()[_check_function](correct_sympy, student_sympy, _Type, _order)
-                elif _check_function in ['PairCompare', 'SignCompare']:
+                elif _check_function in ['PolyCompare','PairCompare', 'SignCompare']:
                     _order = object[cnt]['order']
                     result = globals()[_check_function](correct_sympy, student_sympy, _order)
                 elif _check_function == 'EqCompare':

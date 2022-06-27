@@ -23,7 +23,7 @@ student_answer = '(1,1,I),(1,-2,1),(1,1,2)'
 # correct_sympy = P('[' + correct_answer + ']')
 # student_sympy = P('[' + student_answer + ']')
 #print(correct_sympy, student_sympy)
-def pair_list_compare(correct_sympy, student_sympy,order='non-fix'):
+def PairCompare(correct_sympy, student_sympy,order='non-fix'):
     cnt = len(correct_sympy)
     if cnt != len(student_sympy):
         return False
@@ -31,4 +31,4 @@ def pair_list_compare(correct_sympy, student_sympy,order='non-fix'):
         correct_sympy.sort(key = lambda p: tuple(map(lambda t: t.as_real_imag(),p)))
         student_sympy.sort(key = lambda p: tuple(map(lambda t: t.as_real_imag(),p)))
     return all(single_pair(correct_sympy[i], student_sympy[i]) for i in range(cnt))
-#print(pair_list_compare(correct_sympy, student_sympy,order='non-fix'))
+#print(PairCompare(correct_sympy, student_sympy,order='non-fix'))

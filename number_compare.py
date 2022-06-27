@@ -76,13 +76,13 @@ def NumCompare(correct_sympy, student_sympy,Type=None,order=None):
     # 개별 항목 값 비교
     return all(single_num(correct_sympy[i], student_sympy[i],Type = Type) for i in range(cnt))
 
-correct_sympy, student_sympy = Ans2Sympy(r'-4','-4/1')
-# print(correct_sympy,student_sympy,correct_sympy[0].args,student_sympy[0].args)
-print('순서X',NumCompare(correct_sympy, student_sympy,Type='all'))
-# print('순서O',NumCompare(correct_sympy, student_sympy,Type='all',order='fix'))
-print('↓ 정답과 type 일치')
-print('순서X',NumCompare(correct_sympy, student_sympy,Type='fix'))
-# print('순서O',NumCompare(correct_sympy, student_sympy,Type='fix',order='fix'))
+# correct_sympy, student_sympy = Ans2Sympy(r'-4','-4/1')
+# # print(correct_sympy,student_sympy,correct_sympy[0].args,student_sympy[0].args)
+# print('순서X',NumCompare(correct_sympy, student_sympy,Type='all'))
+# # print('순서O',NumCompare(correct_sympy, student_sympy,Type='all',order='fix'))
+# print('↓ 정답과 type 일치')
+# print('순서X',NumCompare(correct_sympy, student_sympy,Type='fix'))
+# # print('순서O',NumCompare(correct_sympy, student_sympy,Type='fix',order='fix'))
 
 
 

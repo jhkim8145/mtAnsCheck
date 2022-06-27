@@ -9,7 +9,7 @@ latex 인식 못 하는 답: 순환소수
 
 -> str으로 비교 or 함수 따로 제작
 
-모든 분수는 가분수로 받음
+모든 분수는 가분수로, 약분해서 받음
 """
 
 # 숫자 값 비교
@@ -19,6 +19,8 @@ def single_num(correct_sympy, student_sympy,Type = None):
     if IsSimilarTerm(student_sympy) == 0: print('single_num',2);return False
     if Type == 'fix': # 소수 != 분수, 약분 전!=후, 유리화 전!=후, 거듭제곱 전!=후, 통분 전!= 후, i != sqrt(-1), 덧셈곱셈 교환 가능
         c_sympy = DelMulOne([correct_sympy])[0] # split 1 때문에 추가, 예) -\dfrac{10}{2}, -10/2
+        ptn = '(?<![0-9.])([1][a-zA-Z]{1})|([a-zA-Z\/][1])(?![0-9])'
+        if len(findall(ptn, str(student_sympy))) > 0: print('계수 1 생략X or 나누기 1 한 경우');return False
         s_sympy = DelMulOne([student_sympy])[0]
         if type(c_sympy) != type(s_sympy): print('single_num', 3);return False
         if abs(denom(c_sympy)).equals(abs(denom(s_sympy))) == 0: print('single_num', 4);return False
@@ -74,12 +76,15 @@ def NumCompare(correct_sympy, student_sympy,Type=None,order=None):
     # 개별 항목 값 비교
     return all(single_num(correct_sympy[i], student_sympy[i],Type = Type) for i in range(cnt))
 
-# correct_sympy, student_sympy = Ans2Sympy(r' -10.5, +10.5',' -10.5, +10.5')
-# print('순서X',NumCompare(correct_sympy, student_sympy,Type='all'))
+correct_sympy, student_sympy = Ans2Sympy(r'-4','-4/1')
+# print(correct_sympy,student_sympy,correct_sympy[0].args,student_sympy[0].args)
+print('순서X',NumCompare(correct_sympy, student_sympy,Type='all'))
 # print('순서O',NumCompare(correct_sympy, student_sympy,Type='all',order='fix'))
-# print('↓ 정답과 type 일치')
-# print('순서X',NumCompare(correct_sympy, student_sympy,Type='fix'))
+print('↓ 정답과 type 일치')
+print('순서X',NumCompare(correct_sympy, student_sympy,Type='fix'))
 # print('순서O',NumCompare(correct_sympy, student_sympy,Type='fix',order='fix'))
+
+
 
 # str 비교, ** 순환소수 ** 이걸로!!
 def StrCompare(correct_sympy, student_sympy):

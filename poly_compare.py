@@ -144,7 +144,7 @@ def PolyFactorCompare(correct_sympy, student_sympy): #정답 order 관계X
 # print(PolyFactorCompare(correct_sympy, student_sympy))
 
 # 전개, 순서 비교(오름차순/내림차순)
-def PolyExpansionCompare(correct_sympy, student_sympy,order=None,symbol=None): #정답 order 관계X
+def PolyExpansionCompare(correct_sympy, student_sympy,symbol=None,order=None): #정답 order 관계X
     c_sympy, s_sympy = correct_sympy[0], student_sympy[0]
     # print(correct_sympy.args, student_sympy.args)
     if type(s_sympy) != Add: return False
@@ -156,14 +156,14 @@ def PolyExpansionCompare(correct_sympy, student_sympy,order=None,symbol=None): #
         st_args = sorted(DelMulOne(s_sympy.args), key=lambda x: x.sort_key())
         return all(IsEqual(cr_args[i], st_args[i]) for i in range(len(cr_args)))
     else:
-        degree_list = list(map(lambda t: degree(t, gen=Symbol(symbol)), s_sympy.args))
-        # print(degree_list,symbol)
+        degreelist = list(map(lambda t: degree(t, gen=Symbol(symbol)), s_sympy.args))
+        print(degreelist,symbol)
         if order == 'Acc':
-            return all(degree_list[i] <= degree_list[i + 1] for i in range(len(c_sympy.args) - 1))
+            return all(degreelist[i] <= degreelist[i + 1] for i in range(len(c_sympy.args) - 1))
         else:
-            return all(degree_list[i] >= degree_list[i + 1] for i in range(len(c_sympy.args) - 1))
+            return all(degreelist[i] >= degreelist[i + 1] for i in range(len(c_sympy.args) - 1))
 # correct_sympy, student_sympy = Ans2Sympy('3yz+2xyz','2xyz+3yz')
-# print(PolyExpansionCompare(correct_sympy, student_sympy,order='Dec',symbol='y'))
+# print(PolyExpansionCompare(correct_sympy, student_sympy,symbol='y',order='Dec'))
 
 # 다항식 정확히 비교
 # BQ+R 꼴, a(x-p)**2+q 꼴 등

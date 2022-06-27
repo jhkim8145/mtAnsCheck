@@ -37,11 +37,11 @@ while True:
         if order == 'None': order == None
         print(globals()[compare_dict[compare_number]](correct_sympy, student_sympy, symbol, order))
     elif compare_number == '5':
-        Type = input('type: ')
+        Type = input('Type: ')
         if Type == 'None': Type == None
         order = input('order: ')
         if order == 'None': order == None
-        print(globals()[compare_dict[compare_number]](correct_sympy, student_sympy, type, order))
+        print(globals()[compare_dict[compare_number]](correct_sympy, student_sympy, Type, order))
     elif compare_number in ['7','10']:
         order = input('order: ')
         if order == 'None': order == None

@@ -16,7 +16,7 @@ ns={'Symbol':Symbol,'Integer':Integer,'Float':Float,'Rational':Rational,'Eq':Eq,
 # -1*1 -> -1로 변환
 def DelMulOne(sympy_tuple):
     ret = list(sympy_tuple)
-    ptn = '(?<![0-9])([1]\*{1})|([\*\/]{1}[1])(?![0-9])'
+    ptn = '(?<![0-9])([1]\*{1})(?!\*)|(?<!\*)([\*\/]{1}[1])(?![0-9])'
     for i in range(len(ret)):
         ret[i] = Parse2Sympy(sub(ptn,'',str(ret[i])))
     return ret
@@ -32,6 +32,7 @@ def Parse2Sympy(expr):
 # latex(str) -> sympy 변환
 def Latex2Sympy(expr):
     try: # ****순환소수는 sympy 형태로 답안 적기****
+        if '^{' in expr: raise # latex 거듭제곱에 중괄호 적었을 때 에러 수정
         return Parse2Sympy(expr)
     except:
         tmp = sub(r'\\times|×', '*',sub('dfrac','frac',expr))
@@ -49,7 +50,7 @@ def Latex2Sympy(expr):
 # #print(latex2sympy('a<b<c'),findall(r'([<>][=]?)', str('a<=b<c')),latex2sympy('a<1,a>1'),latex2sympy(r'a\ne2'))
 # print(Parse2Sympy('0.5'),together(Parse2Sympy('(i-1)/2')),DelMulOne([Latex2Sympy('i-1,1')]))
 # print(Latex2Sympy(r'\sqrt{1/2}'))
-# print(Latex2Sympy(r'\dfrac{2\sqrt{3}}{3}'))
+# print(Parse2Sympy(r'2^{3}'))
 
 
 # 부등식 a<b<c, !=(\ne)(str)을 sympy 형태로 변환

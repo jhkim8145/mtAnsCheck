@@ -13,6 +13,11 @@ latex 인식 못 하는 답: 순환소수
 중등 - 숫자끼리, 같은 문자끼리 반드시 거듭제곱
 """
 
+
+# expr = '2**2'
+# p = Parse2Sympy(expr)
+# print(p,simplify(p),expand(p))
+
 # 숫자 값 비교
 #분수 > 소수, 소수 > 분수 허용X, 반드시 유리화, 복소수 a+bi 형태만, 덧셈/곱셈 교환 가능, 정답,학생답 type 같음
 def single_num(correct_sympy, student_sympy,Type = None):
@@ -77,7 +82,7 @@ def NumCompare(correct_sympy, student_sympy,Type=None,order=None):
     # 개별 항목 값 비교
     return all(single_num(correct_sympy[i], student_sympy[i],Type = Type) for i in range(cnt))
 
-# correct_sympy, student_sympy = Ans2Sympy(r'-4','-4/1')
+# correct_sympy, student_sympy = Ans2Sympy(r'6','2*3')
 # # print(correct_sympy,student_sympy,correct_sympy[0].args,student_sympy[0].args)
 # print('순서X',NumCompare(correct_sympy, student_sympy,Type='all'))
 # # print('순서O',NumCompare(correct_sympy, student_sympy,Type='all',order='fix'))

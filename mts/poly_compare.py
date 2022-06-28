@@ -8,16 +8,19 @@ def IsEqual(correct_sympy, student_sympy): #정답 order 관계X
 
 # simplify와 args len, equals 비교 (기호 포함하는 순환소수, 절댓값 compare 제외)
 def IsArgsEqual(sympy):
-    exp_args = sorted(DelMulOne(map(lambda x: x,sympy.args)),key=lambda x: x.sort_key())
-    cp_args = sorted(parse_expr(str(sympy),evaluate=True).args,key=lambda x: x.sort_key())
+    exp_args = DelMulOne(map(lambda x: x,sympy.args))
+    cp_args = parse_expr(str(sympy),evaluate=True).args
     # print(sympy,parse_expr(str(sympy),evaluate=True),exp_args,cp_args,'여기')
-    # print( exp_args, cp_args)
+    # print(exp_args, cp_args)
     if len(exp_args) != len(cp_args): print('IsArgsEqual',1);return False
-    if all(IsEqual(exp_args[i],cp_args[i]) for i in range(len(exp_args))) == 0:
-        print('IsArgsEqual',2);return False
-    return True
+    tmp = list(exp_args[:])
+    for args1 in exp_args:
+        if any(IsEqual(args1,args2) for args2 in cp_args) == 0: print('IsArgsEqual',2);return False
+        tmp.remove(args1)
+    return len(tmp) == 0
 # print(IsArgsEqual(Parse2Sympy('Abs(+5)')),Parse2Sympy('Abs(+5)').args)
 # print(IsArgsEqual(Parse2Sympy('0.[3]')),Parse2Sympy('0.[3]'))
+# print(IsArgsEqual(Parse2Sympy('x-4*a/3')))
 
 # 동류항 정리 확인(Add일 때)
 def IsSimilarTerm(student_sympy):

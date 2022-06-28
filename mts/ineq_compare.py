@@ -14,8 +14,15 @@ def single_ineq(correct_sympy,student_sympy):
     st_poly = student_sympy.lhs - student_sympy.rhs
     return single_poly(cr_poly,st_poly)
 
+# correct_sympy, student_sympy = Ans2Sympy(r'-\dfrac{1}{3}<x\le\dfrac{4}{3}a','-1/3<x<= 4/3*a',f = 'IneqCompare')
+# correct_sympy, student_sympy = correct_sympy[0], student_sympy[0]
+# print(correct_sympy.args[0].args,correct_sympy.args[1].args[1].args,student_sympy.args[0].args,student_sympy.args[1].args[1].args)
+# print(single_ineq(correct_sympy, student_sympy))
+# print((Latex2Sympy('\dfrac{4}{3}a')*2/2).args,(Latex2Sympy('4*a/3')*2/2).args)
+
 # 부등식 리스트 비교
 def IneqCompare(correct_sympy,student_sympy):
+    # print(correct_sympy,student_sympy)
     if len(correct_sympy) != len(student_sympy): return False
     cr_tmp = correct_sympy[:]
     st_tmp = student_sympy[:]

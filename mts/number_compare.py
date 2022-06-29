@@ -4,12 +4,12 @@ from mts.answer_conversion import *
 from mts.poly_compare import *
 
 """
-sympy 인식 못 하는 답: 대분수, + 부호
+sympy 인식 못 하는 답: 대분수, +(양수부호) 포함여부, ×/÷ 기호
 latex 인식 못 하는 답: 순환소수
 
 -> str으로 비교 or 함수 따로 제작
 
-모든 분수는 가분수로, 약분해서 받음
+모든 분수는 기약 + 가분수만 받음
 중등 - 숫자끼리, 같은 문자끼리 반드시 거듭제곱
 """
 
@@ -21,12 +21,12 @@ latex 인식 못 하는 답: 순환소수
 # 숫자 값 비교
 #분수 > 소수, 소수 > 분수 허용X, 반드시 유리화, 복소수 a+bi 형태만, 덧셈/곱셈 교환 가능, 정답,학생답 type 같음
 def single_num(correct_sympy, student_sympy,Type = None):
+    ptn = '(?<![0-9])([1]\*{1})(?!\*)|(?<!\*)([\*\/]{1}[1])(?![0-9])'
+    if len(findall(ptn, str(student_sympy))) > 0: print('계수 1 생략X or 나누기 1 한 경우');return False
     if IsEqual(correct_sympy, student_sympy) == 0: print('single_num',1);return False
     if IsSimilarTerm(student_sympy) == 0: print('single_num',2);return False
     if Type == 'fix': # 소수 != 분수, 약분 전!=후, 유리화 전!=후, 거듭제곱 전!=후, 통분 전!= 후, i != sqrt(-1), 덧셈곱셈 교환 가능
         c_sympy = DelMulOne([correct_sympy])[0] # split 1 때문에 추가, 예) -\dfrac{10}{2}, -10/2
-        ptn = '(?<![0-9.])([1][a-zA-Z]{1})|([a-zA-Z\/][1])(?![0-9])'
-        if len(findall(ptn, str(student_sympy))) > 0: print('계수 1 생략X or 나누기 1 한 경우');return False
         s_sympy = DelMulOne([student_sympy])[0]
         if type(c_sympy) != type(s_sympy): print('single_num', 3);return False
         if abs(denom(c_sympy)).equals(abs(denom(s_sympy))) == 0: print('single_num', 4);return False
@@ -42,7 +42,7 @@ def single_num(correct_sympy, student_sympy,Type = None):
 # print(correct_sympy.args, student_sympy.args)
 # print(single_num(correct_sympy, student_sympy,Type='fix'))
 
-# correct_sympy, student_sympy = Ans2Sympy(r'3^2*7^4','7**4*3**2')
+# correct_sympy, student_sympy = Ans2Sympy(r'2','2*1')
 # correct_sympy, student_sympy = correct_sympy[0], student_sympy[0]
 # print(correct_sympy, student_sympy)
 # print(correct_sympy.args, student_sympy.args)

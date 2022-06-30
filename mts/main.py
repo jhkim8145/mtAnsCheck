@@ -39,11 +39,11 @@ while True:
         if order == 'None': order == None
         print(globals()[compare_dict[compare_number]](correct_sympy, student_sympy, symbol, order))
     elif compare_number == '5':
-        Type = input('Type: ')
-        if Type == 'None': Type == None
+        form = input('form: ')
+        if form == 'None': form == None
         order = input('order: ')
         if order == 'None': order == None
-        print(globals()[compare_dict[compare_number]](correct_sympy, student_sympy, Type, order))
+        print(globals()[compare_dict[compare_number]](correct_sympy, student_sympy, form, order))
     elif compare_number in ['1','7','10']:
         order = input('order: ')
         if order == 'None': order == None

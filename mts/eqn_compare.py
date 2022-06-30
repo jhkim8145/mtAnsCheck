@@ -19,4 +19,4 @@ def EqCompare(correct_sympy, student_sympy,leading_coeff = None):
 
 if __name__ == "__main__":
     correct_sympy, student_sympy = Ans2Sympy(r'x^2-8x+15=0','x**2-8x+15=0',f='EqCompare')
-    print(EqCompare(correct_sympy, student_sympy,leading_coeff = 'fix'))
+    print(EqCompare(correct_sympy, student_sympy,leading_coeff = 'Fix'))

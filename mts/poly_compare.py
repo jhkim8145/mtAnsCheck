@@ -20,7 +20,7 @@ def IsArgsEqual(sympy):
     return len(tmp) == 0
 # print(IsArgsEqual(Parse2Sympy('Abs(+5)')),Parse2Sympy('Abs(+5)').args)
 # print(IsArgsEqual(Parse2Sympy('0.[3]')),Parse2Sympy('0.[3]'))
-# print(IsArgsEqual(Parse2Sympy('x-4*a/3')))
+# print(IsArgsELse2Sympy('x-4*a/3')))
 
 # 동류항 정리 확인(Add일 때)
 def IsSimilarTerm(student_sympy):
@@ -50,6 +50,8 @@ def single_poly(correct_sympy, student_sympy): #정답 order 관계X
 
 # 다항식 단순 비교(동류항 정리 조건만 만족, 정답과 차수 일치)
 def PolyCompare(correct_sympy, student_sympy, order=None): #정답 order 관계X
+    ptn = '(?<![0-9])([1]\*{1})(?!\*)|(?<!\*)([\*\/]{1}[1])(?![0-9])'
+    if all(len(findall(ptn,str(s))) == 0 for s in student_sympy) == 0: print('계수 1 생략X',student_sympy);return False
     if order == None:
         correct_sympy = sorted(correct_sympy, key=lambda x: x.sort_key())
         student_sympy = sorted(student_sympy, key=lambda x: x.sort_key())
@@ -75,7 +77,7 @@ def NoSignCompare(correct_sympy, student_sympy):
     else: terms = tuple([s_sympy])
 
     while terms != ():
-        print(terms)
+        # print(terms)
         tmp = ()
         for i in range(len(terms)):
             if type(terms[i]) in [Pow]:
@@ -128,6 +130,8 @@ def NoSignCompare(correct_sympy, student_sympy):
 
 # 인수분해
 def PolyFactorCompare(correct_sympy, student_sympy): #정답 order 관계X
+    ptn = '(?<![0-9])([1]\*{1})(?!\*)|(?<!\*)([\*\/]{1}[1])(?![0-9])'
+    if all(len(findall(ptn, str(s))) == 0 for s in student_sympy) == 0: print('계수 1 생략X', student_sympy);return False
     c_sympy, s_sympy = correct_sympy[0], student_sympy[0]
     if IsEqual(c_sympy, s_sympy) == 0: print(1);return False
     if IsSimilarTerm(s_sympy) == 0: print(2);return False
@@ -148,6 +152,8 @@ def PolyFactorCompare(correct_sympy, student_sympy): #정답 order 관계X
 
 # 전개, 순서 비교(오름차순/내림차순)
 def PolyExpansionCompare(correct_sympy, student_sympy,symbol=None,order=None): #정답 order 관계X
+    ptn = '(?<![0-9])([1]\*{1})(?!\*)|(?<!\*)([\*\/]{1}[1])(?![0-9])'
+    if all(len(findall(ptn, str(s))) == 0 for s in student_sympy) == 0: print('계수 1 생략X', student_sympy);return False
     c_sympy, s_sympy = correct_sympy[0], student_sympy[0]
     # print(correct_sympy.args, student_sympy.args)
     if type(s_sympy) != Add: return False
@@ -160,17 +166,19 @@ def PolyExpansionCompare(correct_sympy, student_sympy,symbol=None,order=None): #
         return all(IsEqual(cr_args[i], st_args[i]) for i in range(len(cr_args)))
     else:
         degreelist = list(map(lambda t: degree(t, gen=Symbol(symbol)), s_sympy.args))
-        print(degreelist,symbol)
         if order == 'Acc':
             return all(degreelist[i] <= degreelist[i + 1] for i in range(len(c_sympy.args) - 1))
         else:
             return all(degreelist[i] >= degreelist[i + 1] for i in range(len(c_sympy.args) - 1))
 # correct_sympy, student_sympy = Ans2Sympy('3yz+2xyz','2xyz+3yz')
-# print(PolyExpansionCompare(correct_sympy, student_sympy,symbol='y',order='Dec'))
+# correct_sympy, student_sympy = Ans2Sympy('x^2+x','x**2+x')
+# print(PolyExpansionCompare(correct_sympy, student_sympy,symbol='x',order='Dec'))
 
 # 다항식 정확히 비교
 # BQ+R 꼴, a(x-p)**2+q 꼴 등
 def PolyFormCompare(correct_sympy,student_sympy): # 다항식 A, B 교환 허용X, 동류항 반드시 정리해야 함
+    ptn = '(?<![0-9])([1]\*{1})(?!\*)|(?<!\*)([\*\/]{1}[1])(?![0-9])'
+    if all(len(findall(ptn, str(s))) == 0 for s in student_sympy) == 0: print('계수 1 생략X', student_sympy);return False
     c_sympy, s_sympy = correct_sympy[0], student_sympy[0]
     # print(c_sympy,s_sympy)
     if single_poly(c_sympy, s_sympy) == 0: print('0');return False

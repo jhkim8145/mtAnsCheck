@@ -27,15 +27,30 @@ def sympy_eval_handler(event, context):
         '''
             StrCompare: 0
             PolyCompare: 1
+              - order == 'Fix' # 리스트일 때 순서 고정
+              
             PolyFactorCompare: 2
             PolyExpansionCompare: 3
+              - order == 'Acc' / 'Dec' # 오름차순 / 내림차순
+              - symbol == 'x' / 'y' 등의 문자
+              
             PolyFormCompare: 4
             NumCompare: 5
-            NumPrimeFactorCompare: 6
+              - order == 'Fix' # 리스트일 때 순서 고정
+              - form == 'Fix' # 소수 != 분수, 약분 전!=후, 유리화 전!=후, 거듭제곱 전!=후, 통분 전!= 후
+              
+            NumPrimeFactorCompare: 6 (사용X)
             PairCompare: 7
+              - order == 'Fix' # 리스트일 때 순서 고정
+              
             EqCompare: 8
+              - leading_coeff == 'Fix' # 최고차항 계수 고정
+              
             IneqCompare: 9
             SignCompare: 10
+              - order == 'Fix' # 리스트일 때 순서 고정
+              
+            NoSignCompare: 11
         '''
 
         if (len(_student_answer) > 0):
@@ -46,9 +61,9 @@ def sympy_eval_handler(event, context):
                     _order = object[cnt]['order'] if 'order' in object[cnt].keys() else None
                     result = globals()[_check_function](correct_sympy, student_sympy, _symbol, _order)
                 elif _check_function == 'NumCompare':
-                    _Type = object[cnt]['Type'] if 'Type' in object[cnt].keys() else None
+                    _form = object[cnt]['form'] if 'form' in object[cnt].keys() else None
                     _order = object[cnt]['order'] if 'order' in object[cnt].keys() else None
-                    result = globals()[_check_function](correct_sympy, student_sympy, _Type, _order)
+                    result = globals()[_check_function](correct_sympy, student_sympy, _form, _order)
                 elif _check_function in ['PolyCompare','PairCompare', 'SignCompare']:
                     _order = object[cnt]['order'] if 'order' in object[cnt].keys() else None
                     result = globals()[_check_function](correct_sympy, student_sympy, _order)
@@ -75,12 +90,59 @@ def sympy_eval_handler(event, context):
 
 def test():
     event = {"answer": [
-        {"ID": "0", "check_function": "NumCompare", "correct_answer": "2^{2}\\times 3", "student_answer": "2**2*3",
-         "Type": "fix", "order": None, "symbol" : None, "leading_coeff" : None}]}
+        {"ID": "0", "check_function": "NoSignCompare", "correct_answer": "0.1a", "student_answer": "0.a",
+         "form": None, "order": None, "symbol": None, "leading_coeff": None}]}
     context = 'test'
     output = sympy_eval_handler(event, context)
     print("====> output: " + output)
 
-
 if __name__ == '__main__':
     test()
+
+'''
+    공통 false: 동류항 정리 안 한 답(x+x, 1+1), 계수 1 생략 안 한 답(1*x, -1*2, 3/1) 
+    ** NumCompare **
+        ** form **
+    true:   {"ID": "0", "check_function": "NumCompare", "correct_answer": "0.5", "student_answer": "(1)/(2)",
+            "form": None, "order": None, "symbol" : None, "leading_coeff" : None}
+
+    false:  {"ID": "0", "check_function": "NumCompare", "correct_answer": "0.5", "student_answer": "(1)/(2)",
+                "form": 'Fix', "order": None, "symbol" : None, "leading_coeff" : None}
+        ** order **
+    true:   {"ID": "0", "check_function": "NumCompare", "correct_answer": "1,2", "student_answer": "1,2",
+            "form": None, "order": 'Fix', "symbol" : None, "leading_coeff" : None}
+
+    false:  {"ID": "0", "check_function": "NumCompare", "correct_answer": "1,2", "student_answer": "2,1",
+                "form": None, "order": None, "symbol" : None, "leading_coeff" : None}
+                
+    ** PolyCompare **
+        ** order **
+    true:   {"ID": "0", "check_function": "PolyCompare", "correct_answer": "x^2,x,1", "student_answer": "1,x**2,x",
+            "form": None, "order": None, "symbol" : None, "leading_coeff" : None}
+
+    false:  {"ID": "0", "check_function": "PolyCompare", "correct_answer": "x^2,x,1", "student_answer": "1,x**2,x",
+                "form": None, "order": 'Fix', "symbol" : None, "leading_coeff" : None}
+                
+    ** PolyExpansionCompare **
+    true:   {"ID": "0", "check_function": "PolyExpansionCompare", "correct_answer": "x^2+x", "student_answer": "x^2+x",
+            "form": None, "order": None, "symbol" : None, "leading_coeff" : None}
+
+    false:  {"ID": "0", "check_function": "PolyExpansionCompare", "correct_answer": "x^2+x", "student_answer": "x*(x+1)",
+                "form": None, "order": None, "symbol" : None, "leading_coeff" : None}            
+        ** order **
+    true:   {"ID": "0", "check_function": "PolyExpansionCompare", "correct_answer": "x^2+x", "student_answer": "x**2+x",
+            "form": None, "order": 'Dec', "symbol" : 'x', "leading_coeff" : None}
+            
+    false:   {"ID": "0", "check_function": "PolyExpansionCompare", "correct_answer": "x+x^2", "student_answer": "x**2+x",
+            "form": None, "order": 'Acc', "symbol" : 'x', "leading_coeff" : None}
+            
+    ** NoSignCompare **
+    true:   {"ID": "0", "check_function": "NoSignCompare", "correct_answer": "xy", "student_answer": "xy",
+            "form": None, "order": None, "symbol" : None, "leading_coeff" : None}
+    
+    false:  {"ID": "0", "check_function": "NoSignCompare", "correct_answer": "xy", "student_answer": "x×y",
+                "form": None, "order": None, "symbol" : None, "leading_coeff" : None}
+                
+    false:  {"ID": "0", "check_function": "NoSignCompare", "correct_answer": "0.1a", "student_answer": "0.a",
+                "form": None, "order": None, "symbol" : None, "leading_coeff" : None}
+'''

@@ -4,10 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="6/28 18:30">
+    <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="6/29 18:30">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mts/answer_conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/answer_conversion.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mts/eqn_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/eqn_compare.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mts/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mts/number_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/number_compare.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mts/pair_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/pair_compare.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mts/poly_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/poly_compare.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mts_eval.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts_eval.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +50,7 @@
       <recent name="C:\Users\USER\PycharmProjects\mtAnsCheck\mts" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.answer_conversion">
+  <component name="RunManager" selected="Python.mts_eval">
     <configuration name="answer_conversion" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="mtAnsCheck" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -153,11 +158,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.mts_eval" />
+        <item itemvalue="Python.poly_compare (1)" />
         <item itemvalue="Python.answer_conversion" />
         <item itemvalue="Python.number_compare (1)" />
-        <item itemvalue="Python.mts_eval" />
         <item itemvalue="Python.ineq_compare" />
-        <item itemvalue="Python.poly_compare (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -247,7 +252,14 @@
       <option name="project" value="LOCAL" />
       <updated>1656408638588</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="6/29 18:30">
+      <created>1656495123398</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1656495123398</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -283,6 +295,7 @@
     <MESSAGE value="6/27 13:00" />
     <MESSAGE value="6/27 15:51 create mts package" />
     <MESSAGE value="6/28 18:30" />
-    <option name="LAST_COMMIT_MESSAGE" value="6/28 18:30" />
+    <MESSAGE value="6/29 18:30" />
+    <option name="LAST_COMMIT_MESSAGE" value="6/29 18:30" />
   </component>
 </project>

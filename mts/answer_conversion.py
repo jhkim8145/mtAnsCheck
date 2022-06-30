@@ -23,34 +23,66 @@ def DelMulOne(sympy_tuple):
 
 # str -> sympy 변환
 def Parse2Sympy(expr):
-    tmp = sub(r'\\times|×', '*', expr)
-    #print(expr, parse_expr(expr, transformations='all', local_dict=ns, evaluate=False))
-    return parse_expr(tmp, transformations=standard_transformations+(implicit_multiplication_application, convert_xor,implicit_application,implicit_multiplication,convert_equals_signs,function_exponentiation), local_dict=ns, evaluate=False)
+    try:
+        tmp = sub(r'×', '*', expr)
+        return parse_expr(tmp, transformations=standard_transformations+(implicit_multiplication_application, convert_xor,implicit_application,implicit_multiplication,convert_equals_signs,function_exponentiation), local_dict=ns, evaluate=False)
+    except:
+        print('sympy 변환에 실패했습니다.')
 # print(Parse2Sympy('0.5'),Parse2Sympy('i-1'),Parse2Sympy('sin x**2'))
 # print(Parse2Sympy('-1+x'),DelMulOne([Parse2Sympy('-1+x')]),Parse2Sympy('-1+x').args,DelMulOne([Parse2Sympy('-1+x')])[0].args )
 
 # latex(str) -> sympy 변환
-def Latex2Sympy(expr):
-    try: # ****순환소수는 sympy 형태로 답안 적기****
-        if '^{' in expr: raise # latex 거듭제곱에 중괄호 적었을 때 에러 수정
-        return Parse2Sympy(expr)
-    except:
-        tmp = sub(r'\\times|×', '*',sub('dfrac','frac',expr))
+def Latex2Sympy(expr): # ****순환소수는 sympy 형태로 답안 적기****
+    if 'dot' in expr: return sub(r'}', ']', sub(r'\\dot\{', '[', expr))
+    tmp = sub(r'\\times', '*', sub('dfrac', 'frac', expr))
+
+    try:
+        def ReArrArgs(sympy):
+
+            sgn = {Add: '+', Mul: '*',Pow:'**'}
+            args = list(sympy.args)
+            for i in range(len(args)):
+                if type(args[i]) in [Mul, Add]:
+                    args[i] = ReArrArgs(args[i]).replace('+(-','-(')
+            if type(sympy) == Pow and 'sqrt' in str(sympy): return 'sqrt('+args[0]+')'
+            elif type(sympy) in [Add,Mul,Pow]:
+                join_list = list(map(str, DelMulOne(args)))
+            else:
+                raise
+            return sgn[type(sympy)].join(map(lambda x:'(' + x+')',join_list))
+
+        ptn = '(?<![0-9])([1]\)\*{1}\()(?!\*)|(?<!\*)(\)[\*\/]{1}\([1])(?![0-9])' # 소괄호 포함. DelMulOne과 다름
+        re_str = sub(ptn,'',ReArrArgs(latex2sympy(tmp)))
+
         # latex2sympy가 소수를 분수로 자동 변환하는 것 방지
-        float_list = findall('[0-9]+.[0-9]+',tmp)
-        frac_list = list(map(Rational,float_list))
-        tmp = str(latex2sympy(tmp))
-        for i in range(len(float_list)): tmp = tmp.replace(str(frac_list[i]),str(float_list[i]))
-        return DelMulOne([Parse2Sympy(tmp)])[0]
+        float_list = findall('[0-9]+\.[0-9]+', tmp)
+        frac_list = list(map(Rational, float_list))
+        for i in range(len(float_list)): re_str = re_str.replace(str(frac_list[i]),str(float_list[i]))
+
+        return Parse2Sympy(re_str)
+    except:
+        print('latex2sympy 바로 변환',expr)
+        re_str = str(latex2sympy(tmp))
+
+        # latex2sympy가 소수를 분수로 자동 변환하는 것 방지
+        float_list = findall('[0-9]+\.[0-9]+', tmp)
+        frac_list = list(map(Rational, float_list))
+        for i in range(len(float_list)): re_str = re_str.replace(str(frac_list[i]), str(float_list[i]))
+        return Parse2Sympy(re_str)
     else:
-        print('latex 변환에 실패했습니다.')
-# # print(Latex2Sympy(r'-5xy'))
+        return 'latex 변환에 실패했습니다.'
+# print(Latex2Sympy(r'a-5xa'),Latex2Sympy(r'a-5xa').args)
+# print(Parse2Sympy(r'a-5xa'),Parse2Sympy(r'a-5xa').args)
 # print(Latex2Sympy(r'0.[5]'))
-# print(latex2sympy(r'-0.\dot{5}'))
+# print(Latex2Sympy(r'-0.\dot{5}'))
 # #print(latex2sympy('a<b<c'),findall(r'([<>][=]?)', str('a<=b<c')),latex2sympy('a<1,a>1'),latex2sympy(r'a\ne2'))
 # print(Parse2Sympy('0.5'),together(Parse2Sympy('(i-1)/2')),DelMulOne([Latex2Sympy('i-1,1')]))
-# print(Latex2Sympy(r'\sqrt{1/2}'))
-# print(Latex2Sympy(r'0.[123]'))
+# print(Latex2Sympy(r'\sqrt{1-5xy}').args[0].args,Parse2Sympy('sqrt(1-5*x*y)').args[0].args,'요호')
+# print(Latex2Sympy(r'\sqrt{1-5xy}'),Parse2Sympy('sqrt(1-5*x*y)'))
+# print(Latex2Sympy(r'\dfrac{3}{2}').args)
+# print(Parse2Sympy(r'3/2').args)
+# print(Latex2Sympy(r'3^{2}'))
+# print(Parse2Sympy(r'0.4'))
 
 
 # 부등식 a<b<c, !=(\ne)(str)을 sympy 형태로 변환
@@ -71,7 +103,6 @@ def Ineq2Sympy(ineq):
 
 # compare에 따른 correct_sympy, student_sympy 변환
 def Ans2Sympy(correct_latex,student_str,f=None):
-    correct_latex = sub(r'\\,','',correct_latex)
     if f == 'StrCompare' or f == 'SignCompare' or f == 'NoSignCompare':
         correct_sympy = correct_latex
         student_sympy = student_str
@@ -99,7 +130,7 @@ def Ans2Sympy(correct_latex,student_str,f=None):
         student_sympy = list(map(lambda str: Parse2Sympy(str), s_split_str))
     return correct_sympy, student_sympy
 #Ans2Sympy('x^2+4x+4','x**2+4*(x+1)')
-# print(Ans2Sympy('x^2+2x+1+1','x**2+2*x+1',f = 'PolyCompare'))
+# print(Ans2Sympy('x^2,2x,1','x**2,2*x,1',f = 'PolyCompare'))
 # print(Ans2Sympy('(1,1)','(1,1)',f = 'PolyFactorCompare'))
 # print(Ans2Sympy('xy+3x+5y+15','xy+3x+5y+10+5',f = 'PolyExpansionCompare'))
 # print(Ans2Sympy('(1,1)','(1,1)',f = 'PolySortCompare'))

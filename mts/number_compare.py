@@ -19,13 +19,13 @@ latex 인식 못 하는 답: 순환소수
 # print(p,simplify(p),expand(p))
 
 # 숫자 값 비교
-#분수 > 소수, 소수 > 분수 허용X, 반드시 유리화, 복소수 a+bi 형태만, 덧셈/곱셈 교환 가능, 정답,학생답 type 같음
-def single_num(correct_sympy, student_sympy,Type = None):
+#분수 > 소수, 소수 > 분수 허용X, 반드시 유리화, 복소수 a+bi 형태만, 덧셈/곱셈 교환 가능, 정답,학생답 form 같음
+def single_num(correct_sympy, student_sympy,form = None):
     ptn = '(?<![0-9])([1]\*{1})(?!\*)|(?<!\*)([\*\/]{1}[1])(?![0-9])'
-    if len(findall(ptn, str(student_sympy))) > 0: print('계수 1 생략X or 나누기 1 한 경우');return False
+    if len(findall(ptn, str(student_sympy))) > 0: print('계수 1 생략X');return False
     if IsEqual(correct_sympy, student_sympy) == 0: print('single_num',1);return False
     if IsSimilarTerm(student_sympy) == 0: print('single_num',2);return False
-    if Type == 'fix': # 소수 != 분수, 약분 전!=후, 유리화 전!=후, 거듭제곱 전!=후, 통분 전!= 후, i != sqrt(-1), 덧셈곱셈 교환 가능
+    if form == 'Fix': # 소수 != 분수, 약분 전!=후, 유리화 전!=후, 거듭제곱 전!=후, 통분 전!= 후, i != sqrt(-1), 덧셈곱셈 교환 가능
         c_sympy = DelMulOne([correct_sympy])[0] # split 1 때문에 추가, 예) -\dfrac{10}{2}, -10/2
         s_sympy = DelMulOne([student_sympy])[0]
         if type(c_sympy) != type(s_sympy): print('single_num', 3);return False
@@ -40,13 +40,13 @@ def single_num(correct_sympy, student_sympy,Type = None):
 # correct_sympy, student_sympy = correct_sympy[0], student_sympy[0]
 # print(correct_sympy, student_sympy)
 # print(correct_sympy.args, student_sympy.args)
-# print(single_num(correct_sympy, student_sympy,Type='fix'))
+# print(single_num(correct_sympy, student_sympy,form='Fix'))
 
 # correct_sympy, student_sympy = Ans2Sympy(r'2','2*1')
 # correct_sympy, student_sympy = correct_sympy[0], student_sympy[0]
 # print(correct_sympy, student_sympy)
 # print(correct_sympy.args, student_sympy.args)
-# print(single_num(correct_sympy, student_sympy,Type='fix'))
+# print(single_num(correct_sympy, student_sympy,form='Fix'))
 
 
 # 숫자 리스트 비교
@@ -71,7 +71,7 @@ student_answer = '2**(-3)'
 #student_answer = '2*2**2'
 
 
-def NumCompare(correct_sympy, student_sympy,Type=None,order=None):
+def NumCompare(correct_sympy, student_sympy,form=None,order=None):
     # print(sign(correct_sympy[0]), student_sympy)
     # 리스트 비교(항목 개수, 동류항 정리, 정렬)
     cnt = len(correct_sympy)
@@ -80,15 +80,15 @@ def NumCompare(correct_sympy, student_sympy,Type=None,order=None):
         correct_sympy = sorted(correct_sympy,key = lambda x: x.as_real_imag())
         student_sympy = sorted(student_sympy,key = lambda x: x.as_real_imag())
     # 개별 항목 값 비교
-    return all(single_num(correct_sympy[i], student_sympy[i],Type = Type) for i in range(cnt))
+    return all(single_num(correct_sympy[i], student_sympy[i],form = form) for i in range(cnt))
 
 # correct_sympy, student_sympy = Ans2Sympy(r'6','2*3')
 # # print(correct_sympy,student_sympy,correct_sympy[0].args,student_sympy[0].args)
 # print('순서X',NumCompare(correct_sympy, student_sympy,Type='all'))
-# # print('순서O',NumCompare(correct_sympy, student_sympy,Type='all',order='fix'))
+# # print('순서O',NumCompare(correct_sympy, student_sympy,Type='all',order='Fix'))
 # print('↓ 정답과 type 일치')
-# print('순서X',NumCompare(correct_sympy, student_sympy,Type='fix'))
-# # print('순서O',NumCompare(correct_sympy, student_sympy,Type='fix',order='fix'))
+# print('순서X',NumCompare(correct_sympy, student_sympy,Type='Fix'))
+# # print('순서O',NumCompare(correct_sympy, student_sympy,Type='Fix',order='Fix'))
 
 
 
@@ -98,7 +98,7 @@ def StrCompare(correct_sympy, student_sympy):
     s_str = sub(r'[\s]+', '', student_sympy)
     return c_str == s_str
 
-def SignCompare(correct_sympy, student_sympy, order=None):  # Type = 'fix'만 가능. 양수, 음수, 절댓값
+def SignCompare(correct_sympy, student_sympy, order=None):  # form = 'Fix'만 가능. 양수, 음수, 절댓값
     c_str = correct_sympy.split(',')
     s_str = student_sympy.split(',')
     if len(c_str) != len(s_str): return False
@@ -115,7 +115,7 @@ def SignCompare(correct_sympy, student_sympy, order=None):  # Type = 'fix'만 �
         sign_num[1] = sorted(sign_num[1], key=lambda x: x[1].sort_key())
     print(sign_num)
     return all(And(StrCompare(sign_num[0][i][0],sign_num[1][i][0]),
-                   single_num(sign_num[0][i][1],sign_num[1][i][1],Type='fix')
+                   single_num(sign_num[0][i][1],sign_num[1][i][1],form='Fix')
                    ,sign_num[0][i][2] == sign_num[1][i][2]) for i in range(len(c_str)))
 
 # correct_sympy, student_sympy = Ans2Sympy(r'|-\dfrac{4}{7}|, \dfrac{4}{7}','Abs(-4/7), 4/7',f = 'SignCompare')

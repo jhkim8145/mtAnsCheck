@@ -90,8 +90,8 @@ def sympy_eval_handler(event, context):
 
 def test():
     event = {"answer": [
-        {"ID": "0", "check_function": "NoSignCompare", "correct_answer": "0.1a", "student_answer": "0.a",
-         "form": None, "order": None, "symbol": None, "leading_coeff": None}]}
+        {"ID": "0", "check_function": "NumCompare", "correct_answer": "1,\,2", "student_answer": "1,2",
+         "form": None, "order": 'Fix', "symbol": None, "leading_coeff": None}]}
     context = 'test'
     output = sympy_eval_handler(event, context)
     print("====> output: " + output)

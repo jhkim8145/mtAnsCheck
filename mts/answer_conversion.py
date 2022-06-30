@@ -103,6 +103,7 @@ def Ineq2Sympy(ineq):
 
 # compare에 따른 correct_sympy, student_sympy 변환
 def Ans2Sympy(correct_latex,student_str,f=None):
+    correct_latex = correct_latex.replace(r'\,','')
     if f == 'StrCompare' or f == 'SignCompare' or f == 'NoSignCompare':
         correct_sympy = correct_latex
         student_sympy = student_str

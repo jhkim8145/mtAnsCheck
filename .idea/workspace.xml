@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="6/30 15:30">
+    <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="6/30 15:30 \, 삭제">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mts/answer_conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/answer_conversion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mts_eval.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts_eval.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mts/number_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/number_compare.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +44,7 @@
       <recent name="C:\Users\USER\PycharmProjects\mtAnsCheck\mts" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.mts_eval">
+  <component name="RunManager" selected="Python.number_compare (1)">
     <configuration name="answer_conversion" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="mtAnsCheck" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -153,10 +152,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.number_compare (1)" />
         <item itemvalue="Python.mts_eval" />
         <item itemvalue="Python.answer_conversion" />
         <item itemvalue="Python.poly_compare (1)" />
-        <item itemvalue="Python.number_compare (1)" />
         <item itemvalue="Python.ineq_compare" />
       </list>
     </recent_temporary>
@@ -261,7 +260,14 @@
       <option name="project" value="LOCAL" />
       <updated>1656570562868</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="6/30 15:30 \, 삭제">
+      <created>1656577865743</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1656577865743</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -299,6 +305,7 @@
     <MESSAGE value="6/28 18:30" />
     <MESSAGE value="6/29 18:30" />
     <MESSAGE value="6/30 15:30" />
-    <option name="LAST_COMMIT_MESSAGE" value="6/30 15:30" />
+    <MESSAGE value="6/30 15:30 \, 삭제" />
+    <option name="LAST_COMMIT_MESSAGE" value="6/30 15:30 \, 삭제" />
   </component>
 </project>

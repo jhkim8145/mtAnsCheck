@@ -102,14 +102,17 @@ def SignCompare(correct_sympy, student_sympy, order=None):  # form = 'Fix'만 �
     c_str = correct_sympy.split(',')
     s_str = student_sympy.split(',')
     if len(c_str) != len(s_str): return False
+
     sign_num = [c_str[:], s_str[:]]
     for i in range(2):
         for j in range(len(c_str)):
+            print(1)
+            f = [lambda x: Latex2Sympy(x),lambda x: Parse2Sympy(x)][i]
             # ↓ 절댓값 있는 경우 evaluate가 되어버려 IsArgsEqual = False가 되어 추가
-            if type(Latex2Sympy(sign_num[i][j])) == Abs: tmp = Latex2Sympy(sign_num[i][j]).args[0]
-            else: tmp = Latex2Sympy(sign_num[i][j])
+            if type(f(sign_num[i][j])) == Abs: tmp = f(sign_num[i][j]).args[0]
+            else: tmp = f(sign_num[i][j])
             sgn = ''.join(findall(r'[+\-]',sign_num[i][j]))
-            sign_num[i][j] = [sgn,DelMulOne([tmp])[0],type(Latex2Sympy(sign_num[i][j])) == Abs]
+            sign_num[i][j] = [sgn,DelMulOne([tmp])[0],type(f(sign_num[i][j])) == Abs]
     if order == None:
         sign_num[0] = sorted(sign_num[0], key=lambda x: x[1].sort_key())
         sign_num[1] = sorted(sign_num[1], key=lambda x: x[1].sort_key())
@@ -119,6 +122,7 @@ def SignCompare(correct_sympy, student_sympy, order=None):  # form = 'Fix'만 �
                    ,sign_num[0][i][2] == sign_num[1][i][2]) for i in range(len(c_str)))
 
 # correct_sympy, student_sympy = Ans2Sympy(r'|-\dfrac{4}{7}|, \dfrac{4}{7}','Abs(-4/7), 4/7',f = 'SignCompare')
+# correct_sympy, student_sympy = Ans2Sympy(r'|+2.5|, 2.5','Abs(2.5), 2.5',f = 'SignCompare')
 # print(SignCompare(correct_sympy, student_sympy))
 # print(Parse2Sympy('Abs(+5)').args,Latex2Sympy('|+5|').args)
 # correct_sympy, student_sympy = Ans2Sympy(r'500\times a+200\times b','500×a+200×b',f = 'SignCompare')

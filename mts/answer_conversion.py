@@ -38,7 +38,6 @@ def Latex2Sympy(expr): # ****순환소수는 sympy 형태로 답안 적기****
 
     try:
         def ReArrArgs(sympy):
-
             sgn = {Add: '+', Mul: '*',Pow:'**'}
             args = list(sympy.args)
             for i in range(len(args)):
@@ -51,7 +50,7 @@ def Latex2Sympy(expr): # ****순환소수는 sympy 형태로 답안 적기****
                 raise
             return sgn[type(sympy)].join(map(lambda x:'(' + x+')',join_list))
 
-        ptn = '(?<![0-9])([1]\)\*{1}\()(?!\*)|(?<!\*)(\)[\*\/]{1}\([1])(?![0-9])' # 소괄호 포함. DelMulOne과 다름
+        ptn = '(?<![0-9])([1]\)?\*{1}\(?)(?!\*)|(?<!\*)(\)?[\*\/]{1}\(?[1])(?![0-9])' # 소괄호 포함. DelMulOne과 다름
         re_str = sub(ptn,'',ReArrArgs(latex2sympy(tmp)))
 
         # latex2sympy가 소수를 분수로 자동 변환하는 것 방지
@@ -81,7 +80,7 @@ def Latex2Sympy(expr): # ****순환소수는 sympy 형태로 답안 적기****
 # print(Latex2Sympy(r'\sqrt{1-5xy}'),Parse2Sympy('sqrt(1-5*x*y)'))
 # print(Latex2Sympy(r'\dfrac{3}{2}').args)
 # print(Parse2Sympy(r'3/2').args)
-# print(Latex2Sympy(r'3^{2}'))
+# print(Latex2Sympy(r'x^2-8x+15'))
 # print(Parse2Sympy(r'0.4'))
 
 

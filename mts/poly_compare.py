@@ -3,8 +3,8 @@ from re import *
 from mts.answer_conversion import *
 
 # 단순값 비교
-def IsEqual(correct_sympy, student_sympy): #정답 order 관계X
-    return student_sympy.equals(correct_sympy)
+def IsEqual(sympy1, sympy2): #정답 order 관계X
+    return sympy1.equals(sympy2)
 
 # simplify와 args len, equals 비교 (기호 포함하는 순환소수, 절댓값 compare 제외)
 def IsArgsEqual(sympy):

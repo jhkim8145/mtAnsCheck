@@ -109,11 +109,11 @@ if __name__ == '__main__':
     false:  {"ID": "0", "check_function": "NumCompare", "correct_answer": "0.5", "student_answer": "(1)/(2)",
                 "form": 'Fix', "order": None, "symbol" : None, "leading_coeff" : None}
         ** order **
-    true:   {"ID": "0", "check_function": "NumCompare", "correct_answer": "1,2", "student_answer": "1,2",
-            "form": None, "order": 'Fix', "symbol" : None, "leading_coeff" : None}
+    true:   {"ID": "0", "check_function": "NumCompare", "correct_answer": "1,2", "student_answer": "2,1",
+            "form": None, "order": 'None', "symbol" : None, "leading_coeff" : None}
 
     false:  {"ID": "0", "check_function": "NumCompare", "correct_answer": "1,2", "student_answer": "2,1",
-                "form": None, "order": None, "symbol" : None, "leading_coeff" : None}
+                "form": None, "order": 'Fix', "symbol" : None, "leading_coeff" : None}
                 
     ** PolyCompare **
         ** order **

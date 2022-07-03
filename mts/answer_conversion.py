@@ -85,19 +85,23 @@ def Latex2Sympy(expr): # ****순환소수는 sympy 형태로 답안 적기****
 
 
 # 부등식 a<b<c, !=(\ne)(str)을 sympy 형태로 변환
-def Ineq2Sympy(ineq):
-    l = ineq.split(',')
-    for i in range(len(l)):
-        if len(findall(r'<|>|\\ge|\\le', l[i])) == 2:
-            parts = split(r'([<>][=]?|\\ge|\\le)', l[i])
-            tmp = [Latex2Sympy(''.join(parts[:3])).canonical, Latex2Sympy(''.join(parts[-3:])).canonical]
-            l[i] = And(tmp[0], tmp[1])
-        elif len(findall(r'!=|\\ne', l[i])) > 0:
-            parts = split(r'!=|\\ne', l[i])
-            l[i] = Or((Parse2Sympy(parts[0]+'<'+parts[1])).canonical, (Parse2Sympy(parts[0]+'>'+parts[1])).canonical)
-        else: l[i] = Latex2Sympy(l[i]).canonical
-    return l
-# print(Ineq2Sympy(r'x!= 1,x>1,a\ge b\ge c'))
+def Ineq2Sympy(correct_latex, student_str):
+    cr_l = correct_latex.split(',')
+    st_l = student_str.split(',')
+    for j in range(2):
+        f = [lambda x: Latex2Sympy(x),lambda x: Parse2Sympy(x)][j]
+        l = [cr_l,st_l][j]
+        for i in range(len(l)):
+            if len(findall(r'<|>|\\ge|\\le', l[i])) == 2:
+                parts = split(r'([<>][=]?|\\ge|\\le)', l[i])
+                tmp = [f(''.join(parts[:3])).canonical, f(''.join(parts[-3:])).canonical]
+                l[i] = And(tmp[0], tmp[1])
+            elif len(findall(r'!=|\\ne', l[i])) > 0:
+                parts = split(r'!=|\\ne', l[i])
+                l[i] = Or((f(parts[0]+'<'+parts[1])).canonical, (f(parts[0]+'>'+parts[1])).canonical)
+            else: l[i] = f(l[i]).canonical
+    return cr_l,st_l
+# print(Ineq2Sympy(r'a\ge b\ge c,a\ne2','a<=b<=c,a!=2'))
 
 
 # compare에 따른 correct_sympy, student_sympy 변환
@@ -114,8 +118,7 @@ def Ans2Sympy(correct_latex,student_str,f=None):
         correct_sympy = list(map(lambda str: Latex2Sympy(str[1:-1]), c_split_str))
         student_sympy = list(map(lambda str: list(Parse2Sympy(str)), s_split_str))
     elif f == 'IneqCompare':
-        correct_sympy = Ineq2Sympy(correct_latex)
-        student_sympy = Ineq2Sympy(student_str)
+        correct_sympy, student_sympy = Ineq2Sympy(correct_latex, student_str)
     else:
         if search(r',', correct_latex) != None:
             c_split_str = correct_latex.split(',')

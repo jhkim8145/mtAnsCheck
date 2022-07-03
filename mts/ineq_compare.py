@@ -16,7 +16,7 @@ def single_ineq(correct_sympy,student_sympy):
 
 # correct_sympy, student_sympy = Ans2Sympy(r'-\dfrac{1}{3}<x\le\dfrac{4}{3}a','-1/3<x<= 4/3*a',f = 'IneqCompare')
 # correct_sympy, student_sympy = correct_sympy[0], student_sympy[0]
-# print(correct_sympy.args[0].args,correct_sympy.args[1].args[1].args,student_sympy.args[0].args,student_sympy.args[1].args[1].args)
+# # print(correct_sympy.args[0].args,correct_sympy.args[1].args[1].args,student_sympy.args[0].args,student_sympy.args[1].args[1].args)
 # print(single_ineq(correct_sympy, student_sympy))
 # print((Latex2Sympy('\dfrac{4}{3}a')*2/2).args,(Latex2Sympy('4*a/3')*2/2).args)
 
@@ -37,8 +37,8 @@ def IneqCompare(correct_sympy,student_sympy):
 
 
 if __name__ == "__main__":
-    correct_sympy, student_sympy = Ans2Sympy(r'-\dfrac{1}{3}<x\le\dfrac{4}{3}','-1/3<x<= 4/3',f = 'IneqCompare')
-    # correct_sympy, student_sympy = Ans2Sympy(r'x<-\dfrac{3}{2}', 'x<-3/2', f='IneqCompare')
+    # correct_sympy, student_sympy = Ans2Sympy(r'-\dfrac{1}{3}<x\le\dfrac{4}{3}','-1/3<x<= 4/3',f = 'IneqCompare')
+    correct_sympy, student_sympy = Ans2Sympy(r'x<-\dfrac{3}{2}', 'x<-3/2', f='IneqCompare')
     print(IneqCompare(correct_sympy, student_sympy))
 
 

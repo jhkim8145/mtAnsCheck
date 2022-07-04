@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="6/26 18:45">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/mtAnsCheck.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/mtAnsCheck.iml" afterDir="false" />
+    <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="7/1 13:30 SignCompare 수정">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mts/answer_conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/answer_conversion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mts/eqn_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/eqn_compare.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mts/ineq_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/ineq_compare.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mts_eval.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts_eval.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,13 +31,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/USER/Desktop/04. 정답 판별&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\USER\PycharmProjects\mtAnsCheck\mts" />
+    </key>
   </component>
-  <component name="RunManager" selected="Python.ineq_compare">
-    <configuration name="answer_conversion (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.mts_eval">
+    <configuration name="answer_conversion" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="mtAnsCheck" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -69,9 +73,9 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\dodny\AppData\Local\Programs\Python\Python39\python.exe" />
+      <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/mts" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mts/eqn_compare.py" />
@@ -104,19 +108,19 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="number_compare" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="mts_eval" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="mtAnsCheck" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="C:\python310\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/number_compare.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mts_eval.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -133,11 +137,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/mts" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/poly_compare.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mts/poly_compare.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -146,20 +150,13 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <list>
-      <item itemvalue="Python.eqn_compare" />
-      <item itemvalue="Python.number_compare" />
-      <item itemvalue="Python.poly_compare" />
-      <item itemvalue="Python.ineq_compare" />
-      <item itemvalue="Python.answer_conversion (1)" />
-    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.ineq_compare" />
-        <item itemvalue="Python.answer_conversion (1)" />
+        <item itemvalue="Python.mts_eval" />
         <item itemvalue="Python.eqn_compare" />
-        <item itemvalue="Python.number_compare" />
         <item itemvalue="Python.poly_compare" />
+        <item itemvalue="Python.ineq_compare" />
+        <item itemvalue="Python.answer_conversion" />
       </list>
     </recent_temporary>
   </component>
@@ -221,7 +218,63 @@
       <option name="project" value="LOCAL" />
       <updated>1655960342007</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="6/27 13:00">
+      <created>1656302882034</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1656302882034</updated>
+    </task>
+    <task id="LOCAL-00009" summary="6/27 13:00">
+      <created>1656303130096</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1656303130096</updated>
+    </task>
+    <task id="LOCAL-00010" summary="6/27 15:51 create mts package">
+      <created>1656312873886</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1656312873886</updated>
+    </task>
+    <task id="LOCAL-00011" summary="6/28 18:30">
+      <created>1656408638588</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1656408638588</updated>
+    </task>
+    <task id="LOCAL-00012" summary="6/29 18:30">
+      <created>1656495123398</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1656495123398</updated>
+    </task>
+    <task id="LOCAL-00013" summary="6/30 15:30">
+      <created>1656570562868</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1656570562868</updated>
+    </task>
+    <task id="LOCAL-00014" summary="6/30 15:30 \, 삭제">
+      <created>1656577865743</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1656577865743</updated>
+    </task>
+    <task id="LOCAL-00015" summary="7/1 13:30 SignCompare 수정">
+      <created>1656650347451</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1656650347451</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -254,6 +307,13 @@
     <MESSAGE value="6/14 11:09" />
     <MESSAGE value="6/15 18:30" />
     <MESSAGE value="6/23 14:00" />
-    <option name="LAST_COMMIT_MESSAGE" value="6/23 14:00" />
+    <MESSAGE value="6/27 13:00" />
+    <MESSAGE value="6/27 15:51 create mts package" />
+    <MESSAGE value="6/28 18:30" />
+    <MESSAGE value="6/29 18:30" />
+    <MESSAGE value="6/30 15:30" />
+    <MESSAGE value="6/30 15:30 \, 삭제" />
+    <MESSAGE value="7/1 13:30 SignCompare 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="7/1 13:30 SignCompare 수정" />
   </component>
 </project>

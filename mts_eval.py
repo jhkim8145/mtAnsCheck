@@ -60,17 +60,23 @@ def sympy_eval_handler(event, context):
 
         if (len(_student_answer) > 0):
             try:
-                correct_sympy, student_sympy = Ans2Sympy(_correct_answer, _student_answer, f=_check_function)
-                if _check_function == 'PolyExpansionCompare':
-                    result = globals()[_check_function](correct_sympy, student_sympy, _symbol, _order)
-                elif _check_function == 'NumCompare':
-                    result = globals()[_check_function](correct_sympy, student_sympy, _form, _order)
-                elif _check_function in ['PolyCompare', 'PairCompare', 'SignCompare']:
-                    result = globals()[_check_function](correct_sympy, student_sympy, _order)
-                elif _check_function == 'EqCompare':
-                    result = globals()[_check_function](correct_sympy, student_sympy, _leading_coeff)
+                tmp = Ans2Sympy(_correct_answer, _student_answer, f=_check_function)
+                if tmp == True: result = True
+                elif tmp == False: print("1* *1 /1 생략X"); result = False
                 else:
-                    result = globals()[_check_function](correct_sympy, student_sympy)
+                    correct_sympy, student_sympy = tmp
+                    if _check_function == 'PolyExpansionCompare':
+                        result = globals()[_check_function](correct_sympy, student_sympy, _symbol, _order)
+                    elif _check_function in ['NumCompare','PolyCompare']:
+                        result = globals()[_check_function](correct_sympy, student_sympy, _form, _order)
+                    elif _check_function in ['PairCompare', 'SignCompare']:
+                        result = globals()[_check_function](correct_sympy, student_sympy, _order)
+                    elif _check_function == 'EqCompare':
+                        result = globals()[_check_function](correct_sympy, student_sympy, _leading_coeff)
+                    elif _check_function == 'IneqCompare':
+                        result = globals()[_check_function](correct_sympy, student_sympy, _form)
+                    else:
+                        result = globals()[_check_function](correct_sympy, student_sympy)
             except Exception as expt:
                 print(expt)
                 result = 'N/A'
@@ -89,8 +95,7 @@ def sympy_eval_handler(event, context):
 
 def test():
     event = {"answer": [
-        {"ID": "0", "check_function": "NoSignCompare", "correct_answer": "1***2+0.1a", "student_answer": "0.a",
-         "form": None, "order": None, "symbol": None, "leading_coeff": None}]}
+        {"ID": "1", "check_function": "PolyCompare", "correct_answer": "4000-0.5x", "student_answer": "-x*0.5+8000/2", "form":"Fix"}]}
 
     ''' TestCase-True '''
     evt_True = {"answer": [
@@ -112,7 +117,16 @@ def test():
          "order": 'Dec', "symbol": 'x'},
 
         # ** NoSignCompare **
-        {"ID": "6", "check_function": "NoSignCompare", "correct_answer": "xy", "student_answer": "x*y"}
+        {"ID": "6", "check_function": "NoSignCompare", "correct_answer": "xy", "student_answer": "x*y"},
+
+        # ** EqCompare **
+        {"ID": "7", "check_function": "EqCompare", "correct_answer": "y=300x", "student_answer": "y=300*x"},
+
+        # ** IneqCompare **
+        {"ID": "8", "check_function": "IneqCompare", "correct_answer": "x\ge1", "student_answer": "x>=1"},
+
+        # ** PolyFormCompare **
+        {"ID": "9", "check_function": "PolyFormCompare", "correct_answer": "-x-\\dfrac{1}{2}x", "student_answer": "-x-1/2*x"}
     ]}
 
     ''' TestCase-False '''
@@ -129,21 +143,34 @@ def test():
         # ** order **
         {"ID": "3", "check_function": "PolyCompare", "correct_answer": "x^2,x,1", "student_answer": "1,x**2,x",
          "order": 'Fix'},
+        # ** form **
+        {"ID": "4", "check_function": "PolyCompare", "correct_answer": "4000-0.5x", "student_answer": "4000-1/2*x",
+         "form": 'Fix'},
 
         # ** PolyExpansionCompare **
-        {"ID": "4", "check_function": "PolyExpansionCompare", "correct_answer": "x^2+x", "student_answer": "x*(x+1)"},
+        {"ID": "5", "check_function": "PolyExpansionCompare", "correct_answer": "x^2+x", "student_answer": "x*(x+1)"},
         # ** order **
-        {"ID": "5", "check_function": "PolyExpansionCompare", "correct_answer": "x+x^2", "student_answer": "x**2+x",
+        {"ID": "6", "check_function": "PolyExpansionCompare", "correct_answer": "x+x^2", "student_answer": "x**2+x",
          "order": 'Acc', "symbol": 'x'},
 
         # ** NoSignCompare **
-        {"ID": "6", "check_function": "NoSignCompare", "correct_answer": "xy", "student_answer": "x×y"},
-        {"ID": "7", "check_function": "NoSignCompare", "correct_answer": "0.1a", "student_answer": "0.a"}
+        {"ID": "7", "check_function": "NoSignCompare", "correct_answer": "xy", "student_answer": "x×y"},
+        {"ID": "8", "check_function": "NoSignCompare", "correct_answer": "0.1a", "student_answer": "0.a"},
+
+        # ** EqCompare **
+        {"ID": "9", "check_function": "EqCompare", "correct_answer": "y=300x", "student_answer": "2*y=2*300*x",
+         "leading_coeff": "Fix"},
+
+        # ** IneqCompare **
+        {"ID": "10", "check_function": "IneqCompare", "correct_answer": "x\ge1", "student_answer": "x>1"},
+
+        # ** PolyFormCompare **
+        {"ID": "11", "check_function": "PolyFormCompare", "correct_answer": "2(x-3)^2", "student_answer": "2*(3-x)**2"}
     ]}
 
     context = 'test'
-    # output = sympy_eval_handler(event, context)
-    output = sympy_eval_handler(evt_True, context)
+    output = sympy_eval_handler(event, context)
+    # output = sympy_eval_handler(evt_True, context)
     # output = sympy_eval_handler(evt_False, context)
     print("====> output: " + output)
 

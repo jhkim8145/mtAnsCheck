@@ -36,32 +36,75 @@ def IsSimilarTerm(student_sympy):
     return True
 # print(IsSimilarTerm(Parse2Sympy('xy+3x+5y+10+5')))
 
+# 분모, 분자 차수 비교
+def IsDegreeEqual(cr_sp, st_sp):
+    def Degree(a):
+        try: n = degree(a)
+        except: n = 0
+        return n
+    if Degree(cr_sp) != Degree(st_sp): return False
+    if type(cr_sp) == Add:
+        tmp_args = cr_sp.args
+    else:
+        tmp_args = tuple([cr_sp])
+
+    n = 0
+    for i in tmp_args:
+        if Degree(denom(i)) != n: n = Degree(denom(i))
+
+    if type(st_sp) == Add:
+        tmp_args = st_sp.args
+    else:
+        tmp_args = tuple([st_sp])
+
+    m = 0
+    for i in tmp_args:
+        if Degree(denom(i)) != m: m = Degree(denom(i))
+
+    if n != m: return False
+    else: return True
+
+
 # 다항식 1개 비교
-def single_poly(correct_sympy, student_sympy): #정답 order 관계X
-    if IsEqual(correct_sympy, student_sympy) == 0: print('single_poly',1);return False
-    if abs(denom(correct_sympy)).equals(abs(denom(student_sympy))) == 0: print('single_poly',2);return False
-    if IsSimilarTerm(student_sympy) == 0: print('single_poly',3);return False
+def single_poly(cr_sp, st_sp, form=None): #정답 order 관계X
+
+    if IsEqual(cr_sp, st_sp) == 0:
+        print(1, '단순비교 false',cr_sp,st_sp); return False
+
+    # 다항식 분자, 분모 차수 확인(x**2/x 방지)
+    if IsDegreeEqual(cr_sp, st_sp) == 0:
+        print(2, '차수비교 false', cr_sp, st_sp); return False
+
+    if IsSimilarTerm(cr_sp) == 1 and IsSimilarTerm(st_sp) == 0:
+        print(3, '동류항 정리X'); return False
+
+    if form != None:
+        sblist = list(cr_sp.atoms(Symbol))
+        for i in range(len(sblist)):
+            cr_tmp = DelMulOne(cr_sp.subs(sblist[i],UnevaluatedExpr(1),order='none').args)
+            st_tmp = DelMulOne(st_sp.subs(sblist[i], UnevaluatedExpr(1), order='none').args)
+        for i in cr_tmp:
+            if i not in st_tmp: print(4, 'form:fix X');return False
+
     return True
 # correct_sympy, student_sympy = Ans2Sympy(r'500-150\times a','500-150 × a')
-# correct_sympy, student_sympy = Ans2Sympy(r'\dfrac{1}{2}ah','1/2*a*h')
+# correct_sympy, student_sympy = Ans2Sympy(r'\dfrac{1}{2}-0.5x','1/2-0.5x')
 # print(correct_sympy,student_sympy)
 # correct_sympy, student_sympy = correct_sympy[0], student_sympy[0]
-# print(single_poly(correct_sympy, student_sympy))
+# print(single_poly(correct_sympy, student_sympy,form="Fix"))
 
 # 다항식 단순 비교(동류항 정리 조건만 만족, 정답과 차수 일치)
-def PolyCompare(correct_sympy, student_sympy, order=None): #정답 order 관계X
-    ptn = '(?<![0-9])([1]\*{1})(?!\*)|(?<!\*)([\*\/]{1}[1])(?![0-9])'
-    if all(len(findall(ptn,str(s))) == 0 for s in student_sympy) == 0: print('계수 1 생략X',student_sympy);return False
+def PolyCompare(correct_sympy, student_sympy, form=None, order=None): #정답 order 관계X
     if order == None:
         correct_sympy = sorted(correct_sympy, key=lambda x: x.sort_key())
         student_sympy = sorted(student_sympy, key=lambda x: x.sort_key())
     if len(correct_sympy) != len(student_sympy): return False
-    if all(single_poly(correct_sympy[i], student_sympy[i]) for i in range(len(correct_sympy))) == 0: print('PolyCompare',1);return False
+    if all(single_poly(correct_sympy[i], student_sympy[i], form) for i in range(len(correct_sympy))) == 0: print('PolyCompare',1);return False
     return True
 # correct_sympy, student_sympy = Ans2Sympy('3yz+2xyz','(15xyz+10x**2yz)/(5x)')
 # # correct_sympy, student_sympy = Ans2Sympy(r'3xy, -5xy','-5xy,3xy')
-# correct_sympy, student_sympy = Ans2Sympy(r'x-4','x-4')
-# print(PolyCompare(correct_sympy, student_sympy))
+# correct_sympy, student_sympy = Ans2Sympy(r'4000-0.5x','4000-1/2*x')
+# print(PolyCompare(correct_sympy, student_sympy,form="Fix"))
 
 def NoSignCompare(correct_sympy, student_sympy):
     c_sympy, s_sympy = Latex2Sympy(correct_sympy), Parse2Sympy(student_sympy)
@@ -130,8 +173,6 @@ def NoSignCompare(correct_sympy, student_sympy):
 
 # 인수분해
 def PolyFactorCompare(correct_sympy, student_sympy): #정답 order 관계X
-    ptn = '(?<![0-9])([1]\*{1})(?!\*)|(?<!\*)([\*\/]{1}[1])(?![0-9])'
-    if all(len(findall(ptn, str(s))) == 0 for s in student_sympy) == 0: print('계수 1 생략X', student_sympy);return False
     c_sympy, s_sympy = correct_sympy[0], student_sympy[0]
     if IsEqual(c_sympy, s_sympy) == 0: print(1);return False
     if IsSimilarTerm(s_sympy) == 0: print(2);return False
@@ -152,8 +193,6 @@ def PolyFactorCompare(correct_sympy, student_sympy): #정답 order 관계X
 
 # 전개, 순서 비교(오름차순/내림차순)
 def PolyExpansionCompare(correct_sympy, student_sympy,symbol=None,order=None): #정답 order 관계X
-    ptn = '(?<![0-9])([1]\*{1})(?!\*)|(?<!\*)([\*\/]{1}[1])(?![0-9])'
-    if all(len(findall(ptn, str(s))) == 0 for s in student_sympy) == 0: print('계수 1 생략X', student_sympy);return False
     c_sympy, s_sympy = correct_sympy[0], student_sympy[0]
     # print(correct_sympy.args, student_sympy.args)
     if type(s_sympy) != Add: return False
@@ -176,20 +215,19 @@ def PolyExpansionCompare(correct_sympy, student_sympy,symbol=None,order=None): #
 
 # 다항식 정확히 비교
 # BQ+R 꼴, a(x-p)**2+q 꼴 등
-def PolyFormCompare(correct_sympy,student_sympy): # 다항식 A, B 교환 허용X, 동류항 반드시 정리해야 함
-    ptn = '(?<![0-9])([1]\*{1})(?!\*)|(?<!\*)([\*\/]{1}[1])(?![0-9])'
-    if all(len(findall(ptn, str(s))) == 0 for s in student_sympy) == 0: print('계수 1 생략X', student_sympy);return False
+def PolyFormCompare(correct_sympy,student_sympy): # 다항식 A, B 교환 허용X, correct_sympy에 따라 동류항 정리 여부 결정
     c_sympy, s_sympy = correct_sympy[0], student_sympy[0]
-    # print(c_sympy,s_sympy)
     if single_poly(c_sympy, s_sympy) == 0: print('0');return False
+
     c_args = sorted(tuple(map(lambda x: x, DelMulOne(tuple([c_sympy]))[0].args)), key=lambda x: x.sort_key())
     s_args = sorted(tuple(map(lambda x: x, DelMulOne(tuple([s_sympy]))[0].args)), key=lambda x: x.sort_key())
     while c_args != ():
-        # print(c_args, s_args)
+        print(c_args, s_args)
         c_tmp = ()
         s_tmp = ()
         if len(c_args) != len(s_args): print('1'); return False
         for i in range(len(c_args)):
+            if str(c_args[i]) == str(s_args[i]): continue
             if type(c_args[i]) in [Mul,Pow]:
                 c_tmp += c_args[i].args
                 s_tmp += s_args[i].args
@@ -200,6 +238,5 @@ def PolyFormCompare(correct_sympy,student_sympy): # 다항식 A, B 교환 허용
         s_args = s_tmp
     return True
 
-# correct_sympy, student_sympy = Ans2Sympy(r'-\dfrac{1}{2}(x-3)^2','-1/2(x-3)**2')
+# correct_sympy, student_sympy = Ans2Sympy(r'3a-5','a*3-10/2')
 # print(PolyFormCompare(correct_sympy, student_sympy))
-

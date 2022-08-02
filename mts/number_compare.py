@@ -21,8 +21,6 @@ latex 인식 못 하는 답: 순환소수
 # 숫자 값 비교
 #분수 > 소수, 소수 > 분수 허용X, 반드시 유리화, 복소수 a+bi 형태만, 덧셈/곱셈 교환 가능, 정답,학생답 form 같음
 def single_num(correct_sympy, student_sympy,form = None):
-    ptn = '(?<![0-9])([1]\*{1})(?!\*)|(?<!\*)([\*\/]{1}[1])(?![0-9])'
-    if len(findall(ptn, str(student_sympy))) > 0: print('계수 1 생략X');return False
     if IsEqual(correct_sympy, student_sympy) == 0: print('single_num',1);return False
     if IsSimilarTerm(student_sympy) == 0: print('single_num',2);return False
     if form == 'Fix': # 소수 != 분수, 약분 전!=후, 유리화 전!=후, 거듭제곱 전!=후, 통분 전!= 후, i != sqrt(-1), 덧셈곱셈 교환 가능

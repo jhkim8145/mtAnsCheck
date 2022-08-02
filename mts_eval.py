@@ -33,7 +33,7 @@ def sympy_eval_handler(event, context):
             StrCompare: 0
             PolyCompare: 1
               - order == 'Fix' # 리스트일 때 순서 고정
-
+              - form == 'Fix' # 숫자 형태 관련
             PolyFactorCompare: 2
             PolyExpansionCompare: 3
               - order == 'Acc' / 'Dec' # 오름차순 / 내림차순
@@ -52,6 +52,8 @@ def sympy_eval_handler(event, context):
               - leading_coeff == 'Fix' # 최고차항 계수 고정
 
             IneqCompare: 9
+              - form == 'Fix' # 숫자 형태 관련
+              
             SignCompare: 10
               - order == 'Fix' # 리스트일 때 순서 고정
 

@@ -4,14 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="7/4 11:12 Eq,Ineq,\, 수정">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/mtAnsCheck.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/mtAnsCheck.iml" afterDir="false" />
+    <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="8/2 17:00 latex 변환코드 수정, PolyCompare, IneqCompare param(form) 추가">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mts/answer_conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/answer_conversion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mts/ineq_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/ineq_compare.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mts/number_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/number_compare.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mts/poly_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/poly_compare.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mts_eval.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts_eval.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -287,7 +281,14 @@
       <option name="project" value="LOCAL" />
       <updated>1656900804570</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="8/2 17:00 latex 변환코드 수정, PolyCompare, IneqCompare param(form) 추가">
+      <created>1659427509873</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1659427509873</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -328,6 +329,7 @@
     <MESSAGE value="6/30 15:30 \, 삭제" />
     <MESSAGE value="7/1 13:30 SignCompare 수정" />
     <MESSAGE value="7/4 11:12 Eq,Ineq,\, 수정" />
-    <option name="LAST_COMMIT_MESSAGE" value="7/4 11:12 Eq,Ineq,\, 수정" />
+    <MESSAGE value="8/2 17:00 latex 변환코드 수정, PolyCompare, IneqCompare param(form) 추가" />
+    <option name="LAST_COMMIT_MESSAGE" value="8/2 17:00 latex 변환코드 수정, PolyCompare, IneqCompare param(form) 추가" />
   </component>
 </project>

@@ -5,7 +5,7 @@ from mts.poly_compare import *
 
 # 방정식 단순 비교
 def EqCompare(correct_sympy, student_sympy, leading_coeff = None):
-    if all(IsSimilarTerm(p) == 1 for p in student_sympy) == 0: print(1);return False
+    if all(IsSimilarTerm(p) == 1 for p in student_sympy) == 0 and all(IsSimilarTerm(p) == 1 for p in correct_sympy) == 1: print(1);return False
     c_poly = correct_sympy[0]-correct_sympy[1]
     s_poly = student_sympy[0]-student_sympy[1]
     # print(correct_sympy, student_sympy, c_poly, s_poly)
@@ -35,3 +35,5 @@ if __name__ == "__main__": # fix: 최고차항 계수 조건 있을 때, 그 외
     print('결과: ', EqCompare(correct_sympy, student_sympy,leading_coeff="Fix"),True)
     correct_sympy, student_sympy = Ans2Sympy(r'x^2+2x+1=0', '-x**2-2*x-1=0', f='EqCompare')
     print('결과: ', EqCompare(correct_sympy, student_sympy,leading_coeff="Fix"),False)
+    correct_sympy, student_sympy = Ans2Sympy(r'-2x-7x=-8', '-2*x-7*x=-8', f='EqCompare')
+    print('결과: ', EqCompare(correct_sympy, student_sympy, leading_coeff="Fix"), True)

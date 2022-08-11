@@ -37,3 +37,5 @@ if __name__ == "__main__": # fix: 최고차항 계수 조건 있을 때, 그 외
     print('결과: ', EqCompare(correct_sympy, student_sympy,leading_coeff="Fix"),False)
     correct_sympy, student_sympy = Ans2Sympy(r'-2x-7x=-8', '-2*x-7*x=-8', f='EqCompare')
     print('결과: ', EqCompare(correct_sympy, student_sympy, leading_coeff="Fix"), True)
+    correct_sympy, student_sympy = Ans2Sympy(r'7x=6', '2*x+2=-5*x+8', f='EqCompare')
+    print('결과: ', EqCompare(correct_sympy, student_sympy, leading_coeff="Fix"), False)

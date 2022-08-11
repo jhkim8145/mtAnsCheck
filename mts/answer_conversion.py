@@ -117,7 +117,9 @@ def Ineq2Sympy(correct_latex, student_str):
 # compare에 따른 correct_sympy, student_sympy 변환
 def Ans2Sympy(correct_latex,student_str,f=None):
     print('Ans2Sympy input', correct_latex, student_str)
-    correct_latex = correct_latex.replace(r'\,','')
+    repls = {r'\,':'',r'\rm':''}
+    for key in repls.keys():
+        correct_latex = correct_latex.replace(key, repls[key])
     if correct_latex == student_str: print('input str 같음'); return True
 
     if f == 'StrCompare' or f == 'SignCompare' or f == 'NoSignCompare':
@@ -160,3 +162,4 @@ def Ans2Sympy(correct_latex,student_str,f=None):
 # print(Ans2Sympy('(1-i,1),(3xy, -5xy)','(i-1-1,1),(3xy, -5xy)',f = 'PairCompare'))
 # print(Ans2Sympy(r'x^2-8x+15=0','x**2-8x+15=0',f = 'EqCompare'))
 # print(Ans2Sympy('(1,1)','(1,1)',f = 'IneqCompare'))
+# print(Ans2Sympy(r'\rm A','A',f = 'StrCompare'))

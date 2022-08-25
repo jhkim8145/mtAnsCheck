@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="8/3 13:40 eq 동류항 정리X 옵션 추가">
+    <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="8/11 14:00 \\rm 삭제 추가">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mts/answer_conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/answer_conversion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mts/eqn_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/eqn_compare.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mts/number_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/number_compare.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mts_eval.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts_eval.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +43,7 @@
       <recent name="C:\Users\USER\PycharmProjects\mtAnsCheck\mts" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.mts_eval">
+  <component name="RunManager" selected="Python.pair_compare">
     <configuration name="answer_conversion" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="mtAnsCheck" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -155,10 +151,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.pair_compare" />
         <item itemvalue="Python.mts_eval" />
         <item itemvalue="Python.number_compare" />
         <item itemvalue="Python.answer_conversion" />
-        <item itemvalue="Python.pair_compare" />
         <item itemvalue="Python.eqn_compare" />
       </list>
     </recent_temporary>
@@ -305,7 +301,14 @@
       <option name="project" value="LOCAL" />
       <updated>1659501590017</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="8/11 14:00 \\rm 삭제 추가">
+      <created>1660195151053</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1660195151053</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -349,6 +352,7 @@
     <MESSAGE value="8/2 17:00 latex 변환코드 수정, PolyCompare, IneqCompare param(form) 추가" />
     <MESSAGE value="8/2 18:00 Poly, Ineq params 추가" />
     <MESSAGE value="8/3 13:40 eq 동류항 정리X 옵션 추가" />
-    <option name="LAST_COMMIT_MESSAGE" value="8/3 13:40 eq 동류항 정리X 옵션 추가" />
+    <MESSAGE value="8/11 14:00 \\rm 삭제 추가" />
+    <option name="LAST_COMMIT_MESSAGE" value="8/11 14:00 \\rm 삭제 추가" />
   </component>
 </project>

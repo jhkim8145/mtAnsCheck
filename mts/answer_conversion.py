@@ -120,6 +120,7 @@ def Ans2Sympy(correct_latex,student_str,f=None):
     repls = {r'\,':'',r'\rm':''}
     for key in repls.keys():
         correct_latex = correct_latex.replace(key, repls[key])
+
     if correct_latex == student_str: print('input str 같음'); return True
 
     if f == 'StrCompare' or f == 'SignCompare' or f == 'NoSignCompare':
@@ -146,6 +147,19 @@ def Ans2Sympy(correct_latex,student_str,f=None):
         else:
             c_split_str = [correct_latex]
             s_split_str = [student_str]
+
+        l_c = len(c_split_str)
+        l_s = len(c_split_str)
+        for i in range(l_c):
+            s = c_split_str[::-1][i]
+            if '\\pm' in s:
+                c_split_str = c_split_str[:l_c-i-1] + [s.replace('\\pm','+'), s.replace('\\pm','-')] + c_split_str[l_c-i:]
+
+        for i in range(l_s):
+            s = s_split_str[::-1][i]
+            if '±' in s:
+                s_split_str = s_split_str[:l_s-i-1] + [s.replace('±','+'), s.replace('±','-')] + s_split_str[l_s-i:]
+
         correct_sympy = list(map(lambda str: Latex2Sympy(str), c_split_str))
         student_sympy = list(map(lambda str: Parse2Sympy(str), s_split_str))
 
@@ -158,7 +172,7 @@ def Ans2Sympy(correct_latex,student_str,f=None):
 # print(Ans2Sympy('(1,1)','(1,1)',f = 'PolySortCompare'))
 # print(Ans2Sympy('4000-0.5x','4000-1/2*x',f = 'PolyFormCompare'))
 # print(Ans2Sympy('(1,1)','(1,1)',f = 'NumPrimeFactorCompare'))
-# print(Ans2Sympy('1,\,2','2,1',f = 'NumCompare'))
+# print(Ans2Sympy('\pm 1,2','2,±1',f = 'NumCompare'))
 # print(Ans2Sympy('(1-i,1),(3xy, -5xy)','(i-1-1,1),(3xy, -5xy)',f = 'PairCompare'))
 # print(Ans2Sympy(r'x^2-8x+15=0','x**2-8x+15=0',f = 'EqCompare'))
 # print(Ans2Sympy('(1,1)','(1,1)',f = 'IneqCompare'))

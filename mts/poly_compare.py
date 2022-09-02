@@ -193,7 +193,7 @@ def PolyFactorCompare(correct_sympy, student_sympy): #정답 order 관계X
     return True
 # correct_sympy, student_sympy = Ans2Sympy('\dfrac{1}{2}(x-2)^2','1/2*(x-2)**2')
 # correct_sympy, student_sympy = Ans2Sympy('(4a+\dfrac{b}{2})^2','(4*a+b/2)**2')
-print(PolyFactorCompare(correct_sympy, student_sympy))
+# print(PolyFactorCompare(correct_sympy, student_sympy))
 
 # 전개, 순서 비교(오름차순/내림차순)
 def PolyExpansionCompare(correct_sympy, student_sympy,symbol=None,order=None): #정답 order 관계X

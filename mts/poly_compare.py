@@ -188,11 +188,11 @@ def PolyFactorCompare(correct_sympy, student_sympy): #정답 order 관계X
                     and factor_list(p)[1][0][1] == 1)
                     ):
                 continue
-            else: print(3,factor_list(p));return False
+            else: print(3);return False
         s_args = s_tmp
     return True
 # correct_sympy, student_sympy = Ans2Sympy('\dfrac{1}{2}(x-2)^2','1/2*(x-2)**2')
-correct_sympy, student_sympy = Ans2Sympy('(4a+\dfrac{b}{2})^2','(4*a+b/2)**2')
+# correct_sympy, student_sympy = Ans2Sympy('(4a+\dfrac{b}{2})^2','(4*a+b/2)**2')
 print(PolyFactorCompare(correct_sympy, student_sympy))
 
 # 전개, 순서 비교(오름차순/내림차순)

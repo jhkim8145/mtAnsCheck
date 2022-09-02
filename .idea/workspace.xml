@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="8/31 16:00 Ans2Sympy \\pm, ± 변환 적용">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mts/answer_conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/answer_conversion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mts_eval.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts_eval.py" afterDir="false" />
+    <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="9/2 16:30 Parse2Sympy, Latex2Sympy 수정 cf. -(a-2*b) -&gt; (-a+2*b) 해결">
+      <change beforePath="$PROJECT_DIR$/mts/poly_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/poly_compare.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +43,7 @@
       <recent name="C:\Users\USER\PycharmProjects\mtAnsCheck\mts" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.answer_conversion">
+  <component name="RunManager" selected="Python.poly_compare">
     <configuration name="answer_conversion" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="mtAnsCheck" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -153,9 +151,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.poly_compare" />
         <item itemvalue="Python.answer_conversion" />
         <item itemvalue="Python.mts_eval" />
-        <item itemvalue="Python.poly_compare" />
         <item itemvalue="Python.pair_compare" />
         <item itemvalue="Python.number_compare" />
       </list>
@@ -324,7 +322,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661929440861</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="9/2 16:30 Parse2Sympy, Latex2Sympy 수정 cf. -(a-2*b) -&gt; (-a+2*b) 해결">
+      <created>1662104103485</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1662104103485</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -371,6 +376,7 @@
     <MESSAGE value="8/11 14:00 \\rm 삭제 추가" />
     <MESSAGE value="8/25 15:00 pair_compare 예전 함수 name 수정(IsEqual)" />
     <MESSAGE value="8/31 16:00 Ans2Sympy \\pm, ± 변환 적용" />
-    <option name="LAST_COMMIT_MESSAGE" value="8/31 16:00 Ans2Sympy \\pm, ± 변환 적용" />
+    <MESSAGE value="9/2 16:30 Parse2Sympy, Latex2Sympy 수정 cf. -(a-2*b) -&gt; (-a+2*b) 해결" />
+    <option name="LAST_COMMIT_MESSAGE" value="9/2 16:30 Parse2Sympy, Latex2Sympy 수정 cf. -(a-2*b) -&gt; (-a+2*b) 해결" />
   </component>
 </project>

@@ -179,17 +179,21 @@ def PolyFactorCompare(correct_sympy, student_sympy): #정답 order 관계X
     s_args = tuple([s_sympy])
     while s_args != ():
         s_tmp = ()
-        # print(s_args)
+        print(s_args)
         for p in s_args:
             if type(p) in [Mul,Pow]: print(11);s_tmp += p.args
-            elif len(factor_list(p)[1]) == 0 or len(factor_list(p)[1]) == abs(factor_list(p)[0]) == factor_list(p)[1][0][1] == 1:
+            elif (len(factor_list(p)[1]) == 0
+                  or (len(factor_list(p)[1]) == 1
+                    and abs(factor_list(p)[0]) <= 1
+                    and factor_list(p)[1][0][1] == 1)
+                    ):
                 continue
-            else: print(3);return False
+            else: print(3,factor_list(p));return False
         s_args = s_tmp
     return True
 # correct_sympy, student_sympy = Ans2Sympy('\dfrac{1}{2}(x-2)^2','1/2*(x-2)**2')
-# # correct_sympy, student_sympy = Ans2Sympy('(a+b)(2-x-2y)','2(a+b)-(x+2y)(a+b)')
-# print(PolyFactorCompare(correct_sympy, student_sympy))
+correct_sympy, student_sympy = Ans2Sympy('(4a+\dfrac{b}{2})^2','(4*a+b/2)**2')
+print(PolyFactorCompare(correct_sympy, student_sympy))
 
 # 전개, 순서 비교(오름차순/내림차순)
 def PolyExpansionCompare(correct_sympy, student_sympy,symbol=None,order=None): #정답 order 관계X

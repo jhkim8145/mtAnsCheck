@@ -97,7 +97,7 @@ def sympy_eval_handler(event, context):
 
 def test():
     event = {"answer": [
-        {"ID": "1", "check_function": "PolyCompare", "correct_answer": "4y", "student_answer": "2**2*y","form":"Fix"}]}
+        {"ID": "1", "check_function": "PolyFactorCompare", "correct_answer": "-(a-2b)(x-y)", "student_answer": "-(a-2*b)*(x-y)","form":"Fix"}]}
 
     ''' TestCase-True '''
     evt_True = {"answer": [

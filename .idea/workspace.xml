@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="9/2 16:30 Parse2Sympy, Latex2Sympy 수정 cf. -(a-2*b) -&gt; (-a+2*b) 해결">
+    <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="9/2 19:30 PolyFactor 수정 (분수 포함될 때)">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mts/eqn_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/eqn_compare.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mts/poly_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/poly_compare.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mts_eval.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts_eval.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +46,7 @@
       <recent name="C:\Users\USER\PycharmProjects\mtAnsCheck\mts" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.poly_compare">
+  <component name="RunManager" selected="Python.eqn_compare">
     <configuration name="answer_conversion" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="mtAnsCheck" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -65,6 +68,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="eqn_compare" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="mtAnsCheck" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/mts" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mts/eqn_compare.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="mts_eval" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="mtAnsCheck" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -78,27 +102,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mts_eval.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="number_compare" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="mtAnsCheck" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/mts" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mts/number_compare.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -151,11 +154,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.eqn_compare" />
+        <item itemvalue="Python.mts_eval" />
         <item itemvalue="Python.poly_compare" />
         <item itemvalue="Python.answer_conversion" />
-        <item itemvalue="Python.mts_eval" />
         <item itemvalue="Python.pair_compare" />
-        <item itemvalue="Python.number_compare" />
       </list>
     </recent_temporary>
   </component>
@@ -329,7 +332,28 @@
       <option name="project" value="LOCAL" />
       <updated>1662104103485</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="9/2 19:30 PolyFactor 수정 (분수 포함될 때)">
+      <created>1662114895213</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1662114895213</updated>
+    </task>
+    <task id="LOCAL-00025" summary="9/2 19:30 PolyFactor 수정 (분수 포함될 때)">
+      <created>1662114922760</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1662114922760</updated>
+    </task>
+    <task id="LOCAL-00026" summary="9/2 19:30 PolyFactor 수정 (분수 포함될 때)">
+      <created>1662114933292</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1662114933292</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -377,6 +401,7 @@
     <MESSAGE value="8/25 15:00 pair_compare 예전 함수 name 수정(IsEqual)" />
     <MESSAGE value="8/31 16:00 Ans2Sympy \\pm, ± 변환 적용" />
     <MESSAGE value="9/2 16:30 Parse2Sympy, Latex2Sympy 수정 cf. -(a-2*b) -&gt; (-a+2*b) 해결" />
-    <option name="LAST_COMMIT_MESSAGE" value="9/2 16:30 Parse2Sympy, Latex2Sympy 수정 cf. -(a-2*b) -&gt; (-a+2*b) 해결" />
+    <MESSAGE value="9/2 19:30 PolyFactor 수정 (분수 포함될 때)" />
+    <option name="LAST_COMMIT_MESSAGE" value="9/2 19:30 PolyFactor 수정 (분수 포함될 때)" />
   </component>
 </project>

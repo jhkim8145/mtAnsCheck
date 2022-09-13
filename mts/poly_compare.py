@@ -244,3 +244,6 @@ def PolyFormCompare(correct_sympy,student_sympy): # 다항식 A, B 교환 허용
 
 # correct_sympy, student_sympy = Ans2Sympy(r'3a-5','a*3-10/2')
 # print(PolyFormCompare(correct_sympy, student_sympy))
+
+
+# print(UnevaluatedExpr(sqrt(8)), sqrt(UnevaluatedExpr(8)))

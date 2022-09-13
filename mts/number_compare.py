@@ -20,7 +20,7 @@ latex 인식 못 하는 답: 순환소수
 
 # 숫자 값 비교
 #분수 > 소수, 소수 > 분수 허용X, 반드시 유리화, 복소수 a+bi 형태만, 덧셈/곱셈 교환 가능, 정답,학생답 form 같음
-def single_num(correct_sympy, student_sympy,form = None):
+def single_num(correct_sympy, student_sympy,form = None,de = None):
     if IsEqual(correct_sympy, student_sympy) == 0: print('single_num',1);return False
     if IsSimilarTerm(student_sympy) == 0: print('single_num',2);return False
     if form == 'Fix': # 소수 != 분수, 약분 전!=후, 유리화 전!=후, 거듭제곱 전!=후, 통분 전!= 후, i != sqrt(-1), 덧셈곱셈 교환 가능
@@ -32,6 +32,8 @@ def single_num(correct_sympy, student_sympy,form = None):
         c_args = sorted(c_sympy.args, key=lambda x: x.sort_key())
         s_args = sorted(s_sympy.args, key=lambda x: x.sort_key())
         if all(IsEqual(c_args[i],s_args[i]) for i in range(len(c_args))) == 0: print('single_num', 6);return False
+    if de == "Rtn":
+        if student_sympy.as_numer_denom()[1].is_Rational == 0: return False
     return True
 # correct_sympy, student_sympy = Ans2Sympy(r'\dfrac{3}{4}+\dfrac{i}{4}','3/4+i/4')
 # correct_sympy, student_sympy = Ans2Sympy(r'(\dfrac{1}{7})^4\pi','(((1)/(7)))**(4)*pi')
@@ -69,7 +71,7 @@ student_answer = '2**(-3)'
 #student_answer = '2*2**2'
 
 
-def NumCompare(correct_sympy, student_sympy,form=None,order=None):
+def NumCompare(correct_sympy, student_sympy,form=None,order=None,de=None):
     # print(sign(correct_sympy[0]), student_sympy)
     # 리스트 비교(항목 개수, 동류항 정리, 정렬)
     cnt = len(correct_sympy)
@@ -78,7 +80,15 @@ def NumCompare(correct_sympy, student_sympy,form=None,order=None):
         correct_sympy = sorted(correct_sympy,key = lambda x: x.as_real_imag())
         student_sympy = sorted(student_sympy,key = lambda x: x.as_real_imag())
     # 개별 항목 값 비교
-    return all(single_num(correct_sympy[i], student_sympy[i],form = form) for i in range(cnt))
+    return all(single_num(correct_sympy[i], student_sympy[i],form = form, de= de) for i in range(cnt))
+
+if __name__ == "__main__":
+    correct_sympy, student_sympy = Ans2Sympy(r'\frac{\sqrt{6}+\sqrt{3}}{3}','sqrt(6)/3+sqrt(3)/3',f='NumCompare')
+    print('결과: ',NumCompare(correct_sympy, student_sympy, de = "Rtn"),True)
+    correct_sympy, student_sympy = Ans2Sympy(r'\frac{\sqrt{6}+\sqrt{3}}{3}', '(sqrt(2)+1)/sqrt(3)', f='NumCompare')
+    print('결과: ', NumCompare(correct_sympy, student_sympy, de="Rtn"), False)
+    correct_sympy, student_sympy = Ans2Sympy(r'\frac{\sqrt{6}+\sqrt{3}}{3}', 'sqrt(2)/sqrt(3)+1/sqrt(3)', f='NumCompare')
+    print('결과: ', NumCompare(correct_sympy, student_sympy, de="Rtn"), False)
 
 # correct_sympy, student_sympy = Ans2Sympy(r'6','2*3')
 # # print(correct_sympy,student_sympy,correct_sympy[0].args,student_sympy[0].args)

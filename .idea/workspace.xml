@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="9/2 19:30 PolyFactor 수정 (분수 포함될 때)">
+    <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="9/13 14:00 EqCompare 수정 (분수, 소수 계수 비교)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mts/eqn_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/eqn_compare.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mts/poly_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/poly_compare.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mts/number_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/number_compare.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mts_eval.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts_eval.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -46,7 +45,7 @@
       <recent name="C:\Users\USER\PycharmProjects\mtAnsCheck\mts" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.eqn_compare">
+  <component name="RunManager" selected="Python.mts_eval">
     <configuration name="answer_conversion" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="mtAnsCheck" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -110,7 +109,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="pair_compare" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="number_compare" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="mtAnsCheck" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -122,7 +121,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mts/pair_compare.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mts/number_compare.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -154,11 +153,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.eqn_compare" />
         <item itemvalue="Python.mts_eval" />
+        <item itemvalue="Python.number_compare" />
+        <item itemvalue="Python.eqn_compare" />
         <item itemvalue="Python.poly_compare" />
         <item itemvalue="Python.answer_conversion" />
-        <item itemvalue="Python.pair_compare" />
       </list>
     </recent_temporary>
   </component>
@@ -353,7 +352,14 @@
       <option name="project" value="LOCAL" />
       <updated>1662114933292</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="9/13 14:00 EqCompare 수정 (분수, 소수 계수 비교)">
+      <created>1663045277169</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1663045277169</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -402,6 +408,7 @@
     <MESSAGE value="8/31 16:00 Ans2Sympy \\pm, ± 변환 적용" />
     <MESSAGE value="9/2 16:30 Parse2Sympy, Latex2Sympy 수정 cf. -(a-2*b) -&gt; (-a+2*b) 해결" />
     <MESSAGE value="9/2 19:30 PolyFactor 수정 (분수 포함될 때)" />
-    <option name="LAST_COMMIT_MESSAGE" value="9/2 19:30 PolyFactor 수정 (분수 포함될 때)" />
+    <MESSAGE value="9/13 14:00 EqCompare 수정 (분수, 소수 계수 비교)" />
+    <option name="LAST_COMMIT_MESSAGE" value="9/13 14:00 EqCompare 수정 (분수, 소수 계수 비교)" />
   </component>
 </project>

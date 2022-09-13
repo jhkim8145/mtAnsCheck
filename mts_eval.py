@@ -28,6 +28,7 @@ def sympy_eval_handler(event, context):
         _order = object[cnt]['order'] if 'order' in object[cnt].keys() else None
         _form = object[cnt]['form'] if 'form' in object[cnt].keys() else None
         _leading_coeff = object[cnt]['leading_coeff'] if 'leading_coeff' in object[cnt].keys() else None
+        _de = object[cnt]['de'] if 'de' in object[cnt].keys() else None
 
         '''
             StrCompare: 0
@@ -42,7 +43,8 @@ def sympy_eval_handler(event, context):
             PolyFormCompare: 4
             NumCompare: 5
               - order == 'Fix' # 리스트일 때 순서 고정
-              - form == 'Fix' # 소수 != 분수, 약분 전!=후, 유리화 전!=후, 거듭제곱 전!=후, 통분 전!= 후
+              - form == 'Fix' # 소수 != 분수, 약분 전!=후, 거듭제곱 전!=후, 통분 전!= 후
+              - de = 'Rtn' # 유리화 전!=후 (form = 'Fix'로 유리화 한 후 덧셈식으로 나타내면 False 나와서 param 추가)
 
             NumPrimeFactorCompare: 6 (사용X)
             PairCompare: 7
@@ -69,7 +71,9 @@ def sympy_eval_handler(event, context):
                     correct_sympy, student_sympy = tmp
                     if _check_function == 'PolyExpansionCompare':
                         result = globals()[_check_function](correct_sympy, student_sympy, _symbol, _order)
-                    elif _check_function in ['NumCompare','PolyCompare']:
+                    elif _check_function in ['NumCompare']:
+                        result = globals()[_check_function](correct_sympy, student_sympy, _form, _order, _de)
+                    elif _check_function in ['PolyCompare']:
                         result = globals()[_check_function](correct_sympy, student_sympy, _form, _order)
                     elif _check_function in ['PairCompare', 'SignCompare']:
                         result = globals()[_check_function](correct_sympy, student_sympy, _order)
@@ -107,28 +111,31 @@ def test():
         # ** order **
         {"ID": "2", "check_function": "NumCompare", "correct_answer": "1,\,2", "student_answer": "1,2",
          "order": 'Fix'},
+        # ** de **
+        {"ID": "3", "check_function": "NumCompare", "correct_answer": r"\frac{\sqrt{6}+\sqrt{3}}{3}'", "student_answer": "sqrt(6)/3+sqrt(3)/3",
+         "de": 'Rtn'},
 
         # ** PolyCompare **
         # ** order **
-        {"ID": "3", "check_function": "PolyCompare", "correct_answer": "x^2,x,1", "student_answer": "1,x**2,x"},
+        {"ID": "4", "check_function": "PolyCompare", "correct_answer": "x^2,x,1", "student_answer": "1,x**2,x"},
 
         # ** PolyExpansionCompare **
-        {"ID": "4", "check_function": "PolyExpansionCompare", "correct_answer": "x^2+x", "student_answer": "x^2+x"},
+        {"ID": "5", "check_function": "PolyExpansionCompare", "correct_answer": "x^2+x", "student_answer": "x^2+x"},
         # ** order **
-        {"ID": "5", "check_function": "PolyExpansionCompare", "correct_answer": "x^2+x", "student_answer": "x**2+x",
+        {"ID": "6", "check_function": "PolyExpansionCompare", "correct_answer": "x^2+x", "student_answer": "x**2+x",
          "order": 'Dec', "symbol": 'x'},
 
         # ** NoSignCompare **
-        {"ID": "6", "check_function": "NoSignCompare", "correct_answer": "xy", "student_answer": "x*y"},
+        {"ID": "7", "check_function": "NoSignCompare", "correct_answer": "xy", "student_answer": "x*y"},
 
         # ** EqCompare **
-        {"ID": "7", "check_function": "EqCompare", "correct_answer": "y=300x", "student_answer": "y=300*x"},
+        {"ID": "8", "check_function": "EqCompare", "correct_answer": "y=300x", "student_answer": "y=300*x"},
 
         # ** IneqCompare **
-        {"ID": "8", "check_function": "IneqCompare", "correct_answer": "x\ge1", "student_answer": "x>=1"},
+        {"ID": "9", "check_function": "IneqCompare", "correct_answer": "x\ge1", "student_answer": "x>=1"},
 
         # ** PolyFormCompare **
-        {"ID": "9", "check_function": "PolyFormCompare", "correct_answer": "-x-\\dfrac{1}{2}x", "student_answer": "-x-1/2*x"}
+        {"ID": "10", "check_function": "PolyFormCompare", "correct_answer": "-x-\\dfrac{1}{2}x", "student_answer": "-x-1/2*x"}
     ]}
 
     ''' TestCase-False '''
@@ -138,42 +145,46 @@ def test():
         {"ID": "1", "check_function": "NumCompare", "correct_answer": "0.5", "student_answer": "(1)/(2)",
          "form": 'Fix'},
         # ** order **
-        {"ID": "2", "check_function": "NumCompare", "correct_answer": "1,\,2", "student_answer": "2,\,1",
+        {"ID": "2", "check_function": "NumCompare", "correct_answer": "1,\,2", "student_answer": "2,1",
          "order": 'Fix'},
+        # ** de **
+        {"ID": "3", "check_function": "NumCompare", "correct_answer": r"\frac{\sqrt{6}+\sqrt{3}}{3}'",
+         "student_answer": "sqrt(2)/sqrt(3)+1/sqrt(3)",
+         "de": 'Rtn'},
 
         # ** PolyCompare **
         # ** order **
-        {"ID": "3", "check_function": "PolyCompare", "correct_answer": "x^2,x,1", "student_answer": "1,x**2,x",
+        {"ID": "4", "check_function": "PolyCompare", "correct_answer": "x^2,x,1", "student_answer": "1,x**2,x",
          "order": 'Fix'},
         # ** form **
-        {"ID": "4", "check_function": "PolyCompare", "correct_answer": "4000-0.5x", "student_answer": "4000-1/2*x",
+        {"ID": "5", "check_function": "PolyCompare", "correct_answer": "4000-0.5x", "student_answer": "4000-1/2*x",
          "form": 'Fix'},
 
         # ** PolyExpansionCompare **
-        {"ID": "5", "check_function": "PolyExpansionCompare", "correct_answer": "x^2+x", "student_answer": "x*(x+1)"},
+        {"ID": "6", "check_function": "PolyExpansionCompare", "correct_answer": "x^2+x", "student_answer": "x*(x+1)"},
         # ** order **
-        {"ID": "6", "check_function": "PolyExpansionCompare", "correct_answer": "x+x^2", "student_answer": "x**2+x",
+        {"ID": "7", "check_function": "PolyExpansionCompare", "correct_answer": "x+x^2", "student_answer": "x**2+x",
          "order": 'Acc', "symbol": 'x'},
 
         # ** NoSignCompare **
-        {"ID": "7", "check_function": "NoSignCompare", "correct_answer": "xy", "student_answer": "x×y"},
-        {"ID": "8", "check_function": "NoSignCompare", "correct_answer": "0.1a", "student_answer": "0.a"},
+        {"ID": "8", "check_function": "NoSignCompare", "correct_answer": "xy", "student_answer": "x×y"},
+        {"ID": "9", "check_function": "NoSignCompare", "correct_answer": "0.1a", "student_answer": "0.a"},
 
         # ** EqCompare **
-        {"ID": "9", "check_function": "EqCompare", "correct_answer": "y=300x", "student_answer": "2*y=2*300*x",
+        {"ID": "10", "check_function": "EqCompare", "correct_answer": "y=300x", "student_answer": "2*y=2*300*x",
          "leading_coeff": "Fix"},
 
         # ** IneqCompare **
-        {"ID": "10", "check_function": "IneqCompare", "correct_answer": "x\ge1", "student_answer": "x>1"},
+        {"ID": "11", "check_function": "IneqCompare", "correct_answer": "x\ge1", "student_answer": "x>1"},
 
         # ** PolyFormCompare **
-        {"ID": "11", "check_function": "PolyFormCompare", "correct_answer": "2(x-3)^2", "student_answer": "2*(3-x)**2"}
+        {"ID": "12", "check_function": "PolyFormCompare", "correct_answer": "2(x-3)^2", "student_answer": "2*(3-x)**2"}
     ]}
 
     context = 'test'
-    output = sympy_eval_handler(event, context)
+    # output = sympy_eval_handler(event, context)
     # output = sympy_eval_handler(evt_True, context)
-    # output = sympy_eval_handler(evt_False, context)
+    output = sympy_eval_handler(evt_False, context)
     print("====> output: " + output)
 
 

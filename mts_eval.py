@@ -101,7 +101,7 @@ def sympy_eval_handler(event, context):
 
 def test():
     event = {"answer": [
-        {"ID": "1", "check_function": "EqCompare", "correct_answer": "y=- \\frac{x^{2}}{2} + 16 x", "student_answer": "y=-0.5*(x)**(2)+16*x","form":"Fix"}]}
+        {"ID": "1", "check_function": "PolyCompare", "correct_answer": "4 x^{2} - 20 x y + 8 x z + 25 y^{2} - 20 y z + 4 z^{2}", "student_answer": "4*(x)**(2)+25*(y)**(2)+4*(z)**(2)-20*x*y-20*y*z+8*z*x"}]}
 
     ''' TestCase-True '''
     evt_True = {"answer": [
@@ -182,9 +182,9 @@ def test():
     ]}
 
     context = 'test'
-    # output = sympy_eval_handler(event, context)
+    output = sympy_eval_handler(event, context)
     # output = sympy_eval_handler(evt_True, context)
-    output = sympy_eval_handler(evt_False, context)
+    # output = sympy_eval_handler(evt_False, context)
     print("====> output: " + output)
 
 

@@ -75,7 +75,7 @@ def NumCompare(correct_sympy, student_sympy,form=None,order=None,de=None):
     # print(sign(correct_sympy[0]), student_sympy)
     # 리스트 비교(항목 개수, 동류항 정리, 정렬)
     cnt = len(correct_sympy)
-    if cnt != len(student_sympy): print('1');return False
+    if cnt != len(student_sympy): print('1','진짜?');return False
     if order == None:
         correct_sympy = sorted(correct_sympy,key = lambda x: x.as_real_imag())
         student_sympy = sorted(student_sympy,key = lambda x: x.as_real_imag())
@@ -83,12 +83,14 @@ def NumCompare(correct_sympy, student_sympy,form=None,order=None,de=None):
     return all(single_num(correct_sympy[i], student_sympy[i],form = form, de= de) for i in range(cnt))
 
 if __name__ == "__main__":
-    correct_sympy, student_sympy = Ans2Sympy(r'\frac{\sqrt{6}+\sqrt{3}}{3}','sqrt(6)/3+sqrt(3)/3',f='NumCompare')
-    print('결과: ',NumCompare(correct_sympy, student_sympy, de = "Rtn"),True)
-    correct_sympy, student_sympy = Ans2Sympy(r'\frac{\sqrt{6}+\sqrt{3}}{3}', '(sqrt(2)+1)/sqrt(3)', f='NumCompare')
-    print('결과: ', NumCompare(correct_sympy, student_sympy, de="Rtn"), False)
-    correct_sympy, student_sympy = Ans2Sympy(r'\frac{\sqrt{6}+\sqrt{3}}{3}', 'sqrt(2)/sqrt(3)+1/sqrt(3)', f='NumCompare')
-    print('결과: ', NumCompare(correct_sympy, student_sympy, de="Rtn"), False)
+    # correct_sympy, student_sympy = Ans2Sympy(r'\frac{\sqrt{6}+\sqrt{3}}{3}','sqrt(6)/3+sqrt(3)/3',f='NumCompare')
+    # print('결과: ',NumCompare(correct_sympy, student_sympy, de = "Rtn"),True)
+    # correct_sympy, student_sympy = Ans2Sympy(r'\frac{\sqrt{6}+\sqrt{3}}{3}', '(sqrt(2)+1)/sqrt(3)', f='NumCompare')
+    # print('결과: ', NumCompare(correct_sympy, student_sympy, de="Rtn"), False)
+    # correct_sympy, student_sympy = Ans2Sympy(r'\frac{\sqrt{6}+\sqrt{3}}{3}', 'sqrt(2)/sqrt(3)+1/sqrt(3)', f='NumCompare')
+    # print('결과: ', NumCompare(correct_sympy, student_sympy, de="Rtn"), False)
+    correct_sympy, student_sympy = Ans2Sympy(r'\pm \sqrt{17} i', 'sqrt(17)*I,-sqrt(17)*I', f='NumCompare')
+    print('결과: ', NumCompare(correct_sympy, student_sympy), True)
 
 # correct_sympy, student_sympy = Ans2Sympy(r'6','2*3')
 # # print(correct_sympy,student_sympy,correct_sympy[0].args,student_sympy[0].args)

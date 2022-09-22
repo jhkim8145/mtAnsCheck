@@ -42,6 +42,7 @@ def IsDegreeEqual(cr_sp, st_sp):
         try: n = degree(a)
         except: n = 0
         return n
+
     if Degree(cr_sp) != Degree(st_sp): return False
     if type(cr_sp) == Add:
         tmp_args = cr_sp.args
@@ -73,7 +74,7 @@ def single_poly(cr_sp, st_sp, form=None): #정답 order 관계X
 
     # 다항식 분자, 분모 차수 확인(x**2/x 방지)
     if IsDegreeEqual(cr_sp, st_sp) == 0:
-        print(2, '차수비교 false', cr_sp, st_sp); return False
+        print(2, '차수비교 false',cr_sp,st_sp); return False
 
     if IsSimilarTerm(cr_sp) == 1 and IsSimilarTerm(st_sp) == 0:
         print(3, '동류항 정리X'); return False
@@ -105,6 +106,8 @@ def PolyCompare(correct_sympy, student_sympy, form=None, order=None): #정답 or
 # # correct_sympy, student_sympy = Ans2Sympy(r'3xy, -5xy','-5xy,3xy')
 # correct_sympy, student_sympy = Ans2Sympy(r'4000-0.5x','4000-1/2*x')
 # print(PolyCompare(correct_sympy, student_sympy,form="Fix"))
+# correct_sympy, student_sympy = Ans2Sympy(r'x+1,x-1','x-1,x+1')
+# print(PolyCompare(correct_sympy, student_sympy))
 
 def NoSignCompare(correct_sympy, student_sympy):
     c_sympy, s_sympy = Latex2Sympy(correct_sympy), Parse2Sympy(student_sympy)

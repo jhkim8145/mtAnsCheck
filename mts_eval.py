@@ -29,6 +29,7 @@ def sympy_eval_handler(event, context):
         _form = object[cnt]['form'] if 'form' in object[cnt].keys() else None
         _leading_coeff = object[cnt]['leading_coeff'] if 'leading_coeff' in object[cnt].keys() else None
         _de = object[cnt]['de'] if 'de' in object[cnt].keys() else None
+        _sol = object[cnt]['sol'] if 'sol' in object[cnt].keys() else None
 
         '''
             StrCompare: 0
@@ -55,6 +56,7 @@ def sympy_eval_handler(event, context):
 
             IneqCompare: 9
               - form == 'Fix' # 숫자 형태 관련
+              - sol == 'T' # 숫자 형태 관련
               
             SignCompare: 10
               - order == 'Fix' # 리스트일 때 순서 고정
@@ -80,7 +82,7 @@ def sympy_eval_handler(event, context):
                     elif _check_function == 'EqCompare':
                         result = globals()[_check_function](correct_sympy, student_sympy, _leading_coeff)
                     elif _check_function == 'IneqCompare':
-                        result = globals()[_check_function](correct_sympy, student_sympy, _form)
+                        result = globals()[_check_function](correct_sympy, student_sympy, _form, _sol)
                     else:
                         result = globals()[_check_function](correct_sympy, student_sympy)
             except Exception as expt:
@@ -101,7 +103,7 @@ def sympy_eval_handler(event, context):
 
 def test():
     event = {"answer": [
-        {"ID": "1", "check_function": "PolyCompare", "correct_answer": "4 x^{2} - 20 x y + 8 x z + 25 y^{2} - 20 y z + 4 z^{2}", "student_answer": "4*(x)**(2)+25*(y)**(2)+4*(z)**(2)-20*x*y-20*y*z+8*z*x"}]}
+        {"ID": "1", "check_function": "NumCompare", "correct_answer": "\\pm \\sqrt{17} i", "student_answer": "sqrt(17)*I,-sqrt(17)*I"}]}
 
     ''' TestCase-True '''
     evt_True = {"answer": [

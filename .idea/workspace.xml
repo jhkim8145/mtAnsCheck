@@ -7,6 +7,9 @@
     <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="9/13 16:50 NumCompare / mts_eval 수정 (&quot;de&quot; param 추가)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mts/answer_conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/answer_conversion.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mts/ineq_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/ineq_compare.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mts/number_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/number_compare.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mts/poly_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/poly_compare.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mts_eval.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts_eval.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -67,7 +70,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="eqn_compare" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="ineq_compare" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="mtAnsCheck" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -79,7 +82,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mts/eqn_compare.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mts/ineq_compare.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -155,9 +158,9 @@
       <list>
         <item itemvalue="Python.answer_conversion" />
         <item itemvalue="Python.mts_eval" />
+        <item itemvalue="Python.ineq_compare" />
         <item itemvalue="Python.poly_compare" />
         <item itemvalue="Python.number_compare" />
-        <item itemvalue="Python.eqn_compare" />
       </list>
     </recent_temporary>
   </component>

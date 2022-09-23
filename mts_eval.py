@@ -30,6 +30,7 @@ def sympy_eval_handler(event, context):
         _leading_coeff = object[cnt]['leading_coeff'] if 'leading_coeff' in object[cnt].keys() else None
         _de = object[cnt]['de'] if 'de' in object[cnt].keys() else None
         _sol = object[cnt]['sol'] if 'sol' in object[cnt].keys() else None
+        _poly = object[cnt]['poly'] if 'poly' in object[cnt].keys() else None
 
         '''
             StrCompare: 0
@@ -56,7 +57,8 @@ def sympy_eval_handler(event, context):
 
             IneqCompare: 9
               - form == 'Fix' # 숫자 형태 관련
-              - sol == 'T' # 숫자 형태 관련
+              - poly == 'Fix' # 한 쪽 변의 다항식이 정답과 일치(동류항 계산 여부와 상관 없음)
+              - sol == 'T' # 부등식 해 표현(한 변이 계수가 1인 일차항 -> Ans2Sympy에서 사용)
               
             SignCompare: 10
               - order == 'Fix' # 리스트일 때 순서 고정
@@ -66,7 +68,7 @@ def sympy_eval_handler(event, context):
 
         if (len(_student_answer) > 0):
             try:
-                tmp = Ans2Sympy(_correct_answer, _student_answer, f=_check_function)
+                tmp = Ans2Sympy(_correct_answer, _student_answer, f=_check_function, sol=_sol)
                 if tmp == True: result = True
                 elif tmp == False: print("1* *1 /1 생략X"); result = False
                 else:
@@ -82,7 +84,7 @@ def sympy_eval_handler(event, context):
                     elif _check_function == 'EqCompare':
                         result = globals()[_check_function](correct_sympy, student_sympy, _leading_coeff)
                     elif _check_function == 'IneqCompare':
-                        result = globals()[_check_function](correct_sympy, student_sympy, _form, _sol)
+                        result = globals()[_check_function](correct_sympy, student_sympy, _form, _poly)
                     else:
                         result = globals()[_check_function](correct_sympy, student_sympy)
             except Exception as expt:
@@ -103,7 +105,7 @@ def sympy_eval_handler(event, context):
 
 def test():
     event = {"answer": [
-        {"ID": "1", "check_function": "NumCompare", "correct_answer": "\\pm \\sqrt{17} i", "student_answer": "sqrt(17)*I,-sqrt(17)*I"}]}
+        {"ID": "1", "check_function": "IneqCompare", "correct_answer": "-3<-x+2<-1", "student_answer": "3<x<5", "poly": "Fix"}]}
 
     ''' TestCase-True '''
     evt_True = {"answer": [
@@ -178,9 +180,11 @@ def test():
 
         # ** IneqCompare **
         {"ID": "11", "check_function": "IneqCompare", "correct_answer": "x\ge1", "student_answer": "x>1"},
+        {"ID": "12", "check_function": "IneqCompare", "correct_answer": "x\gt-30", "student_answer": "-x<30","sol":"T"},
+        {"ID": "13", "check_function": "IneqCompare", "correct_answer": "x>6-3", "student_answer": "x+3>6", "poly": "Fix"},
 
         # ** PolyFormCompare **
-        {"ID": "12", "check_function": "PolyFormCompare", "correct_answer": "2(x-3)^2", "student_answer": "2*(3-x)**2"}
+        {"ID": "14", "check_function": "PolyFormCompare", "correct_answer": "2(x-3)^2", "student_answer": "2*(3-x)**2"}
     ]}
 
     context = 'test'
@@ -194,5 +198,5 @@ if __name__ == '__main__':
     test()
 
 '''
-    공통 false: 동류항 정리 안 한 답(x+x, 1+1), 계수 1 생략 안 한 답(1*x, -1*2, 3/1) 
+    공통 false: 계수 1 생략 안 한 답(1*x, -1*2, 3/1), 동류항 정리 안 한 답은 정답의 동류항 저일 여부에 따름 (x+x, 1+1)
 '''

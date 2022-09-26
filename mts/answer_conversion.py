@@ -15,7 +15,8 @@ ns={'Symbol':Symbol,'Integer':Integer,'Float':Float,'Rational':Rational,'Eq':Eq,
 
 def P(string):
     return parse_expr(string, transformations=standard_transformations+(implicit_multiplication_application, convert_xor,implicit_application,implicit_multiplication,convert_equals_signs,function_exponentiation), local_dict=ns, evaluate=False)
-print(simplify(P('x-1-2')),P('1-a'),P('x-10'),P('x-y'))
+# print(simplify(P('x-1-2')),P('1-a'),P('x-10'),P('x-y'))
+
 # -1*1 -> -1로 변환
 def DelMulOne(sympy_tuple):
     ret = list(sympy_tuple)
@@ -105,12 +106,13 @@ def Latex2Sympy(expr):
     else:
         return 'latex 변환에 실패했습니다.'
 
+# print(latex2sympy('\sqrt{2}').args, latex2sympy('2^{\\frac{1}{2}}').args)
 # print(Latex2Sympy('x-1'),Parse2Sympy('x-1'))
 # print(Latex2Sympy(r'\dfrac{1}{2}+0.5x'),sep="\n")
 # print(Parse2Sympy(r'a-5xa'),Parse2Sympy(r'a-5xa').args)
 # print(Latex2Sympy(r'0.[5]'))
 # print(Latex2Sympy(r'-0.\dot{5}'))
-# #print(latex2sympy('a<b<c'),findall(r'([<>][=]?)', str('a<=b<c')),latex2sympy('a<1,a>1'),latex2sympy(r'a\ne2'))
+# print(latex2sympy('a<b<c'),findall(r'([<>][=]?)', str('a<=b<c')),latex2sympy('a<1,a>1'),latex2sympy(r'a\ne2'))
 # print(Parse2Sympy('0.5'),together(Parse2Sympy('(i-1)/2')),DelMulOne([Latex2Sympy('i-1,1')]))
 # print(Latex2Sympy(r'\sqrt{1-5xy}').args[0].args,Parse2Sympy('sqrt(1-5*x*y)').args[0].args,'요호')
 # print(Latex2Sympy(r'\sqrt{1-5xy}'),Parse2Sympy('sqrt(1-5*x*y)'))
@@ -165,14 +167,14 @@ def Ineq2Sympy(correct_latex, student_str,sol=None):
                     print('부등식의 해 형식X (계수가 1인 문자)')
                     return False
     return cr_l,st_l
-# print(Ineq2Sympy('x>1','x>1',sol="T"))
+# print(Ineq2Sympy(r'x\gt 1',r'1\le x\lt 3',sol="T"))
 # compare에 따른 correct_sympy, student_sympy 변환
 def Ans2Sympy(correct_latex,student_str,f = None,sol=None):
 
     _sol = sol
 
     print('Ans2Sympy input', correct_latex, student_str)
-    repls = {r'\,': '', r'\rm': '', r'\left': '', r'\right': ''} #
+    repls = {r'\,': '', r'\rm': '', r'\left': '', r'\right': ''}
     for key in repls.keys():
         correct_latex = correct_latex.replace(key, repls[key])
 
@@ -223,7 +225,7 @@ def Ans2Sympy(correct_latex,student_str,f = None,sol=None):
 
     print('Ans2Sympy output', correct_sympy, student_sympy)
     return [correct_sympy, student_sympy]
-# Ans2Sympy('x^2+4x+4','x**2+4*(x+1)')
+Ans2Sympy('x^2+4x+4','x**2+4*(x+1)')
 # Ans2Sympy('x-1,x+1','x+1,x-1',f = 'PolyCompare')
 # Ans2Sympy('-(a-2b)(x-y)','-(a-2*b)*(x-y)',f = 'PolyFactorCompare')
 # Ans2Sympy('xy+3x+5y+15','xy+3x+5y+10+5',f = 'PolyExpansionCompare')

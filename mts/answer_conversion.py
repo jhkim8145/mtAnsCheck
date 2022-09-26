@@ -15,7 +15,7 @@ ns={'Symbol':Symbol,'Integer':Integer,'Float':Float,'Rational':Rational,'Eq':Eq,
 
 def P(string):
     return parse_expr(string, transformations=standard_transformations+(implicit_multiplication_application, convert_xor,implicit_application,implicit_multiplication,convert_equals_signs,function_exponentiation), local_dict=ns, evaluate=False)
-# print(simplify(P('x-1-2')),P('1-a'),P('x-10'),P('x-y'))
+print(simplify(P('x-1-2')),P('1-a'),P('x-10'),P('x-y'))
 # -1*1 -> -1로 변환
 def DelMulOne(sympy_tuple):
     ret = list(sympy_tuple)
@@ -172,7 +172,7 @@ def Ans2Sympy(correct_latex,student_str,f = None,sol=None):
     _sol = sol
 
     print('Ans2Sympy input', correct_latex, student_str)
-    repls = {r'\,': '', r'\rm': '', r'\left': '', r'\right': ''}
+    repls = {r'\,': '', r'\rm': '', r'\left': '', r'\right': ''} #
     for key in repls.keys():
         correct_latex = correct_latex.replace(key, repls[key])
 

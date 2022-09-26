@@ -54,6 +54,7 @@ def sympy_eval_handler(event, context):
 
             EqCompare: 8
               - leading_coeff == 'Fix' # 최고차항 계수 고정
+              - form == 'Fix' # 숫자 형태 관련
 
             IneqCompare: 9
               - form == 'Fix' # 숫자 형태 관련
@@ -82,7 +83,7 @@ def sympy_eval_handler(event, context):
                     elif _check_function in ['PairCompare', 'SignCompare']:
                         result = globals()[_check_function](correct_sympy, student_sympy, _order)
                     elif _check_function == 'EqCompare':
-                        result = globals()[_check_function](correct_sympy, student_sympy, _leading_coeff)
+                        result = globals()[_check_function](correct_sympy, student_sympy, _form, _leading_coeff)
                     elif _check_function == 'IneqCompare':
                         result = globals()[_check_function](correct_sympy, student_sympy, _form, _poly)
                     else:
@@ -105,7 +106,7 @@ def sympy_eval_handler(event, context):
 
 def test():
     event = {"answer": [
-        {"ID": "1", "check_function": "IneqCompare", "correct_answer": "-3<-x+2<-1", "student_answer": "3<x<5", "poly": "Fix"}]}
+        {"ID": "1", "check_function": "EqCompare", "correct_answer": "3x-7y=1", "student_answer": "3x-7y=1", "form": "Fix"}]}
 
     ''' TestCase-True '''
     evt_True = {"answer": [

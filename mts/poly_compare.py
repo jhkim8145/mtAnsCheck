@@ -1,6 +1,7 @@
 from sympy import *
 from re import *
 from mts.answer_conversion import *
+from collections import deque
 
 # 단순값 비교
 def IsEqual(sympy1, sympy2): #정답 order 관계X
@@ -90,18 +91,29 @@ def single_poly(cr_sp, st_sp, form=None): #정답 order 관계X
     return True
 # correct_sympy, student_sympy = Ans2Sympy(r'500-150\times a','500-150 × a')
 # correct_sympy, student_sympy = Ans2Sympy(r'\dfrac{1}{2}-0.5x','1/2-0.5x')
-# print(correct_sympy,student_sympy)
+# correct_sympy, student_sympy = Ans2Sympy(r'x+1,x-1','x+1,x-1')
 # correct_sympy, student_sympy = correct_sympy[0], student_sympy[0]
-# print(single_poly(correct_sympy, student_sympy,form="Fix"))
+# print(single_poly(correct_sympy, student_sympy))
 
 # 다항식 단순 비교(동류항 정리 조건만 만족, 정답과 차수 일치)
 def PolyCompare(correct_sympy, student_sympy, form=None, order=None): #정답 order 관계X
-    if order == None:
-        correct_sympy = sorted(correct_sympy, key=lambda x: x.sort_key())
-        student_sympy = sorted(student_sympy, key=lambda x: x.sort_key())
+    _form = form
+    _order = order
+
     if len(correct_sympy) != len(student_sympy): return False
-    if all(single_poly(correct_sympy[i], student_sympy[i], form) for i in range(len(correct_sympy))) == 0: print('PolyCompare',1);return False
-    return True
+    if order == "Fix":
+        return all(single_poly(correct_sympy[i], student_sympy[i], _form) for i in range(len(correct_sympy))) == 0
+
+    for st_poly in student_sympy:
+        # print(correct_sympy)
+        for cr_poly in correct_sympy:
+            if single_poly(cr_poly,st_poly,_form):
+                correct_sympy.remove(cr_poly)
+                # print('poly 일치',cr_poly,st_poly)
+                break
+
+    return correct_sympy == []
+
 # correct_sympy, student_sympy = Ans2Sympy('3yz+2xyz','(15xyz+10x**2yz)/(5x)')
 # # correct_sympy, student_sympy = Ans2Sympy(r'3xy, -5xy','-5xy,3xy')
 # correct_sympy, student_sympy = Ans2Sympy(r'4000-0.5x','4000-1/2*x')

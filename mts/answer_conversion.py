@@ -172,7 +172,7 @@ def Ans2Sympy(correct_latex,student_str,f = None,sol=None):
     _sol = sol
 
     print('Ans2Sympy input', correct_latex, student_str)
-    repls = {r'\,':'',r'\rm':''}
+    repls = {r'\,': '', r'\rm': '', r'\left': '', r'\right': ''}
     for key in repls.keys():
         correct_latex = correct_latex.replace(key, repls[key])
 
@@ -235,4 +235,5 @@ def Ans2Sympy(correct_latex,student_str,f = None,sol=None):
 # Ans2Sympy(r'\pm \sqrt{17} i', 'sqrt(17)*I,-sqrt(17)*I', f='NumCompare')
 # Ans2Sympy(r'-5\le 3x-2 < 7','-5 <= 3x-2 < 7',f = 'IneqCompare')
 # if __name__ == "__main__":
-#     Ans2Sympy(r'x\ge 8,x!=7,x=2','8<=x,x!=7,x=2',f = 'IneqCompare')
+#     # Ans2Sympy(r'x\ge 8,x!=7,x=2','8<=x,x!=7,x=2',f = 'IneqCompare')
+#     Ans2Sympy(r'\left(1,\dfrac{1}{2}\right)', '(1,1/2)', f='PairCompare')

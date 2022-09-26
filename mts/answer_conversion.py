@@ -3,6 +3,7 @@ from sympy.parsing.sympy_parser import parse_expr,standard_transformations,impli
 from latex2sympy2 import latex2sympy
 from re import split,sub,findall,search,finditer
 
+
 ns={'Symbol':Symbol,'Integer':Integer,'Float':Float,'Rational':Rational,'Eq':Eq,'I':I,
     'i':I,'E':E,'e':E,'pi':pi,'exp':exp,'log':log,'ln':ln,'logten':lambda x:log(x,10),
     'sqrt':sqrt,'factorial':factorial,'fact':factorial,'sin':sin,'cos':cos,'tan':tan,
@@ -132,55 +133,19 @@ def Latex2Sympy(expr):
 # print(Latex2Sympy('-5xy'),Parse2Sympy('-5*x*y'))
 # print(Latex2Sympy(r'0.5'),Parse2Sympy('1/2'))
 
-# 부등식 a<b<c, !=(\ne)(str)을 sympy 형태로 변환
-def Ineq2Sympy(correct_latex, student_str,sol=None):
-    cr_l = correct_latex.split(',')
-    st_l = student_str.split(',')
-    # print(cr_l,st_l)
-    for j in range(2):
-        f = [lambda x: Latex2Sympy(x),lambda x: Parse2Sympy(x)][j]
-        l = [cr_l,st_l][j]
-        for i in range(len(l)):
-            ptn = [r'[<>][=]?|\\[gl][et]',r'!=|\\ne'] # 부등식 관련 명령어 추출 정규식
-            rel = list(map(lambda x: x.replace("\\",""), findall('|'.join(ptn), l[i])))
-            parts = split('|'.join(ptn), l[i])
-            print(rel, parts)
 
 
-            if len(findall(ptn[0], l[i])) == 2: # a <(=) x <(=) b 변환
-                ineq = [Rel(f(parts[0]),f(parts[1]),rel[0]),Rel(f(parts[1]),f(parts[2]),rel[1])]
-                l[i] = And(ineq[0].canonical, ineq[1].canonical)
-            elif len(findall(ptn[1], l[i])) > 0: # x != a 변환
-                ineq = [Rel(f(parts[0]), f(parts[1]), '<'), Rel(f(parts[0]), f(parts[1]), '>')]
-                l[i] = Or(ineq[0].canonical, ineq[1].canonical)
-            elif "=" in l[i] and len(findall('[<|>]', l[i])) == 0: # x = a 변환
-                parts = split('=', l[i])
-                ineq = [Rel(f(parts[0]), f(parts[1]), '==')]
-                l[i] = ineq[0].canonical
-            else:
-                ineq = [Rel(f(parts[0]), f(parts[1]), rel[0])]
-                l[i] = ineq[0].canonical
-            if sol != None:
-                symb = list(l[i].args[0].atoms(Symbol))[0]
-                lrhs = list(map(simplify,parts))
-                if symb not in lrhs:
-                    print('부등식의 해 형식X (계수가 1인 문자)')
-                    return False
-    return cr_l,st_l
-# print(Ineq2Sympy(r'x\gt 1',r'1\le x\lt 3',sol="T"))
 # compare에 따른 correct_sympy, student_sympy 변환
-def Ans2Sympy(correct_latex,student_str,f = None,sol=None):
-
-    _sol = sol
+def Ans2Sympy(correct_latex,student_str,f = None):
 
     print('Ans2Sympy input', correct_latex, student_str)
     repls = {r'\,': '', r'\rm': '', r'\left': '', r'\right': ''}
     for key in repls.keys():
         correct_latex = correct_latex.replace(key, repls[key])
 
-    # if correct_latex.replace(" ","") == student_str.replace(" ",""): print('input str 같음'); return True
+    if correct_latex.replace(" ","") == student_str.replace(" ",""): print('input str 같음'); return True
 
-    if f == 'StrCompare' or f == 'SignCompare' or f == 'NoSignCompare':
+    if f == 'StrCompare' or f == 'SignCompare' or f == 'NoSignCompare' or f == 'IneqCompare':
         correct_sympy = correct_latex
         student_sympy = student_str
     elif f == 'PairCompare':
@@ -190,11 +155,6 @@ def Ans2Sympy(correct_latex,student_str,f = None,sol=None):
         s_split_str = list(filter(lambda x: search(r'\)|\(',x) != None, s_split_str))
         correct_sympy = list(map(lambda str: Latex2Sympy(str[1:-1]), c_split_str))
         student_sympy = list(map(lambda str: list(Parse2Sympy(str)), s_split_str))
-    elif f == 'IneqCompare':
-        if Ineq2Sympy(correct_latex, student_str,_sol) == False:
-            return False
-        else:
-            correct_sympy, student_sympy = Ineq2Sympy(correct_latex, student_str,_sol)
     else:
         ptn = '(?<![0-9])([1]\*{1})(?!\*)|(?<!\*)([\*\/]{1}[1])(?![0-9])'
         if len(findall(ptn, student_str)) != 0: return False #계수 1 생략X
@@ -225,7 +185,7 @@ def Ans2Sympy(correct_latex,student_str,f = None,sol=None):
 
     print('Ans2Sympy output', correct_sympy, student_sympy)
     return [correct_sympy, student_sympy]
-Ans2Sympy('x^2+4x+4','x**2+4*(x+1)')
+# Ans2Sympy('x^2+4x+4','x**2+4*(x+1)')
 # Ans2Sympy('x-1,x+1','x+1,x-1',f = 'PolyCompare')
 # Ans2Sympy('-(a-2b)(x-y)','-(a-2*b)*(x-y)',f = 'PolyFactorCompare')
 # Ans2Sympy('xy+3x+5y+15','xy+3x+5y+10+5',f = 'PolyExpansionCompare')

@@ -101,8 +101,9 @@ def PolyCompare(correct_sympy, student_sympy, form=None, order=None): #정답 or
     _order = order
 
     if len(correct_sympy) != len(student_sympy): return False
-    if order == "Fix":
-        return all(single_poly(correct_sympy[i], student_sympy[i], _form) for i in range(len(correct_sympy))) == 0
+    if _order == "Fix":
+        if all(single_poly(correct_sympy[i], student_sympy[i], _form) for i in range(len(correct_sympy))) == 0:
+            return False
 
     for st_poly in student_sympy:
         # print(correct_sympy)
@@ -119,7 +120,7 @@ def PolyCompare(correct_sympy, student_sympy, form=None, order=None): #정답 or
 # correct_sympy, student_sympy = Ans2Sympy(r'4000-0.5x','4000-1/2*x')
 # print(PolyCompare(correct_sympy, student_sympy,form="Fix"))
 # correct_sympy, student_sympy = Ans2Sympy(r'x+1,x-1','x-1,x+1')
-# print(PolyCompare(correct_sympy, student_sympy))
+# print(PolyCompare(correct_sympy, student_sympy, order="Fix"))
 
 def NoSignCompare(correct_sympy, student_sympy):
     c_sympy, s_sympy = Latex2Sympy(correct_sympy), Parse2Sympy(student_sympy)

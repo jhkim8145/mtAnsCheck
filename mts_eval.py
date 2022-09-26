@@ -58,8 +58,7 @@ def sympy_eval_handler(event, context):
 
             IneqCompare: 9
               - form == 'Fix' # 숫자 형태 관련
-              - poly == 'Fix' # 한 쪽 변의 다항식이 정답과 일치(동류항 계산 여부와 상관 없음)
-              - sol == 'T' # 부등식 해 표현(한 변이 계수가 1인 일차항 -> Ans2Sympy에서 사용)
+              - poly == 'Fix' # 한 쪽 변의 다항식이 정답과 일치(동류항 계산 여부는 정답을 따름)
               
             SignCompare: 10
               - order == 'Fix' # 리스트일 때 순서 고정
@@ -69,7 +68,7 @@ def sympy_eval_handler(event, context):
 
         if (len(_student_answer) > 0):
             try:
-                tmp = Ans2Sympy(_correct_answer, _student_answer, f=_check_function, sol=_sol)
+                tmp = Ans2Sympy(_correct_answer, _student_answer, f=_check_function)
                 if tmp == True: result = True
                 elif tmp == False: print("1* *1 /1 생략X"); result = False
                 else:
@@ -106,7 +105,7 @@ def sympy_eval_handler(event, context):
 
 def test():
     event = {"answer": [
-        {"ID": "1", "check_function": "EqCompare", "correct_answer": "3x-7y=1", "student_answer": "3x-7y=1", "form": "Fix"}]}
+        {"ID": "1", "check_function": "IneqCompare", "correct_answer": "-5< 5x <5", "student_answer": "-1<x<1", "poly": "Fix"}]}
 
     ''' TestCase-True '''
     evt_True = {"answer": [
@@ -181,7 +180,7 @@ def test():
 
         # ** IneqCompare **
         {"ID": "11", "check_function": "IneqCompare", "correct_answer": "x\ge1", "student_answer": "x>1"},
-        {"ID": "12", "check_function": "IneqCompare", "correct_answer": "x\gt-30", "student_answer": "-x<30","sol":"T"},
+        {"ID": "12", "check_function": "IneqCompare", "correct_answer": "x\gt-30", "student_answer": "-x<30", "poly": "Fix"},
         {"ID": "13", "check_function": "IneqCompare", "correct_answer": "x>6-3", "student_answer": "x+3>6", "poly": "Fix"},
 
         # ** PolyFormCompare **
@@ -189,9 +188,9 @@ def test():
     ]}
 
     context = 'test'
-    output = sympy_eval_handler(event, context)
-    # output = sympy_eval_handler(evt_True, context)
-    # output = sympy_eval_handler(evt_False, context)
+    # output = sympy_eval_handler(event, context)
+    output = sympy_eval_handler(evt_True, context)
+    output = sympy_eval_handler(evt_False, context)
     print("====> output: " + output)
 
 

@@ -17,8 +17,8 @@ def Ineq2Sympy(correct_latex, student_str, poly=None):
         l = [cr_l,st_l][j]
 
         for i in range(len(l)):
-            ptn = [r'[<>][=]?|\\[gl][et]',r'!=|\\ne'] # 부등식 관련 명령어 추출 정규식
-            rel = list(map(lambda x: x.replace("\\",""), findall('|'.join(ptn), l[i])))
+            ptn = [r'[<>][=]?|\\[gl][et]q?',r'!=|\\ne[q]?'] # 부등식 관련 명령어 추출 정규식
+            rel = list(map(lambda x: sub(r"\\|q","",x), findall('|'.join(ptn), l[i])))
             parts = split('|'.join(ptn), l[i])
             print(rel, parts)
 
@@ -55,6 +55,7 @@ def Ineq2Sympy(correct_latex, student_str, poly=None):
 
     return cr_l,st_l
 # print(Ineq2Sympy(r'2<2x','2<2*x', poly="Fix"))
+print(Ineq2Sympy(r'2 \leq 2x','2<2*x', poly="Fix"))
 
 # 부등식 1개 비교
 def single_ineq(c_sympy,s_sympy,form = None,poly=None):
@@ -133,17 +134,17 @@ def IneqCompare(correct_latex, student_str,form = None, poly=None):
             print('정답과 일치하는 부등식 없음'); return false
     return True
 
-if __name__ == "__main__":
-    # correct_sympy, student_sympy = Ans2Sympy(r'-\dfrac{1}{3}< x\le\dfrac{4}{3}','-1/3<x<= 4/3',f = 'IneqCompare')
-    # correct_sympy, student_sympy = Ans2Sympy(r'x\ge 8,x!=7,x=2','8<=x,x=2,x!=7', f='IneqCompare')
-    # correct_sympy, student_sympy = Ans2Sympy(r'1<x<3','-1>-x>-3', f='IneqCompare')
-    # print(IneqCompare(correct_sympy, student_sympy,poly="Fix"),False)
-    # correct_sympy, student_sympy = Ans2Sympy(r'1<x<3', '3>x>1', f='IneqCompare')
-    # print(IneqCompare(correct_sympy, student_sympy, poly="Fix"),True)
-    # correct_sympy, student_sympy = Ans2Sympy(r'1<x<3', '6>2*x>2', f='IneqCompare')
-    # print(IneqCompare(correct_sympy, student_sympy, poly="Fix"), False)
-    correct_sympy, student_sympy = Ans2Sympy(r'-5<5x<5', '-1<x <1', f='IneqCompare')
-    print(IneqCompare(correct_sympy, student_sympy, poly="Fix"), False)
+# if __name__ == "__main__":
+#     # correct_sympy, student_sympy = Ans2Sympy(r'-\dfrac{1}{3}< x\le\dfrac{4}{3}','-1/3<x<= 4/3',f = 'IneqCompare')
+#     # correct_sympy, student_sympy = Ans2Sympy(r'x\ge 8,x!=7,x=2','8<=x,x=2,x!=7', f='IneqCompare')
+#     # correct_sympy, student_sympy = Ans2Sympy(r'1<x<3','-1>-x>-3', f='IneqCompare')
+#     # print(IneqCompare(correct_sympy, student_sympy,poly="Fix"),False)
+#     # correct_sympy, student_sympy = Ans2Sympy(r'1<x<3', '3>x>1', f='IneqCompare')
+#     # print(IneqCompare(correct_sympy, student_sympy, poly="Fix"),True)
+#     # correct_sympy, student_sympy = Ans2Sympy(r'1<x<3', '6>2*x>2', f='IneqCompare')
+#     # print(IneqCompare(correct_sympy, student_sympy, poly="Fix"), False)
+#     correct_sympy, student_sympy = Ans2Sympy(r'-5<5x<5', '-1<x <1', f='IneqCompare')
+#     # print(IneqCompare(correct_sympy, student_sympy, poly="Fix"), False)
 
 
 

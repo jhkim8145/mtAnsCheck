@@ -43,7 +43,7 @@ def Ineq2Sympy(correct_latex, student_str, poly=None):
                     after_poly = [l[i].args[0].args[0]] * len(before_poly)
                 else:
                     after_poly = [l[i].args[0]] * len(before_poly)
-
+                print (single_poly(before_poly[0], after_poly[0]))
                 if any(single_poly(b,a) for b,a in zip(before_poly,after_poly)) == 0:
                     poly_test[j] = False
 
@@ -55,7 +55,7 @@ def Ineq2Sympy(correct_latex, student_str, poly=None):
 
     return cr_l,st_l
 # print(Ineq2Sympy(r'2<2x','2<2*x', poly="Fix"))
-print(Ineq2Sympy(r'2 \leq 2x','2<2*x', poly="Fix"))
+print(Ineq2Sympy(r'2x\leq 3',r'2 = 2*x', poly="Fix"))
 
 # 부등식 1개 비교
 def single_ineq(c_sympy,s_sympy,form = None,poly=None):

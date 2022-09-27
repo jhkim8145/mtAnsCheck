@@ -108,6 +108,7 @@ def Latex2Sympy(expr):
         return 'latex 변환에 실패했습니다.'
 
 # print(latex2sympy('\sqrt{2}').args, latex2sympy('2^{\\frac{1}{2}}').args)
+# print(Latex2Sympy('20\sqrt{0.07}').args, Parse2Sympy('2*sqrt(7)').args)
 # print(Latex2Sympy('x-1'),Parse2Sympy('x-1'))
 # print(Latex2Sympy(r'\dfrac{1}{2}+0.5x'),sep="\n")
 # print(Parse2Sympy(r'a-5xa'),Parse2Sympy(r'a-5xa').args)

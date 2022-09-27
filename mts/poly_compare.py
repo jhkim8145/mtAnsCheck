@@ -5,6 +5,7 @@ from collections import deque
 
 # 단순값 비교
 def IsEqual(sympy1, sympy2): #정답 order 관계X
+    sympy1, sympy2 = sympy1.evalf(), sympy2.evalf()
     return sympy1.equals(sympy2)
 
 # simplify와 args len, equals 비교 (기호 포함하는 순환소수, 절댓값 compare 제외)

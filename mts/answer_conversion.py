@@ -133,6 +133,9 @@ def Latex2Sympy(expr):
 # print(Latex2Sympy('4 x^{2}-20 x y+8 x z+ 25 y^{2} - 20 y z + 4 z^{2}'))
 # print(Latex2Sympy('-5xy'),Parse2Sympy('-5*x*y'))
 # print(Latex2Sympy(r'0.5'),Parse2Sympy('1/2'))
+# print('-----------')
+# print(latex2sympy(r'A\cap B'))
+# print(latex(Interval.Ropen(P('0'),P('1'))))
 
 
 
@@ -152,10 +155,14 @@ def Ans2Sympy(correct_latex,student_str,f = None):
     elif f == 'PairCompare':
         c_split_str = split('(?<=\))(\s*,\s*)(?=\()',correct_latex)
         s_split_str = split('(?<=\))(\s*,\s*)(?=\()',student_str)
+        print(c_split_str,s_split_str)
         c_split_str = list(filter(lambda x: search(r'\)|\(',x) != None, c_split_str))
         s_split_str = list(filter(lambda x: search(r'\)|\(',x) != None, s_split_str))
-        correct_sympy = list(map(lambda str: Latex2Sympy(str[1:-1]), c_split_str))
-        student_sympy = list(map(lambda str: list(Parse2Sympy(str)), s_split_str))
+        print(c_split_str, s_split_str)
+        # correct_sympy = list(map(lambda str: Latex2Sympy(str[1:-1]), c_split_str))
+        # student_sympy = list(map(lambda str: list(Parse2Sympy(str)), s_split_str))
+        correct_sympy = list(map(lambda str: list(map(lambda x: Latex2Sympy(x), split('\s*,\s*', str[1:-1]))), c_split_str))
+        student_sympy = list(map(lambda str: list(map(lambda x: Parse2Sympy(x), split('\s*,\s*', str[1:-1]))), s_split_str))
     else:
         ptn = '(?<![0-9])([1]\*{1})(?!\*)|(?<!\*)([\*\/]{1}[1])(?![0-9])'
         if len(findall(ptn, student_str)) != 0: return False #계수 1 생략X
@@ -193,6 +200,7 @@ def Ans2Sympy(correct_latex,student_str,f = None):
 # Ans2Sympy('4000-0.5x','4000-1/2*x',f = 'PolyFormCompare')
 # Ans2Sympy('\pm 1,2','2,±1',f = 'NumCompare')
 # Ans2Sympy('(1-i,1),(3xy, -5xy)','(i-1-1,1),(3xy, -5xy)',f = 'PairCompare')
+# Ans2Sympy('(1-i,1)','(i-1-1,1)',f = 'PairCompare')
 # Ans2Sympy(r'x^2-8x+15=0','x**2-8x+15=0',f = 'EqCompare')
 # Ans2Sympy(r'\rm A','A',f = 'StrCompare')
 # Ans2Sympy(r'\pm \sqrt{17} i', 'sqrt(17)*I,-sqrt(17)*I', f='NumCompare')

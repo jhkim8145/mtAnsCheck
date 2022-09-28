@@ -33,6 +33,8 @@ def sympy_eval_handler(event, context):
         _poly = object[cnt]['poly'] if 'poly' in object[cnt].keys() else None
         _rt = object[cnt]['rt'] if 'rt' in object[cnt].keys() else None
 
+        # 파라미터 추가 시 여기에 내용 추가.
+
         '''
             StrCompare: 0
             PolyCompare: 1
@@ -88,6 +90,7 @@ def sympy_eval_handler(event, context):
                         result = globals()[_check_function](correct_sympy, student_sympy, _form, _poly)
                     else:
                         result = globals()[_check_function](correct_sympy, student_sympy)
+                    # 파라미터 추가 시 위의 함수에 해당 파라미터 추가.
             except Exception as expt:
                 print(expt)
                 result = 'N/A'
@@ -105,9 +108,11 @@ def sympy_eval_handler(event, context):
 
 
 def test():
+    # 아래에 함수, 답, 파라미터 넣어서 정오답 확인.
+    # 새로운 함수 or 파라미터 제작 시 아래 TestCase-True, TestCase-False에 각각 예시 1개씩 넣어서 확인. (TF가 반대로 나오면 잘못된 거.)
     event = {"answer": [
-        {"ID": "1", "check_function": "NumCompare", "correct_answer": r"4 \sqrt{6}\pi",
-         "student_answer": "(1)/(3)*pi*((sqrt(6)))**(2)*2*sqrt(6)", "rt": "Fix"}]}
+        {"ID": "1", "check_function": "NumCompare", "correct_answer": r"2\sqrt{30}",
+         "student_answer": "sqrt(120)"}]}
 
     ''' TestCase-True '''
     evt_True = {"answer": [
@@ -196,9 +201,9 @@ def test():
     ]}
 
     context = 'test'
-    output = sympy_eval_handler(event, context)
-    # output = sympy_eval_handler(evt_True, context)
-    # output = sympy_eval_handler(evt_False, context)
+    output = sympy_eval_handler(event, context) # 112번째 줄 사용 시 활성.
+    # output = sympy_eval_handler(evt_True, context) # TestCase-True 사용 시 활성.
+    # output = sympy_eval_handler(evt_False, context) # TestCase-False 사용 시 활성.
     print("====> output: " + output)
 
 

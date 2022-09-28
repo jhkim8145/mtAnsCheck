@@ -43,7 +43,7 @@ def Ineq2Sympy(correct_latex, student_str, poly=None):
                     after_poly = [l[i].args[0].args[0]] * len(before_poly)
                 else:
                     after_poly = [l[i].args[0]] * len(before_poly)
-                print (single_poly(before_poly[0], after_poly[0]))
+
                 if any(single_poly(b,a) for b,a in zip(before_poly,after_poly)) == 0:
                     poly_test[j] = False
 

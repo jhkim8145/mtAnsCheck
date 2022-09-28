@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="9/28 10:30 NumCompare &quot;rt&quot; 파라미터 추가 중">
+    <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="9/28 11:30 NumCompare &quot;rt&quot; 파라미터 추가">
+      <change afterPath="$PROJECT_DIR$/mts/intv_compare.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mts/answer_conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/answer_conversion.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mts/ineq_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/ineq_compare.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mts/number_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/number_compare.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mts/poly_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/poly_compare.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mts_eval.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts_eval.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -69,7 +69,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="ineq_compare" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="intv_compare" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="mtAnsCheck" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -81,7 +81,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mts/ineq_compare.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mts/intv_compare.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -154,19 +154,19 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.intv_compare" />
       <item itemvalue="Python.answer_conversion" />
-      <item itemvalue="Python.ineq_compare" />
       <item itemvalue="Python.mts_eval" />
       <item itemvalue="Python.number_compare" />
       <item itemvalue="Python.poly_compare" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.intv_compare" />
+        <item itemvalue="Python.answer_conversion" />
         <item itemvalue="Python.mts_eval" />
         <item itemvalue="Python.number_compare" />
         <item itemvalue="Python.poly_compare" />
-        <item itemvalue="Python.ineq_compare" />
-        <item itemvalue="Python.answer_conversion" />
       </list>
     </recent_temporary>
   </component>
@@ -410,7 +410,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664328457913</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="9/28 11:30 NumCompare &quot;rt&quot; 파라미터 추가">
+      <created>1664332144219</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1664332144219</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -436,7 +443,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="6/14 11:09" />
     <MESSAGE value="6/15 18:30" />
     <MESSAGE value="6/23 14:00" />
     <MESSAGE value="6/27 13:00" />
@@ -461,6 +467,7 @@
     <MESSAGE value="9/26 11:17 # (175번째 줄)" />
     <MESSAGE value="9/27 10:00 q 입력 case 고려한 수정. (20, 21번째 줄)" />
     <MESSAGE value="9/28 10:30 NumCompare &quot;rt&quot; 파라미터 추가 중" />
-    <option name="LAST_COMMIT_MESSAGE" value="9/28 10:30 NumCompare &quot;rt&quot; 파라미터 추가 중" />
+    <MESSAGE value="9/28 11:30 NumCompare &quot;rt&quot; 파라미터 추가" />
+    <option name="LAST_COMMIT_MESSAGE" value="9/28 11:30 NumCompare &quot;rt&quot; 파라미터 추가" />
   </component>
 </project>

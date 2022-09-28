@@ -6,10 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="9/27 10:00 q 입력 case 고려한 수정. (20, 21번째 줄)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mts/answer_conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/answer_conversion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mts/ineq_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/ineq_compare.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mts/number_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/number_compare.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mts/poly_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/poly_compare.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mts_eval.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts_eval.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +46,7 @@
       <recent name="C:\Users\USER\PycharmProjects\mtAnsCheck\mts" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.number_compare">
+  <component name="RunManager">
     <configuration name="answer_conversion" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="mtAnsCheck" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -162,11 +161,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.mts_eval" />
         <item itemvalue="Python.number_compare" />
         <item itemvalue="Python.poly_compare" />
         <item itemvalue="Python.ineq_compare" />
         <item itemvalue="Python.answer_conversion" />
-        <item itemvalue="Python.mts_eval" />
       </list>
     </recent_temporary>
   </component>
@@ -396,7 +395,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664240517457</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="9/27 10:00 q 입력 case 고려한 수정. (20, 21번째 줄)">
+      <created>1664271892356</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1664271892356</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">

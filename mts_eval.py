@@ -31,6 +31,7 @@ def sympy_eval_handler(event, context):
         _de = object[cnt]['de'] if 'de' in object[cnt].keys() else None
         _sol = object[cnt]['sol'] if 'sol' in object[cnt].keys() else None
         _poly = object[cnt]['poly'] if 'poly' in object[cnt].keys() else None
+        _rt = object[cnt]['rt'] if 'rt' in object[cnt].keys() else None
 
         '''
             StrCompare: 0
@@ -76,7 +77,7 @@ def sympy_eval_handler(event, context):
                     if _check_function == 'PolyExpansionCompare':
                         result = globals()[_check_function](correct_sympy, student_sympy, _symbol, _order)
                     elif _check_function in ['NumCompare']:
-                        result = globals()[_check_function](correct_sympy, student_sympy, _form, _order, _de)
+                        result = globals()[_check_function](correct_sympy, student_sympy, _form, _order, _de, _rt)
                     elif _check_function in ['PolyCompare']:
                         result = globals()[_check_function](correct_sympy, student_sympy, _form, _order)
                     elif _check_function in ['PairCompare', 'SignCompare']:
@@ -105,7 +106,8 @@ def sympy_eval_handler(event, context):
 
 def test():
     event = {"answer": [
-        {"ID": "1", "check_function": "IneqCompare", "correct_answer": "-5< 5x <5", "student_answer": "-1<x<1", "poly": "Fix"}]}
+        {"ID": "1", "check_function": "NumCompare", "correct_answer": r"7\sqrt{0.3}'",
+         "student_answer": "0.7*sqrt(30)", "rt": 'Fix'}]}
 
     ''' TestCase-True '''
     evt_True = {"answer": [
@@ -118,6 +120,9 @@ def test():
         # ** de **
         {"ID": "3", "check_function": "NumCompare", "correct_answer": r"\frac{\sqrt{6}+\sqrt{3}}{3}'", "student_answer": "sqrt(6)/3+sqrt(3)/3",
          "de": 'Rtn'},
+        # ** rt **
+        {"ID": "31", "check_function": "NumCompare", "correct_answer": r"7\sqrt{0.3}'",
+         "student_answer": "0.7*sqrt(30)", "rt": 'Fix'},
 
         # ** PolyCompare **
         # ** order **
@@ -155,6 +160,9 @@ def test():
         {"ID": "3", "check_function": "NumCompare", "correct_answer": r"\frac{\sqrt{6}+\sqrt{3}}{3}'",
          "student_answer": "sqrt(2)/sqrt(3)+1/sqrt(3)",
          "de": 'Rtn'},
+        # ** rt **
+        {"ID": "31", "check_function": "NumCompare", "correct_answer": r"\sqrt{10}",
+         "student_answer": "sqrt(2)*sqrt(5)", "rt": 'Fix'},
 
         # ** PolyCompare **
         # ** order **
@@ -188,14 +196,15 @@ def test():
     ]}
 
     context = 'test'
-    # output = sympy_eval_handler(event, context)
-    output = sympy_eval_handler(evt_True, context)
-    output = sympy_eval_handler(evt_False, context)
+    output = sympy_eval_handler(event, context)
+    # output = sympy_eval_handler(evt_True, context)
+    # output = sympy_eval_handler(evt_False, context)
     print("====> output: " + output)
 
 
 if __name__ == '__main__':
     test()
+    # print(globals())
 
 '''
     공통 false: 계수 1 생략 안 한 답(1*x, -1*2, 3/1), 동류항 정리 안 한 답은 정답의 동류항 저일 여부에 따름 (x+x, 1+1)

@@ -20,13 +20,17 @@ latex 인식 못 하는 답: 순환소수
 
 # 숫자 값 비교
 #분수 > 소수, 소수 > 분수 허용X, 반드시 유리화, 복소수 a+bi 형태만, 덧셈/곱셈 교환 가능, 정답,학생답 form 같음
-def single_num(correct_sympy, student_sympy,form = None,de = None):
+def single_num(correct_sympy, student_sympy,form = None,de = None,rt = None):
     if IsEqual(correct_sympy, student_sympy) == 0: print('single_num',1);return False
     if IsSimilarTerm(student_sympy) == 0: print('single_num',2);return False
     pow = symbols('POW')
     if pow in tuple(count_ops(correct_sympy, visual = True).atoms(Symbol)):
         if pow not in tuple(count_ops(student_sympy, visual = True).atoms(Symbol)): # sqrt 포함된 답일 때 계산한 소수값을 적을 경우 오답 처리.
             print('single_num',21); return False
+    if rt == 'Fix':
+        print(correct_sympy)
+        if len(findall('sqrt', str(correct_sympy))) != len(findall('sqrt', str(student_sympy))):
+            print('single_num', 22); return False
     if form == 'Fix': # 소수 != 분수, 약분 전!=후, 거듭제곱 전!=후, 통분 전!= 후, i != sqrt(-1), 덧셈곱셈 교환 가능
         c_sympy = DelMulOne([correct_sympy])[0] # split 1 때문에 추가, 예) -\dfrac{10}{2}, -10/2
         s_sympy = DelMulOne([student_sympy])[0]
@@ -55,21 +59,21 @@ def single_num(correct_sympy, student_sympy,form = None,de = None):
 # 정답에 루트 포함 & 학생이 루트 계산값 입력 시 오답 처리 확인용.
 # correct_sympy, student_sympy = Ans2Sympy(r'30\sqrt{0.02}','30*sqrt(0.02)')
 # correct_sympy, student_sympy = Ans2Sympy(r'30\sqrt{0.02}','3*sqrt(2)') # evalf()로 해도 두 값이 달라서 IsEqual에서 오답처리.
-# # correct_sympy, student_sympy = Ans2Sympy(r'7\sqrt{0.3}','0.7*sqrt(30)')
-# # correct_sympy, student_sympy = Ans2Sympy(r'\sqrt{94}','sqrt(94)')
-# # correct_sympy, student_sympy = Ans2Sympy(r'2\sqrt{30}','sqrt(120)')
-# # correct_sympy, student_sympy = Ans2Sympy(r'45\sqrt{\frac{11}{2}}','45*sqrt((11)/(2))')
-# # correct_sympy, student_sympy = Ans2Sympy(r'45\sqrt{\frac{11}{2}}','45*sqrt(5.5)')
-# # correct_sympy, student_sympy = Ans2Sympy(r'20\sqrt{0.07}','2*sqrt(7)')
+correct_sympy, student_sympy = Ans2Sympy(r'7\sqrt{0.3}','0.7*sqrt(30)')
+# correct_sympy, student_sympy = Ans2Sympy(r'\sqrt{94}','sqrt(94)')
+# correct_sympy, student_sympy = Ans2Sympy(r'2\sqrt{30}','sqrt(120)')
+# correct_sympy, student_sympy = Ans2Sympy(r'45\sqrt{\frac{11}{2}}','45*sqrt((11)/(2))')
+# correct_sympy, student_sympy = Ans2Sympy(r'45\sqrt{\frac{11}{2}}','45*sqrt(5.5)')
+# correct_sympy, student_sympy = Ans2Sympy(r'20\sqrt{0.07}','2*sqrt(7)')
 # correct_sympy, student_sympy = correct_sympy[0], student_sympy[0]
 # print(correct_sympy, student_sympy)
-# print(single_num(correct_sympy, student_sympy))
+# print(NumCompare(correct_sympy, student_sympy, rt = 'Fix'))
 # print(correct_sympy.evalf(16), student_sympy.evalf(16))
 # print(single_num(correct_sympy, student_sympy.evalf()))
 
 # 문제를 그대로 썼을 때 오답 처리 어떻게?
 # correct_sympy, student_sympy = Ans2Sympy(r'\sqrt{10}','sqrt(2)*sqrt(5)')
-correct_sympy, student_sympy = Ans2Sympy(r'6\sqrt{0.02}','2*sqrt(0.1)*3*sqrt(0.2)') # IsEqual에서 오답 처리됨.
+# correct_sympy, student_sympy = Ans2Sympy(r'6\sqrt{0.02}','2*sqrt(0.1)*3*sqrt(0.2)') # IsEqual에서 오답 처리됨.
 # correct_sympy, student_sympy = Ans2Sympy(r'\sqrt{3}','(sqrt(6))/(sqrt(2))')
 # correct_sympy, student_sympy = Ans2Sympy(r'2\sqrt{3}','2*(sqrt(21))/(sqrt(7))')
 # correct_sympy, student_sympy = Ans2Sympy(r'\sqrt{15}','((sqrt(9))/(sqrt(2)))/((sqrt(3))/(sqrt(10)))')
@@ -77,8 +81,8 @@ correct_sympy, student_sympy = Ans2Sympy(r'6\sqrt{0.02}','2*sqrt(0.1)*3*sqrt(0.2
 # correct_sympy, student_sympy = Ans2Sympy(r'24 \sqrt{30}','2*sqrt(3)*3*sqrt(5)*4*sqrt(2)')
 # correct_sympy, student_sympy = correct_sympy[0], student_sympy[0]
 # print(correct_sympy, student_sympy)
-print(correct_sympy[0].evalf(), student_sympy[0].evalf())
-print(single_num(correct_sympy[0], student_sympy[0]))
+# print(correct_sympy.evalf(), student_sympy.evalf())
+# print(single_num(correct_sympy, student_sympy))
 # print(count_ops(sqrt(2)*sqrt(5), visual = True))
 
 # 숫자 리스트 비교
@@ -103,7 +107,12 @@ student_answer = '2**(-3)'
 #student_answer = '2*2**2'
 
 
-def NumCompare(correct_sympy, student_sympy,form=None,order=None,de=None):
+def NumCompare(correct_sympy, student_sympy,form=None,order=None,de=None,rt=None):
+
+    _form = form
+    _de = de
+    _rt = rt
+
     # print(sign(correct_sympy[0]), student_sympy)
     # 리스트 비교(항목 개수, 동류항 정리, 정렬)
     cnt = len(correct_sympy)
@@ -112,7 +121,7 @@ def NumCompare(correct_sympy, student_sympy,form=None,order=None,de=None):
         correct_sympy = sorted(correct_sympy,key = lambda x: x.as_real_imag())
         student_sympy = sorted(student_sympy,key = lambda x: x.as_real_imag())
     # 개별 항목 값 비교
-    return all(single_num(correct_sympy[i], student_sympy[i],form = form, de= de) for i in range(cnt))
+    return all(single_num(correct_sympy[i], student_sympy[i],form=_form, de=_de, rt=_rt) for i in range(cnt))
 
 # if __name__ == "__main__":
 #     # correct_sympy, student_sympy = Ans2Sympy(r'\frac{\sqrt{6}+\sqrt{3}}{3}','sqrt(6)/3+sqrt(3)/3',f='NumCompare')
@@ -124,7 +133,7 @@ def NumCompare(correct_sympy, student_sympy,form=None,order=None,de=None):
 #     # correct_sympy, student_sympy = Ans2Sympy(r'\pm \sqrt{17} i', 'sqrt(17)*I,-sqrt(17)*I', f='NumCompare')
 #     # correct_sympy, student_sympy = Ans2Sympy(r'63\sqrt{0.06}', '6.3*sqrt(6)', f='NumCompare')
 #     print('결과: ', NumCompare(correct_sympy, student_sympy), True)
-
+print(NumCompare(correct_sympy, student_sympy, rt = 'Fix'))
 # correct_sympy, student_sympy = Ans2Sympy(r'6','2*3')
 # # print(correct_sympy,student_sympy,correct_sympy[0].args,student_sympy[0].args)
 # print('순서X',NumCompare(correct_sympy, student_sympy,Type='all'))

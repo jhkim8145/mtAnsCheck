@@ -106,8 +106,8 @@ def sympy_eval_handler(event, context):
 
 def test():
     event = {"answer": [
-        {"ID": "1", "check_function": "NumCompare", "correct_answer": r"7\sqrt{0.3}'",
-         "student_answer": "0.7*sqrt(30)", "rt": 'Fix'}]}
+        {"ID": "1", "check_function": "NumCompare", "correct_answer": r"4 \sqrt{6}\pi",
+         "student_answer": "(1)/(3)*pi*((sqrt(6)))**(2)*2*sqrt(6)", "rt": "Fix"}]}
 
     ''' TestCase-True '''
     evt_True = {"answer": [
@@ -121,7 +121,7 @@ def test():
         {"ID": "3", "check_function": "NumCompare", "correct_answer": r"\frac{\sqrt{6}+\sqrt{3}}{3}'", "student_answer": "sqrt(6)/3+sqrt(3)/3",
          "de": 'Rtn'},
         # ** rt **
-        {"ID": "31", "check_function": "NumCompare", "correct_answer": r"7\sqrt{0.3}'",
+        {"ID": "31", "check_function": "NumCompare", "correct_answer": r"7\sqrt{0.3}",
          "student_answer": "0.7*sqrt(30)", "rt": 'Fix'},
 
         # ** PolyCompare **

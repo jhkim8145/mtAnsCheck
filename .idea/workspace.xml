@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="9/27 10:00 q 입력 case 고려한 수정. (20, 21번째 줄)">
+    <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="9/28 10:30 NumCompare &quot;rt&quot; 파라미터 추가 중">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mts/ineq_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/ineq_compare.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mts/number_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/number_compare.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mts/poly_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/poly_compare.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mts_eval.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts_eval.py" afterDir="false" />
@@ -402,7 +403,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664271892356</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="9/28 10:30 NumCompare &quot;rt&quot; 파라미터 추가 중">
+      <created>1664328457913</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1664328457913</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -428,7 +436,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="6/13 11:30" />
     <MESSAGE value="6/14 11:09" />
     <MESSAGE value="6/15 18:30" />
     <MESSAGE value="6/23 14:00" />
@@ -453,6 +460,7 @@
     <MESSAGE value="9/22 18:30 ineq 수정 (&quot;sol&quot; param 추가)" />
     <MESSAGE value="9/26 11:17 # (175번째 줄)" />
     <MESSAGE value="9/27 10:00 q 입력 case 고려한 수정. (20, 21번째 줄)" />
-    <option name="LAST_COMMIT_MESSAGE" value="9/27 10:00 q 입력 case 고려한 수정. (20, 21번째 줄)" />
+    <MESSAGE value="9/28 10:30 NumCompare &quot;rt&quot; 파라미터 추가 중" />
+    <option name="LAST_COMMIT_MESSAGE" value="9/28 10:30 NumCompare &quot;rt&quot; 파라미터 추가 중" />
   </component>
 </project>

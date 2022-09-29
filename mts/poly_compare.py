@@ -8,7 +8,7 @@ def IsEqual(sympy1, sympy2): #정답 order 관계X
     if sympy1.equals(sympy2): return True
     sympy1, sympy2 = sympy1.evalf(16), sympy2.evalf(16)
     if str(sympy1)[:-1] == str(sympy2)[:-1]: return True
-    print(str(sympy1)[:-1],str(sympy2)[:-1])
+    # print(str(sympy1)[:-1],str(sympy2)[:-1])
     return False
     # return sympy1.equals(sympy2)
 

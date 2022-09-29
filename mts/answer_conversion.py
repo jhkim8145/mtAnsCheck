@@ -36,6 +36,7 @@ def Parse2Sympy(expr):
     except:
         print('sympy 변환에 실패했습니다.')
 # print(Parse2Sympy('0.5'),Parse2Sympy('i-1'),Parse2Sympy('sin x**2'))
+# print(type(P('2*i')))
 # print(Parse2Sympy('-1+x'),DelMulOne([Parse2Sympy('-1+x')]),Parse2Sympy('-1+x').args,DelMulOne([Parse2Sympy('-1+x')])[0].args )
 # print(Parse2Sympy('-2(a - 2*b)*(x - y)'))
 
@@ -143,13 +144,13 @@ def Latex2Sympy(expr):
 def Ans2Sympy(correct_latex,student_str,f = None):
 
     print('Ans2Sympy input', correct_latex, student_str)
-    repls = {r'\,': '', r'\rm': '', r'\left': '', r'\right': ''}
+    repls = {r'\,': '', r'\rm': '', r'\left': '', r'\right': '', r'\\hbox{\s*또는\s*}': ','}
     for key in repls.keys():
         correct_latex = correct_latex.replace(key, repls[key])
 
     if correct_latex.replace(" ","") == student_str.replace(" ",""): print('input str 같음'); return True
 
-    if f == 'StrCompare' or f == 'SignCompare' or f == 'NoSignCompare' or f == 'IneqCompare':
+    if f in ['StrCompare', 'SignCompare', 'NoSignCompare', 'IneqCompare', 'IntvCompare']:
         correct_sympy = correct_latex
         student_sympy = student_str
     elif f == 'PairCompare':

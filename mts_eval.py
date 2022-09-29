@@ -5,6 +5,7 @@ from mts.poly_compare import *
 from mts.pair_compare import *
 from mts.eqn_compare import *
 from mts.ineq_compare import *
+from mts.intv_compare import *
 
 
 def sympy_eval_handler(event, context):
@@ -67,6 +68,8 @@ def sympy_eval_handler(event, context):
               - order == 'Fix' # 리스트일 때 순서 고정
 
             NoSignCompare: 11
+            
+            IntvCompare: 12
         '''
 
         if (len(_student_answer) > 0):
@@ -88,6 +91,8 @@ def sympy_eval_handler(event, context):
                         result = globals()[_check_function](correct_sympy, student_sympy, _form, _leading_coeff)
                     elif _check_function == 'IneqCompare':
                         result = globals()[_check_function](correct_sympy, student_sympy, _form, _poly)
+                    elif _check_function == 'IntvCompare':
+                        result = globals()[_check_function](correct_sympy, student_sympy)
                     else:
                         result = globals()[_check_function](correct_sympy, student_sympy)
                     # 파라미터 추가 시 위의 함수에 해당 파라미터 추가.
@@ -111,8 +116,8 @@ def test():
     # 아래에 함수, 답, 파라미터 넣어서 정오답 확인.
     # 새로운 함수 or 파라미터 제작 시 아래 TestCase-True, TestCase-False에 각각 예시 1개씩 넣어서 확인. (TF가 반대로 나오면 잘못된 거.)
     event = {"answer": [
-        {"ID": "1", "check_function": "NumCompare", "correct_answer": r"2\sqrt{30}",
-         "student_answer": "sqrt(120)"}]}
+        {"ID": "1", "check_function": "IntvCompare", "correct_answer": r"(-\infty,1),(1,\infty)",
+         "student_answer": "(-oo,1),(1,oo)"}]}
 
     ''' TestCase-True '''
     evt_True = {"answer": [
@@ -149,7 +154,11 @@ def test():
         {"ID": "9", "check_function": "IneqCompare", "correct_answer": "x\ge1", "student_answer": "x>=1"},
 
         # ** PolyFormCompare **
-        {"ID": "10", "check_function": "PolyFormCompare", "correct_answer": "-x-\\dfrac{1}{2}x", "student_answer": "-x-1/2*x"}
+        {"ID": "10", "check_function": "PolyFormCompare", "correct_answer": "-x-\\dfrac{1}{2}x", "student_answer": "-x-1/2*x"},
+
+        # ** IntvCompare **
+        {"ID": "11", "check_function": "IntvCompare", "correct_answer": r"(-\infty,1),(1,\infty)",
+         "student_answer": "(1,oo),(-oo,1)"}
     ]}
 
     ''' TestCase-False '''
@@ -197,7 +206,11 @@ def test():
         {"ID": "13", "check_function": "IneqCompare", "correct_answer": "x>6-3", "student_answer": "x+3>6", "poly": "Fix"},
 
         # ** PolyFormCompare **
-        {"ID": "14", "check_function": "PolyFormCompare", "correct_answer": "2(x-3)^2", "student_answer": "2*(3-x)**2"}
+        {"ID": "14", "check_function": "PolyFormCompare", "correct_answer": "2(x-3)^2", "student_answer": "2*(3-x)**2"},
+
+        # ** IntvCompare **
+        {"ID": "15", "check_function": "IntvCompare", "correct_answer": r"(-\infty,\infty)",
+         "student_answer": "(-oo,0),(0,oo)"}
     ]}
 
     context = 'test'

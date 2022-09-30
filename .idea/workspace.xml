@@ -5,12 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="9/28 11:30 NumCompare &quot;rt&quot; 파라미터 추가">
-      <change afterPath="$PROJECT_DIR$/mts/set_compare.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mts/answer_conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/answer_conversion.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mts/intv_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/intv_compare.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mts/pair_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/pair_compare.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mts/poly_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/poly_compare.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mts/set_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/set_compare.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mts_eval.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts_eval.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -426,7 +424,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664357500069</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="9/28 11:30 NumCompare &quot;rt&quot; 파라미터 추가">
+      <created>1664443926694</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1664443926694</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">

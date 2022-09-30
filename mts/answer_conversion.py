@@ -150,7 +150,7 @@ def Ans2Sympy(correct_latex,student_str,f = None):
 
     if correct_latex.replace(" ","") == student_str.replace(" ",""): print('input str 같음'); return True
 
-    if f in ['StrCompare', 'SignCompare', 'NoSignCompare', 'IneqCompare', 'IntvCompare']:
+    if f in ['StrCompare', 'SignCompare', 'NoSignCompare', 'IneqCompare', 'IntvCompare', 'SetCompare']:
         correct_sympy = correct_latex
         student_sympy = student_str
     elif f == 'PairCompare':

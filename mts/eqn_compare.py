@@ -6,7 +6,7 @@ from mts.poly_compare import *
 # 방정식 단순 비교
 def EqCompare(correct_sympy, student_sympy, form = None, leading_coeff = None):
     if form != None:
-        if all(single_poly(correct_sympy[i], student_sympy[i]) for i in range(2)) == 0:
+        if all(single_poly(correct_sympy[i], student_sympy[i], form) for i in range(2)) == 0:
             return False
 
     if all(IsSimilarTerm(p) == 1 for p in student_sympy) == 0 and all(IsSimilarTerm(p) == 1 for p in correct_sympy) == 1: print(1);return False
@@ -45,5 +45,6 @@ if __name__ == "__main__": # fix: 최고차항 계수 조건 있을 때, 그 외
     # print('결과: ', EqCompare(correct_sympy, student_sympy, leading_coeff="Fix"), False)
     # correct_sympy, student_sympy = Ans2Sympy(r'y=- \frac{x^{2}}{2} + 16 x', 'y=-0.5*(x)**(2)+16*x', f='EqCompare')
     # print('결과: ', EqCompare(correct_sympy, student_sympy), True)
-    correct_sympy, student_sympy = Ans2Sympy(r'3x+7y=-5', '3*x+7*y+5=0', f='EqCompare')
-    print('결과: ', EqCompare(correct_sympy, student_sympy, form = "Fix"), False)
+    # correct_sympy, student_sympy = Ans2Sympy(r'3x+7y=-5', '3*x+7*y+5=0', f='EqCompare')
+    correct_sympy, student_sympy = Ans2Sympy(r'(x+8)^{2}=0', r'x**2+16*x+64=0', f='EqCompare')
+    print('결과: ', EqCompare(correct_sympy, student_sympy, form = 'Fix'))

@@ -99,6 +99,10 @@ def single_poly(cr_sp, st_sp, form=None): #정답 order 관계X
 # correct_sympy, student_sympy = Ans2Sympy(r'x+1,x-1','x+1,x-1')
 # correct_sympy, student_sympy = correct_sympy[0], student_sympy[0]
 # print(single_poly(correct_sympy, student_sympy))
+# correct_sympy, student_sympy = Ans2Sympy(r'(x+8)^{2}', r'x**2+16*x+64')
+# correct_sympy, student_sympy = correct_sympy[0], student_sympy[0]
+# print(single_poly(correct_sympy, student_sympy, form = 'Fix'))
+
 
 # 다항식 단순 비교(동류항 정리 조건만 만족, 정답과 차수 일치)
 def PolyCompare(correct_sympy, student_sympy, form=None, order=None): #정답 order 관계X

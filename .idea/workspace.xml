@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="9/28 11:30 NumCompare &quot;rt&quot; 파라미터 추가">
+    <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="9/30 15:00 IntvCompare,SetCompare 추가">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mts/answer_conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/answer_conversion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mts/intv_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/intv_compare.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mts/eqn_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/eqn_compare.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mts/poly_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/poly_compare.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mts/set_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/set_compare.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mts_eval.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts_eval.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -431,7 +430,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664443926694</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="9/30 15:00 IntvCompare,SetCompare 추가">
+      <created>1664518236457</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1664518236457</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -457,7 +463,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="6/15 18:30" />
     <MESSAGE value="6/23 14:00" />
     <MESSAGE value="6/27 13:00" />
     <MESSAGE value="6/27 15:51 create mts package" />
@@ -482,6 +487,7 @@
     <MESSAGE value="9/27 10:00 q 입력 case 고려한 수정. (20, 21번째 줄)" />
     <MESSAGE value="9/28 10:30 NumCompare &quot;rt&quot; 파라미터 추가 중" />
     <MESSAGE value="9/28 11:30 NumCompare &quot;rt&quot; 파라미터 추가" />
-    <option name="LAST_COMMIT_MESSAGE" value="9/28 11:30 NumCompare &quot;rt&quot; 파라미터 추가" />
+    <MESSAGE value="9/30 15:00 IntvCompare,SetCompare 추가" />
+    <option name="LAST_COMMIT_MESSAGE" value="9/30 15:00 IntvCompare,SetCompare 추가" />
   </component>
 </project>

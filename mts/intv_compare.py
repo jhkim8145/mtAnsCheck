@@ -84,7 +84,7 @@ def IntvCompare(correct_latex, student_str):
 # print(IntvCompare(r'(-\infty,2]', r'[2,-oo)')) # 잘못 표기한 구간 (공집합)
 # print(IntvCompare(r'(-\infty,-1],[3,\infty)', r'(-oo,-1],[3,oo)'))
 # print(IntvCompare(r'(-\infty,3]', r'(-oo,2+1]'))
-# print(IntvCompare(r'(-\infty, -1] \cup [3, \infty)', r'(-oo, -1] ∪ [3, oo)'))
+# print(IntvCompare(r'(-\infty, -1] \cap [3, \infty)', r'(-oo, -1] ∩ [3, oo)'))
 # print(IntvCompare(r'[1,4]', r'{1,4},[2,3]'))
 
 

@@ -121,8 +121,8 @@ def test():
     # 아래에 함수, 답, 파라미터 넣어서 정오답 확인.
     # 새로운 함수 or 파라미터 제작 시 아래 TestCase-True, TestCase-False에 각각 예시 1개씩 넣어서 확인. (TF가 반대로 나오면 잘못된 거.)
     event = {"answer": [
-        {"ID": "1", "check_function": "SetCompare", "correct_answer": r"\varnothing,{3},{1,3}",
-         "student_answer": "∅,{3},{1,3}"}]}
+        {"ID": "1", "check_function": "EqCompare", "correct_answer": r"(x+8)^{2}=0",
+         "student_answer": "x**2+16*x+64=0", "form": 'Fix'}]}
 
     ''' TestCase-True '''
     evt_True = {"answer": [

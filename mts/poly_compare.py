@@ -86,6 +86,8 @@ def single_poly(cr_sp, st_sp, form=None): #정답 order 관계X
         print(3, '동류항 정리X'); return False
 
     if form != None:
+        cr_tmp = []
+        st_tmp = []
         sblist = list(cr_sp.atoms(Symbol))
         for i in range(len(sblist)):
             cr_tmp = DelMulOne(cr_sp.subs(sblist[i],UnevaluatedExpr(1),order='none').args)
@@ -99,7 +101,7 @@ def single_poly(cr_sp, st_sp, form=None): #정답 order 관계X
 # correct_sympy, student_sympy = Ans2Sympy(r'x+1,x-1','x+1,x-1')
 # correct_sympy, student_sympy = correct_sympy[0], student_sympy[0]
 # print(single_poly(correct_sympy, student_sympy))
-# correct_sympy, student_sympy = Ans2Sympy(r'(x+8)^{2}', r'x**2+16*x+64')
+# correct_sympy, student_sympy = Ans2Sympy(r'(x+8)^{2}', r'(x+8)**2')
 # correct_sympy, student_sympy = correct_sympy[0], student_sympy[0]
 # print(single_poly(correct_sympy, student_sympy, form = 'Fix'))
 

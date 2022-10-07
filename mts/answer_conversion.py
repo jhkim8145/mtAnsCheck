@@ -2,7 +2,7 @@ from sympy import *
 from sympy.parsing.sympy_parser import parse_expr,standard_transformations,implicit_multiplication_application, convert_xor,implicit_application,implicit_multiplication,convert_equals_signs,function_exponentiation
 from latex2sympy2 import latex2sympy
 from re import split,sub,findall,search,finditer
-
+from mts.set_compare import *
 
 ns={'Symbol':Symbol,'Integer':Integer,'Float':Float,'Rational':Rational,'Eq':Eq,'I':I,
     'i':I,'E':E,'e':E,'pi':pi,'exp':exp,'log':log,'ln':ln,'logten':lambda x:log(x,10),
@@ -148,22 +148,28 @@ def Ans2Sympy(correct_latex,student_str,f = None):
     for key in repls.keys():
         correct_latex = correct_latex.replace(key, repls[key])
 
-    if correct_latex.replace(" ","") == student_str.replace(" ",""): print('input str 같음'); return True
+    # if correct_latex.replace(" ","") == student_str.replace(" ",""): print('input str 같음'); return True
 
     if f in ['StrCompare', 'SignCompare', 'NoSignCompare', 'IneqCompare', 'IntvCompare', 'SetCompare']:
         correct_sympy = correct_latex
         student_sympy = student_str
     elif f == 'PairCompare':
-        c_split_str = split('(?<=\))(\s*,\s*)(?=\()',correct_latex)
-        s_split_str = split('(?<=\))(\s*,\s*)(?=\()',student_str)
+        # if any([search(r'^\(', student_str) == None, search(r'\)$', student_str) == None]): return False
+        # else: student_str = student_str[1:-1]
+        # c_split_str = split('(?<=\))(\s*,\s*)(?=\()',correct_latex)
+        # s_split_str = split('(?<=\))(\s*,\s*)(?=\()',student_str)
+        c_split_str = split_set(correct_latex, 0)
+        s_split_str = split_set(student_str, 0)
         print(c_split_str,s_split_str)
-        c_split_str = list(filter(lambda x: search(r'\)|\(',x) != None, c_split_str))
-        s_split_str = list(filter(lambda x: search(r'\)|\(',x) != None, s_split_str))
-        print(c_split_str, s_split_str)
+        # c_split_str = list(filter(lambda x: search(r'\)|\(',x) != None, c_split_str))
+        # s_split_str = list(filter(lambda x: search(r'\)|\(',x) != None, s_split_str))
+        # print(c_split_str, s_split_str)
         # correct_sympy = list(map(lambda str: Latex2Sympy(str[1:-1]), c_split_str))
         # student_sympy = list(map(lambda str: list(Parse2Sympy(str)), s_split_str))
         correct_sympy = list(map(lambda str: list(map(lambda x: Latex2Sympy(x), split('\s*,\s*', str[1:-1]))), c_split_str))
-        student_sympy = list(map(lambda str: list(map(lambda x: Parse2Sympy(x), split('\s*,\s*', str[1:-1]))), s_split_str))
+        if s_split_str != False:
+            student_sympy = list(map(lambda str: list(map(lambda x: Parse2Sympy(x), split('\s*,\s*', str[1:-1]))), s_split_str))
+        else: student_sympy = False
     else:
         ptn = '(?<![0-9])([1]\*{1})(?!\*)|(?<!\*)([\*\/]{1}[1])(?![0-9])'
         if len(findall(ptn, student_str)) != 0: return False #계수 1 생략X

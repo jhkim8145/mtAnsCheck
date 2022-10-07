@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="10/4 11:30 EqCompare 수정. (form:Fix 부분)">
+    <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="10/5 10:30 EqCompare 수정. (form:Fix 부분 수정 후 발생한 에러 수정.)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mts/answer_conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/answer_conversion.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mts/eqn_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/eqn_compare.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mts/intv_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/intv_compare.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mts/poly_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/poly_compare.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mts/pair_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/pair_compare.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mts/set_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/set_compare.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mts_eval.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts_eval.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -38,7 +39,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/USER/Desktop/04. 정답 판별&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/User/PycharmProjects/mtAnsCheck&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
 }</component>
@@ -47,7 +48,7 @@
       <recent name="C:\Users\USER\PycharmProjects\mtAnsCheck\mts" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.pair_compare">
     <configuration name="answer_conversion" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="mtAnsCheck" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -132,7 +133,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="poly_compare" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="pair_compare" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="mtAnsCheck" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -144,7 +145,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mts/poly_compare.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mts/pair_compare.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -154,19 +155,19 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.pair_compare" />
       <item itemvalue="Python.intv_compare" />
       <item itemvalue="Python.answer_conversion" />
       <item itemvalue="Python.mts_eval" />
       <item itemvalue="Python.number_compare" />
-      <item itemvalue="Python.poly_compare" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.intv_compare" />
+        <item itemvalue="Python.pair_compare" />
         <item itemvalue="Python.answer_conversion" />
+        <item itemvalue="Python.intv_compare" />
         <item itemvalue="Python.mts_eval" />
         <item itemvalue="Python.number_compare" />
-        <item itemvalue="Python.poly_compare" />
       </list>
     </recent_temporary>
   </component>
@@ -445,7 +446,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664851090465</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="10/5 10:30 EqCompare 수정. (form:Fix 부분 수정 후 발생한 에러 수정.)">
+      <created>1664933461802</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1664933461802</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -471,7 +479,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="6/27 13:00" />
     <MESSAGE value="6/27 15:51 create mts package" />
     <MESSAGE value="6/28 18:30" />
     <MESSAGE value="6/29 18:30" />
@@ -496,6 +503,7 @@
     <MESSAGE value="9/28 11:30 NumCompare &quot;rt&quot; 파라미터 추가" />
     <MESSAGE value="9/30 15:00 IntvCompare,SetCompare 추가" />
     <MESSAGE value="10/4 11:30 EqCompare 수정. (form:Fix 부분)" />
-    <option name="LAST_COMMIT_MESSAGE" value="10/4 11:30 EqCompare 수정. (form:Fix 부분)" />
+    <MESSAGE value="10/5 10:30 EqCompare 수정. (form:Fix 부분 수정 후 발생한 에러 수정.)" />
+    <option name="LAST_COMMIT_MESSAGE" value="10/5 10:30 EqCompare 수정. (form:Fix 부분 수정 후 발생한 에러 수정.)" />
   </component>
 </project>

@@ -3,7 +3,11 @@ from re import *
 from mts.answer_conversion import *
 
 # 집합 스트링을 list(원소)로 변경.
-def split_set(string):
+def split_set(string, galho = 1):
+
+    if galho == 0: open_gal = '(' ; close_gal = ')'
+    elif galho == 1: open_gal = '{'; close_gal = '}'
+    else: pass
 
     str_list = []
 
@@ -12,8 +16,8 @@ def split_set(string):
             lgalho_cnt = 0
             rgalho_cnt = 0
             for i in range(100):
-                if string[i] == '{': lgalho_cnt += 1
-                if string[i] == '}': rgalho_cnt += 1
+                if string[i] == open_gal: lgalho_cnt += 1
+                if string[i] == close_gal: rgalho_cnt += 1
                 if lgalho_cnt == rgalho_cnt:
                     if string[i] == ',':
                         str_list.append(string[:i])
@@ -94,7 +98,7 @@ def SetCompare(correct_latex, student_str):
 # print(SetCompare(r'\varnothing,{a},{b},{a,b}', r'{b},{a},{b,a},∅'))
 # print(SetCompare(r'{1,2},{1,3},{1,4},{2,3},{2,4},{3,4}', r'{1,2},{4,1},{1,3},{3,4},{4,2},{2,3}'))
 # print(SetCompare(r'\varnothing,{1},{{2,3}},{1,{2,3}}', r'∅,{1},{{3,2},1},{{3,2}}'))
-print(SetCompare(r'\varnothing,{1,{2,3}}', r'∅,{1},{{2,3}}'))
+# print(SetCompare(r'\varnothing,{1,{2,3}}', r'∅,{1},{{2,3}}'))
 # print(SetCompare(r'\varnothing,{1,{2,3}}', r'∅,{{2,3},1}'))
 # print(SetCompare(r'\varnothing,{2},{4},{2,4}', r'∅,{4,2},{4},{2}'))
 # print(SetCompare(r'{{2,{3}}}', r'{{2,{3}}')) # 괄호 누락된 문항

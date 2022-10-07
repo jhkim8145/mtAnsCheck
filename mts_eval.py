@@ -122,7 +122,7 @@ def test():
     # 새로운 함수 or 파라미터 제작 시 아래 TestCase-True, TestCase-False에 각각 예시 1개씩 넣어서 확인. (TF가 반대로 나오면 잘못된 거.)
     event = {"answer": [
         {"ID": "1", "check_function": "EqCompare", "correct_answer": r"(x+8)^{2}=0",
-         "student_answer": "x**2+16*x+64=0", "form": 'Fix'}]}
+         "student_answer": "x**2+16*x+64=0", "form":'Fix'}]}
 
     ''' TestCase-True '''
     evt_True = {"answer": [

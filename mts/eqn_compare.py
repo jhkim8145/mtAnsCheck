@@ -47,5 +47,5 @@ if __name__ == "__main__": # fix: 최고차항 계수 조건 있을 때, 그 외
     # print('결과: ', EqCompare(correct_sympy, student_sympy), True)
     # correct_sympy, student_sympy = Ans2Sympy(r'3x+7y=-5', '3*x+7*y+5=0', f='EqCompare')
     # print('결과: ', EqCompare(correct_sympy, student_sympy))
-    correct_sympy, student_sympy = Ans2Sympy(r'(x+8)^{2}=0', r'(x+8)**2=0', f='EqCompare')
+    correct_sympy, student_sympy = Ans2Sympy(r'(x+8)^{2}=0', r'(x + 8)**2 = 0', f='EqCompare')
     print('결과: ', EqCompare(correct_sympy, student_sympy, form = 'Fix'))

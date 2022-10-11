@@ -27,15 +27,15 @@ def single_pair(correct_sympy, student_sympy):
 def PairCompare(correct_sympy, student_sympy,order=None):
     cnt = len(correct_sympy)
     if student_sympy == False: return False
+
     if cnt != len(student_sympy):
         return False
     if order == None:
         correct_sympy.sort(key = lambda p: tuple(map(lambda t: t.as_real_imag(),p)))
         student_sympy.sort(key = lambda p: tuple(map(lambda t: t.as_real_imag(),p)))
     return all(single_pair(correct_sympy[i], student_sympy[i]) for i in range(cnt))
-# correct_sympy, student_sympy = Ans2Sympy(r'(1,2),(1,3)','(1,3),(1,2)',f='PairCompare')
-correct_sympy, student_sympy = Ans2Sympy(r'(3,1)','(3,1)',f='PairCompare')
+
+correct_sympy, student_sympy = Ans2Sympy(r'(1,2),(1,3)','(1,3),(1,2)',f='PairCompare')
 # correct_sympy, student_sympy = Ans2Sympy(r'\left(\dfrac{a+7}{2},\,\dfrac{9+b}{2}\right)','((a-7)/(2),(9+b)/(2))',f='PairCompare')
 # correct_sympy, student_sympy = Ans2Sympy(r'\left(\dfrac{-4+a}{2},\,\dfrac{1+b}{2}\right)','((a-4)/(2),(1+b)/(2))',f='PairCompare')
-# print('ㄱㄱ', correct_sympy, student_sympy)
 print(PairCompare(correct_sympy, student_sympy,order=None))

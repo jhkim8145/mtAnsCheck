@@ -148,7 +148,7 @@ def Ans2Sympy(correct_latex,student_str,f = None):
     for key in repls.keys():
         correct_latex = correct_latex.replace(key, repls[key])
 
-    # if correct_latex.replace(" ","") == student_str.replace(" ",""): print('input str 같음'); return True
+    if correct_latex.replace(" ","") == student_str.replace(" ",""): print('input str 같음'); return True
 
     if f in ['StrCompare', 'SignCompare', 'NoSignCompare', 'IneqCompare', 'IntvCompare', 'SetCompare']:
         correct_sympy = correct_latex

@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="10/5 10:30 EqCompare 수정. (form:Fix 부분 수정 후 발생한 에러 수정.)">
+    <list default="true" id="1942c99b-2926-4d4f-8a74-6b2033a18e5e" name="Changes" comment="10/7 18:30 PairCompare 수정. (괄호 중첩 문제)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mts/answer_conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/answer_conversion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mts/eqn_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/eqn_compare.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mts/pair_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/pair_compare.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mts/set_compare.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts/set_compare.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mts_eval.py" beforeDir="false" afterPath="$PROJECT_DIR$/mts_eval.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -48,7 +46,7 @@
       <recent name="C:\Users\USER\PycharmProjects\mtAnsCheck\mts" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.pair_compare">
+  <component name="RunManager">
     <configuration name="answer_conversion" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="mtAnsCheck" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -453,7 +451,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664933461802</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="10/7 18:30 PairCompare 수정. (괄호 중첩 문제)">
+      <created>1665135180593</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1665135180593</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -479,7 +484,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="6/27 15:51 create mts package" />
     <MESSAGE value="6/28 18:30" />
     <MESSAGE value="6/29 18:30" />
     <MESSAGE value="6/30 15:30" />
@@ -504,6 +508,7 @@
     <MESSAGE value="9/30 15:00 IntvCompare,SetCompare 추가" />
     <MESSAGE value="10/4 11:30 EqCompare 수정. (form:Fix 부분)" />
     <MESSAGE value="10/5 10:30 EqCompare 수정. (form:Fix 부분 수정 후 발생한 에러 수정.)" />
-    <option name="LAST_COMMIT_MESSAGE" value="10/5 10:30 EqCompare 수정. (form:Fix 부분 수정 후 발생한 에러 수정.)" />
+    <MESSAGE value="10/7 18:30 PairCompare 수정. (괄호 중첩 문제)" />
+    <option name="LAST_COMMIT_MESSAGE" value="10/7 18:30 PairCompare 수정. (괄호 중첩 문제)" />
   </component>
 </project>
